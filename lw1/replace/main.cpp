@@ -26,8 +26,13 @@ int main(int argc, char * argv[])
 	std::string inputData((std::istreambuf_iterator<char>(input)),
 						   std::istreambuf_iterator<char>());
 
-	std::string searchingStr = argv[3];
-	std::string replacingStr = argv[4];
+	const std::string searchingStr = argv[3];
+	const std::string replacingStr = argv[4];
+	if ((searchingStr.length() == 0) || (replacingStr.length() == 0))
+	{
+		std::cerr << "<search string> & <replace string> must be not empty" << std::endl;
+		std::exit(-4);
+	}
 
 	int it = inputData.find(searchingStr);
 	while (it != std::string::npos)
@@ -40,7 +45,7 @@ int main(int argc, char * argv[])
 	if (!output.flush())
 	{
 		std::cerr << "Failed to save data on disk" << std::endl;
-		std::exit(-4);
+		std::exit(-5);
 	}
 	return 0;
 }
