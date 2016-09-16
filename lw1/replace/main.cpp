@@ -25,7 +25,7 @@ int main(int argc, char * argv[])
 
 	const std::string searchStr = argv[3];
 	const std::string replaceStr = argv[4];
-	if ((searchStr.length() == 0) || (replaceStr.length() == 0))
+	if (searchStr.empty() || replaceStr.empty())
 	{
 		std::cerr << "<search string> & <replace string> must be not empty" << std::endl;
 		std::exit(-4);
