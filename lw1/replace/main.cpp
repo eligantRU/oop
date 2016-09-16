@@ -37,7 +37,8 @@ int main(int argc, char * argv[])
 		int it = currentStr.find(searchStr);
 		while (it != std::string::npos)
 		{
-			currentStr.replace(it, searchStr.length(), replaceStr);
+			output << currentStr.substr(0, it) << replaceStr;
+			currentStr = currentStr.substr(it + searchStr.length(), currentStr.length());
 			it = currentStr.find(searchStr);
 		}
 		output << currentStr << std::endl;
