@@ -23,24 +23,25 @@ int main(int argc, char * argv[])
 		std::exit(-3);
 	}
 
-	std::string inputData((std::istreambuf_iterator<char>(input)),
-						   std::istreambuf_iterator<char>());
-
-	const std::string searchingStr = argv[3];
-	const std::string replacingStr = argv[4];
-	if ((searchingStr.length() == 0) || (replacingStr.length() == 0))
+	const std::string searchStr = argv[3];
+	const std::string replaceStr = argv[4];
+	if ((searchStr.length() == 0) || (replaceStr.length() == 0))
 	{
 		std::cerr << "<search string> & <replace string> must be not empty" << std::endl;
 		std::exit(-4);
 	}
 
-	int it = inputData.find(searchingStr);
-	while (it != std::string::npos)
+	std::string currentStr = "";
+	while (std::getline(input, currentStr))
 	{
-		inputData.replace(it, searchingStr.length(), replacingStr);
-		it = inputData.find(searchingStr);
+		int it = currentStr.find(searchStr);
+		while (it != std::string::npos)
+		{
+			currentStr.replace(it, searchStr.length(), replaceStr);
+			it = currentStr.find(searchStr);
+		}
+		output << currentStr << std::endl;
 	}
-	output << inputData;
 
 	if (!output.flush())
 	{
