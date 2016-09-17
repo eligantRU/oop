@@ -3,20 +3,18 @@
 namespace
 {
 
-	std::string FindAndReplace(const std::string & inputStr, const std::string & searchStr, const std::string & replaceStr)
+std::string FindAndReplace(const std::string & inputStr, const std::string & searchStr, const std::string & replaceStr)
+{
+	auto currentStr = inputStr;
+
+	auto it = currentStr.find(searchStr);
+	while (it != std::string::npos)
 	{
-		std::string result;
-		auto currentStr = inputStr;
-		auto it = currentStr.find(searchStr);
-		while (it != std::string::npos)
-		{
-			result += currentStr.substr(0, it) + replaceStr;
-			currentStr = currentStr.substr(it + searchStr.length(), currentStr.length());
-			it = currentStr.find(searchStr);
-		}
-		result += currentStr;
-		return result;
+		currentStr.replace(it, searchStr.length(), replaceStr);
+		it = currentStr.find(searchStr, it + replaceStr.length());
 	}
+	return currentStr;
+}
 
 }
 
