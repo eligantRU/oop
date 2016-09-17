@@ -1,0 +1,1 @@
+<input byte> must be unsigned integer(0..255)

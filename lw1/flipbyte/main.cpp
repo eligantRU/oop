@@ -8,13 +8,12 @@ bool isNumber(const std::string & str)
 	return std::all_of(str.begin(), str.end(), std::isdigit);
 }
 
-uint8_t reverseByte(const uint8_t byte)
+uint8_t byte(uint8_t byte)
 {
-	auto reverseByte = byte;
-	reverseByte = ((reverseByte & 0x55) << 1) | ((reverseByte & 0xAA) >> 1);
-	reverseByte = ((reverseByte & 0xCC) >> 2) | ((reverseByte & 0x33) << 2);
-	reverseByte = (reverseByte >> 4) | (reverseByte << 4);
-	return reverseByte;
+	byte = ((byte & 0x55) << 1) | ((byte & 0xAA) >> 1);
+	byte = ((byte & 0xCC) >> 2) | ((byte & 0x33) << 2);
+	byte = (byte >> 4) | (byte << 4);
+	return byte;
 }
 
 }
@@ -42,7 +41,7 @@ int main(int argc, char * argv[])
 	}
 
 	const uint8_t inputByte = static_cast<uint8_t>(atoi(inputData.c_str()));
-	printf("%u\n", reverseByte(inputByte));
+	printf("%u\n", byte(inputByte));
 
 	return 0;
 }
