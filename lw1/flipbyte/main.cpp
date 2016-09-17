@@ -3,12 +3,12 @@
 namespace
 {
 
-bool isNumber(const std::string & str)
+bool IsNumber(const std::string & str)
 {
 	return std::all_of(str.begin(), str.end(), std::isdigit);
 }
 
-uint8_t byte(uint8_t byte)
+uint8_t FlipByte(uint8_t byte)
 {
 	byte = ((byte & 0x55) << 1) | ((byte & 0xAA) >> 1);
 	byte = ((byte & 0xCC) >> 2) | ((byte & 0x33) << 2);
@@ -28,7 +28,7 @@ int main(int argc, char * argv[])
 	}
 
 	const std::string inputData = argv[1];
-	if (!isNumber(inputData))
+	if (!IsNumber(inputData))
 	{
 		std::cerr << "<input byte> must be unsigned integer(0..255)" << std::endl;
 		std::exit(1);
@@ -41,7 +41,7 @@ int main(int argc, char * argv[])
 	}
 
 	const uint8_t inputByte = static_cast<uint8_t>(atoi(inputData.c_str()));
-	printf("%u\n", byte(inputByte));
+	printf("%u\n", FlipByte(inputByte));
 
 	return 0;
 }
