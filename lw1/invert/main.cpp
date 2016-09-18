@@ -10,6 +10,16 @@ bool IsNumber(const std::string & str)
 	return std::all_of(str.begin(), str.end(), std::isdigit);
 }
 
+int CalcDeterminant(const matrix3 & matrix)
+{
+	return matrix[0][0] * matrix[1][1] * matrix[2][2] + 
+		   matrix[0][2] * matrix[1][0] * matrix[2][1] +
+		   matrix[0][1] * matrix[1][2] * matrix[2][0] -
+		   matrix[0][2] * matrix[1][1] * matrix[2][0] -
+		   matrix[0][0] * matrix[1][2] * matrix[2][1] -
+		   matrix[0][1] * matrix[1][0] * matrix[2][2];
+}
+
 matrix3 GetMatrix3FromFile(std::ifstream & input, bool & error)
 {
 	matrix3 result = {
@@ -102,6 +112,8 @@ int main(int argc, char * argv[]) // NOTE: NOT FOR RELEASE
 	{
 		return 1;
 	}
+
+	std::cout << "det(matrix) = " << CalcDeterminant(matrix) << std::endl;
 
 	PrintMatrix(matrix);
 
