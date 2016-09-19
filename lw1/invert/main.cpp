@@ -20,7 +20,7 @@ int CalcDeterminant(const matrix3 & matrix)
 		   matrix[0][1] * matrix[1][0] * matrix[2][2];
 }
 
-matrix3 GetMatrix3FromFile(std::ifstream & input, bool & error)
+matrix3 GetMatrix3FromFile(std::ifstream & input, bool & error) // TODO: need to be refactored
 {
 	matrix3 result = {
 		{ 
@@ -114,7 +114,6 @@ int main(int argc, char * argv[]) // NOTE: NOT FOR RELEASE
 	}
 
 	std::cout << "det(matrix) = " << CalcDeterminant(matrix) << std::endl;
-
 	PrintMatrix(matrix);
 
     return 0;
