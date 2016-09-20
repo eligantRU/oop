@@ -4,13 +4,14 @@ namespace
 {
 
 typedef std::array<std::array<int, 3>, 3> matrix3;
+typedef std::array<std::array<int, 2>, 2> matrix2;
 
 bool IsNumber(const std::string & str)
 {
 	return std::all_of(str.begin(), str.end(), std::isdigit);
 }
 
-int CalcDeterminant(const matrix3 & matrix)
+int GetDeterminant(const matrix3 & matrix)
 {
 	return matrix[0][0] * matrix[1][1] * matrix[2][2] + 
 		   matrix[0][2] * matrix[1][0] * matrix[2][1] +
@@ -18,6 +19,12 @@ int CalcDeterminant(const matrix3 & matrix)
 		   matrix[0][2] * matrix[1][1] * matrix[2][0] -
 		   matrix[0][0] * matrix[1][2] * matrix[2][1] -
 		   matrix[0][1] * matrix[1][0] * matrix[2][2];
+}
+
+int GetDeterminant(const matrix2 & matrix)
+{
+	return matrix[0][0] * matrix[1][1] -
+		   matrix[0][1] * matrix[1][0];
 }
 
 matrix3 GetMatrix3FromFile(std::ifstream & input, bool & error) // TODO: need to be refactored
@@ -76,7 +83,8 @@ matrix3 GetMatrix3FromFile(std::ifstream & input, bool & error) // TODO: need to
 	return result;
 }
 
-void PrintMatrix(const matrix3 & matrix)
+template <class T>
+void PrintMatrix(const T & matrix)
 {
 	for (const auto row : matrix)
 	{
@@ -88,9 +96,84 @@ void PrintMatrix(const matrix3 & matrix)
 	}
 }
 
+matrix2 GetMinor(const matrix3 & matrix, const unsigned row, const unsigned column)
+{
+	matrix2 minor = {
+		{
+			{ 0, 0 },
+			{ 0, 0 }
+		}
+	};
+
+	unsigned k = 0;
+	for (unsigned i = 0; i < 3; ++i)
+	{
+		unsigned n = 0;
+		if (i == row) continue;
+		for (unsigned j = 0; j < 3; ++j)
+		{
+			if (j == column) continue;
+			minor[k][n] = matrix[i][j];
+			++n;
+		}
+		++k;
+	}
+	return minor;
 }
 
-int main(int argc, char * argv[]) // NOTE: NOT FOR RELEASE
+matrix3 GetMinorMatrix(const matrix3 & matrix)
+{
+	matrix3 minorMatrix = {
+		{
+			{ 0, 0, 0 },
+			{ 0, 0, 0 },
+			{ 0, 0, 0 }
+		}
+	};
+	for (unsigned i = 0; i < 3; ++i)
+	{
+		for (unsigned j = 0; j < 3; ++j)
+		{
+			minorMatrix[i][j] = GetDeterminant(GetMinor(matrix, i, j));
+		}
+	}
+	return minorMatrix;
+}
+
+matrix3 GetCofactorMatrix(const matrix3 & matrix)
+{
+	return{
+		{
+			{ matrix[0][0], -matrix[0][1], matrix[0][2] },
+			{ -matrix[1][0], matrix[1][1], -matrix[1][2] },
+			{ matrix[2][0], -matrix[2][1], matrix[2][2] }
+		}
+	};
+}
+
+matrix3 GetTransposeMatrix(const matrix3 & matrix)
+{
+	matrix3 transposeMatrix = {
+		{
+			{ 0, 0, 0 },
+			{ 0, 0, 0 },
+			{ 0, 0, 0 }
+		}
+	};
+
+	for (unsigned i = 0; i < 3; ++i)
+	{
+		for (unsigned j = 0; j < 3; ++j)
+		{
+			transposeMatrix[i][j] = matrix[j][i];
+		}
+	}
+	return transposeMatrix;
+}
+
+}
+
+int main(int argc, char * argv[])
 {
 	if (argc != 2)
 	{
@@ -113,8 +196,11 @@ int main(int argc, char * argv[]) // NOTE: NOT FOR RELEASE
 		return 1;
 	}
 
-	std::cout << "det(matrix) = " << CalcDeterminant(matrix) << std::endl;
-	PrintMatrix(matrix);
+	PrintMatrix(GetCofactorMatrix(GetMinorMatrix(matrix)));
+	std::cout << std::endl;
+	PrintMatrix(GetTransposeMatrix(GetCofactorMatrix(GetMinorMatrix(matrix))));
+	std::cout << std::endl;
+	PrintMatrix(matrix); 
 
     return 0;
 }
