@@ -10,8 +10,8 @@ bool IsNumber(const std::string & str)
 
 uint8_t FlipByte(uint8_t byte)
 {
-	byte = ((byte & 0x55) << 1) | ((byte & 0xAA) >> 1);
-	byte = ((byte & 0xCC) >> 2) | ((byte & 0x33) << 2);
+	byte = ((byte & 0b01010101) << 1) | ((byte & 0b10101010) >> 1);
+	byte = ((byte & 0b11001100) >> 2) | ((byte & 0b00110011) << 2);
 	byte = (byte >> 4) | (byte << 4);
 	return byte;
 }
