@@ -3,15 +3,15 @@
 namespace
 {
 
-typedef std::array<std::array<int, 3>, 3> matrix3;
-typedef std::array<std::array<int, 2>, 2> matrix2;
+typedef std::array<std::array<float, 3>, 3> matrix3;
+typedef std::array<std::array<float, 2>, 2> matrix2;
 
 bool IsNumber(const std::string & str)
 {
 	return std::all_of(str.begin(), str.end(), std::isdigit);
 }
 
-int GetDeterminant(const matrix3 & matrix)
+float GetDeterminant(const matrix3 & matrix)
 {
 	return matrix[0][0] * matrix[1][1] * matrix[2][2] + 
 		   matrix[0][2] * matrix[1][0] * matrix[2][1] +
@@ -21,7 +21,7 @@ int GetDeterminant(const matrix3 & matrix)
 		   matrix[0][1] * matrix[1][0] * matrix[2][2];
 }
 
-int GetDeterminant(const matrix2 & matrix)
+float GetDeterminant(const matrix2 & matrix)
 {
 	return matrix[0][0] * matrix[1][1] -
 		   matrix[0][1] * matrix[1][0];
@@ -74,7 +74,7 @@ matrix3 GetMatrix3FromFile(std::ifstream & input, bool & error) // TODO: need to
 				num += currentLine[j];
 				++j;
 			}
-			result[i][k] = atoi(num.c_str());
+			result[i][k] = static_cast<float>(atoi(num.c_str()));
 			++j;
 			++k;
 		}
@@ -142,7 +142,7 @@ matrix3 GetMinorMatrix(const matrix3 & matrix)
 
 matrix3 GetCofactorMatrix(const matrix3 & matrix)
 {
-	return{
+	return {
 		{
 			{ matrix[0][0], -matrix[0][1], matrix[0][2] },
 			{ -matrix[1][0], matrix[1][1], -matrix[1][2] },
@@ -171,6 +171,27 @@ matrix3 GetTransposeMatrix(const matrix3 & matrix)
 	return transposeMatrix;
 }
 
+matrix3 MultMatrix(const matrix3 & matrix, const float scalar)
+{
+	return {
+		{
+			{ scalar * matrix[0][0], scalar * matrix[0][1], scalar * matrix[0][2] },
+			{ scalar * matrix[1][0], scalar * matrix[1][1], scalar * matrix[1][2] },
+			{ scalar * matrix[2][0], scalar * matrix[2][1], scalar * matrix[2][2] }
+		}
+	};
+}
+
+matrix3 GetInvertMatrix(const matrix3 & matrix)
+{
+	const float multiplier = 1.f / GetDeterminant(matrix);
+	const auto minorMatrix = GetMinorMatrix(matrix);
+	const auto cofactorMatrix = GetCofactorMatrix(minorMatrix);
+	const auto transposeMatrix = GetTransposeMatrix(cofactorMatrix);
+
+	return MultMatrix(transposeMatrix, multiplier);
+}
+
 }
 
 int main(int argc, char * argv[])
@@ -196,11 +217,7 @@ int main(int argc, char * argv[])
 		return 1;
 	}
 
-	PrintMatrix(GetCofactorMatrix(GetMinorMatrix(matrix)));
-	std::cout << std::endl;
-	PrintMatrix(GetTransposeMatrix(GetCofactorMatrix(GetMinorMatrix(matrix))));
-	std::cout << std::endl;
-	PrintMatrix(matrix); 
+	PrintMatrix(GetInvertMatrix(matrix)); // TODO: need to check on zero descriminant (tests: matrix5 & matrix7)
 
     return 0;
 }
