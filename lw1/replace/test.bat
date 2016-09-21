@@ -4,7 +4,7 @@ set PROGRAM="%~1"
 
 REM search string is empty
 CALL %PROGRAM%
-IF NOT ERRORLEVEL 0 GOTO err
+IF NOT ERRORLEVEL 0 GOTO errs
 ECHO Test for empty search string SUCCEED
 
 REM invalid arguments
