@@ -6,11 +6,6 @@ namespace
 typedef std::array<std::array<float, 3>, 3> matrix3;
 typedef std::array<std::array<float, 2>, 2> matrix2;
 
-bool IsNumber(const std::string & str)
-{
-	return std::all_of(str.begin(), str.end(), std::isdigit);
-}
-
 float GetDeterminant(const matrix3 & matrix)
 {
 	return matrix[0][0] * matrix[1][1] * matrix[2][2] + 
@@ -217,7 +212,14 @@ int main(int argc, char * argv[])
 		return 1;
 	}
 
-	PrintMatrix(GetInvertMatrix(matrix)); // TODO: need to check on zero descriminant (tests: matrix5 & matrix7)
+	if (GetDeterminant(matrix) != 0)
+	{
+		PrintMatrix(GetInvertMatrix(matrix));
+	}
+	else
+	{
+		std::cout << "The inverse matrix does not exist" << std::endl;
+	}
 
     return 0;
 }
