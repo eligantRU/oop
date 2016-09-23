@@ -104,10 +104,16 @@ matrix2 GetMinor(const matrix3 & matrix, const unsigned row, const unsigned colu
 	for (unsigned i = 0; i < 3; ++i)
 	{
 		unsigned n = 0;
-		if (i == row) continue;
+		if (i == row)
+		{
+			continue;
+		}
 		for (unsigned j = 0; j < 3; ++j)
 		{
-			if (j == column) continue;
+			if (j == column)
+			{
+				continue;
+			}
 			minor[k][n] = matrix[i][j];
 			++n;
 		}
