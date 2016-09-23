@@ -2,11 +2,6 @@
 
 set PROGRAM="%~1"
 
-REM search string is empty
-CALL %PROGRAM%
-IF NOT ERRORLEVEL 0 GOTO errs
-ECHO Test for empty search string SUCCEED
-
 REM invalid arguments
 CALL %PROGRAM% 2>%TEMP%\err.txt
 IF NOT ERRORLEVEL 0 GOTO errs
@@ -22,6 +17,16 @@ C:\Windows\System32\FC %TEMP%\emptyReplaceString.txt correctTest\correctEmptyRep
 IF ERRORLEVEL 1 GOTO errs
 DEL %TEMP%\emptyReplaceString.txt
 ECHO Test for empty replace string SUCCEED
+
+REM search string is empty
+CALL %PROGRAM% "inputTest\multiline-file.txt" %TEMP%\emptySearchString.txt "" "testing" 2>%TEMP%\err.txt
+IF NOT ERRORLEVEL 0 GOTO errs
+C:\Windows\System32\FC %TEMP%\err.txt correctTest\correctEmptySearchString.txt
+IF ERRORLEVEL 1 GOTO errs
+ECHO 3
+DEL %TEMP%\emptySearchString.txt
+DEL %TEMP%\err.txt
+ECHO Test for empty search string SUCCEED
 
 REM replace "pony" to "elephant"
 CALL %PROGRAM% "inputTest\multiline-file.txt" %TEMP%\elephantReplaceString.txt "pony" "elephant"
