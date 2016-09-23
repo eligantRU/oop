@@ -23,7 +23,6 @@ CALL %PROGRAM% "inputTest\multiline-file.txt" %TEMP%\emptySearchString.txt "" "t
 IF NOT ERRORLEVEL 0 GOTO errs
 C:\Windows\System32\FC %TEMP%\err.txt correctTest\correctEmptySearchString.txt
 IF ERRORLEVEL 1 GOTO errs
-ECHO 3
 DEL %TEMP%\emptySearchString.txt
 DEL %TEMP%\err.txt
 ECHO Test for empty search string SUCCEED
