@@ -3,10 +3,10 @@
 namespace
 {
 
-typedef std::array<std::array<float, 3>, 3> matrix3;
-typedef std::array<std::array<float, 2>, 2> matrix2;
+typedef std::array<std::array<double, 3>, 3> matrix3;
+typedef std::array<std::array<double, 2>, 2> matrix2;
 
-float GetDeterminant(const matrix3 & matrix)
+double GetDeterminant(const matrix3 & matrix)
 {
 	return matrix[0][0] * matrix[1][1] * matrix[2][2] + 
 		   matrix[0][2] * matrix[1][0] * matrix[2][1] +
@@ -16,7 +16,7 @@ float GetDeterminant(const matrix3 & matrix)
 		   matrix[0][1] * matrix[1][0] * matrix[2][2];
 }
 
-float GetDeterminant(const matrix2 & matrix)
+double GetDeterminant(const matrix2 & matrix)
 {
 	return matrix[0][0] * matrix[1][1] -
 		   matrix[0][1] * matrix[1][0];
@@ -172,7 +172,7 @@ matrix3 GetTransposeMatrix(const matrix3 & matrix)
 	return transposeMatrix;
 }
 
-matrix3 MultMatrix(const matrix3 & matrix, const float scalar)
+matrix3 MultMatrix(const matrix3 & matrix, const double scalar)
 {
 	return {
 		{
@@ -185,7 +185,7 @@ matrix3 MultMatrix(const matrix3 & matrix, const float scalar)
 
 matrix3 GetInvertMatrix(const matrix3 & matrix)
 {
-	const float multiplier = 1.f / GetDeterminant(matrix);
+	const double multiplier = 1.0 / GetDeterminant(matrix);
 	const auto minorMatrix = GetMinorMatrix(matrix);
 	const auto cofactorMatrix = GetCofactorMatrix(minorMatrix);
 	const auto transposeMatrix = GetTransposeMatrix(cofactorMatrix);
