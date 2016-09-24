@@ -7,11 +7,11 @@ std::string FindAndReplace(const std::string & inputStr, const std::string & sea
 {
 	auto currentStr = inputStr;
 
-	auto it = currentStr.find(searchStr);
-	while (it != std::string::npos)
+	auto pos = currentStr.find(searchStr);
+	while (pos != std::string::npos)
 	{
-		currentStr.replace(it, searchStr.length(), replaceStr);
-		it = currentStr.find(searchStr, it + replaceStr.length());
+		currentStr.replace(pos, searchStr.length(), replaceStr);
+		pos = currentStr.find(searchStr, pos + replaceStr.length());
 	}
 	return currentStr;
 }
