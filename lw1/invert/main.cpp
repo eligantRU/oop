@@ -3,10 +3,12 @@
 namespace
 {
 
-typedef std::array<std::array<double, 3>, 3> matrix3;
-typedef std::array<std::array<double, 2>, 2> matrix2;
+typedef double real;
 
-double GetDeterminant(const matrix3 & matrix)
+typedef std::array<std::array<real, 3>, 3> matrix3;
+typedef std::array<std::array<real, 2>, 2> matrix2;
+
+real GetDeterminant(const matrix3 & matrix)
 {
 	return matrix[0][0] * matrix[1][1] * matrix[2][2] + 
 		   matrix[0][2] * matrix[1][0] * matrix[2][1] +
@@ -16,7 +18,7 @@ double GetDeterminant(const matrix3 & matrix)
 		   matrix[0][1] * matrix[1][0] * matrix[2][2];
 }
 
-double GetDeterminant(const matrix2 & matrix)
+real GetDeterminant(const matrix2 & matrix)
 {
 	return matrix[0][0] * matrix[1][1] -
 		   matrix[0][1] * matrix[1][0];
@@ -69,7 +71,7 @@ matrix3 GetMatrix3FromFile(std::ifstream & input, bool & error) // TODO: need to
 				num += currentLine[j];
 				++j;
 			}
-			result[i][k] = static_cast<float>(atoi(num.c_str()));
+			result[i][k] = static_cast<real>(atoi(num.c_str()));
 			++j;
 			++k;
 		}
@@ -172,7 +174,7 @@ matrix3 GetTransposeMatrix(const matrix3 & matrix)
 	return transposeMatrix;
 }
 
-matrix3 MultMatrix(const matrix3 & matrix, const double scalar)
+matrix3 MultMatrix(const matrix3 & matrix, const real scalar)
 {
 	return {
 		{
@@ -185,7 +187,7 @@ matrix3 MultMatrix(const matrix3 & matrix, const double scalar)
 
 matrix3 GetInvertMatrix(const matrix3 & matrix)
 {
-	const double multiplier = 1.0 / GetDeterminant(matrix);
+	const real multiplier = 1 / GetDeterminant(matrix);
 	const auto minorMatrix = GetMinorMatrix(matrix);
 	const auto cofactorMatrix = GetCofactorMatrix(minorMatrix);
 	const auto transposeMatrix = GetTransposeMatrix(cofactorMatrix);
