@@ -24,20 +24,20 @@ int main(int argc, char * argv[])
 	{
 		std::cerr << "Invalid params. Use this:" << std::endl;
 		std::cerr << "flipbyte.exe <input byte>" << std::endl;
-		std::exit(1);
+		return 1;
 	}
 
 	const std::string inputData = argv[1];
 	if (!IsNumber(inputData))
 	{
 		std::cerr << "<input byte> must be unsigned integer(0..255)" << std::endl;
-		std::exit(1);
+		return 1;
 	}
 
 	if (!((atoi(inputData.c_str()) >= 0 && atoi(inputData.c_str()) <= 255)))
 	{
 		std::cerr << "<input byte> must be 0..255" << std::endl;
-		std::exit(1);
+		return 1;
 	}
 
 	const uint8_t inputByte = static_cast<uint8_t>(atoi(inputData.c_str()));
