@@ -1,0 +1,2 @@
+Invalid arguments. Use:
+invert.exe <matrix file>

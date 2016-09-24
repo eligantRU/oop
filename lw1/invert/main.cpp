@@ -79,13 +79,13 @@ matrix3 GetMatrix3FromFile(std::ifstream & input, bool & error) // TODO: need to
 }
 
 template <class T>
-void PrintMatrix(const T & matrix)
+void PrintMatrix(const T & matrix, unsigned precision = 3)
 {
 	for (const auto row : matrix)
 	{
 		for (const auto element : row)
 		{
-			std::cout << element << " ";
+			std::cout << std::fixed << std::setprecision(precision) << element << " ";
 		}
 		std::cout << std::endl;
 	}
