@@ -5,15 +5,19 @@ namespace
 
 std::string FindAndReplace(const std::string & inputStr, const std::string & searchStr, const std::string & replaceStr)
 {
-	auto currentStr = inputStr;
+	std::string result;
+	size_t initialPos = 0;
 
-	auto pos = currentStr.find(searchStr);
+	auto pos = inputStr.find(searchStr);
 	while (pos != std::string::npos)
 	{
-		currentStr.replace(pos, searchStr.length(), replaceStr);
-		pos = currentStr.find(searchStr, pos + replaceStr.length());
+		result.append(inputStr, initialPos, pos - initialPos);
+		result.append(replaceStr);
+		initialPos = pos + searchStr.length();
+		pos = inputStr.find(searchStr, initialPos);
 	}
-	return currentStr;
+	result.append(inputStr, initialPos);
+	return result;
 }
 
 }
