@@ -41,7 +41,8 @@ int main(int argc, char * argv[])
 	}
 
 	const uint8_t inputByte = static_cast<uint8_t>(atoi(inputData.c_str()));
-	printf("%u\n", FlipByte(inputByte));
+	
+	std::cout << static_cast<unsigned>(FlipByte(inputByte)) << std::endl;
 
 	return 0;
 }
