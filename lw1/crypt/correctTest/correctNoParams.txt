@@ -1,0 +1,2 @@
+Invalid params. Use this:
+crypt.exe <mode> <input file> <output file> <key>
