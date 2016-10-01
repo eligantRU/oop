@@ -21,7 +21,7 @@ void PrintSortedVector(std::ostream & output, const std::vector<Type> & vec, con
 	PrintVector(output, vecSorted, precision);
 }
 
-std::vector<std::string> SplitString(const std::string strToSplit) // TODO: use boost/algorithm/string/split.hpp
+std::vector<std::string> SplitString(const std::string & strToSplit) // TODO: use boost/algorithm/string/split.hpp
 {
 	std::string buf; 
 	std::stringstream ss(strToSplit);

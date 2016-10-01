@@ -6,15 +6,14 @@ namespace
 std::string FindAndReplace(const std::string & inputStr, const std::string & searchStr, const std::string & replaceStr)
 {
 	std::string result;
-	size_t initialPos = 0;
+	result.reserve(inputStr.size());
 
-	auto pos = inputStr.find(searchStr);
-	while (pos != std::string::npos)
+	size_t initialPos = 0;
+	for (auto pos = inputStr.find(searchStr); pos != std::string::npos; pos = inputStr.find(searchStr, initialPos))
 	{
 		result.append(inputStr, initialPos, pos - initialPos);
 		result.append(replaceStr);
 		initialPos = pos + searchStr.length();
-		pos = inputStr.find(searchStr, initialPos);
 	}
 	result.append(inputStr, initialPos);
 	return result;
