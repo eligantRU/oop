@@ -38,25 +38,21 @@ uint8_t MixBitsBack(const uint8_t byte)
 
 void Crypt(std::ifstream & input, std::ofstream & output, const uint8_t key)
 {
-	uint8_t byte = input.get();
-	while (!input.eof())
+	for (uint8_t byte = input.get(); !input.eof(); byte = input.get())
 	{
 		byte ^= key;
 		byte = MixBits(byte);
 		output.put(static_cast<char>(byte));
-		byte = input.get();
 	}
 }
 
 void Decrypt(std::ifstream & input, std::ofstream & output, const uint8_t key)
 {
-	uint8_t byte = input.get();
-	while (!input.eof())
+	for (uint8_t byte = input.get(); !input.eof(); byte = input.get())
 	{
 		byte = MixBitsBack(byte);
 		byte ^= key;
 		output.put(static_cast<char>(byte)); 
-		byte = input.get();
 	}
 }
 
