@@ -19,13 +19,9 @@ uint8_t MixBits(const uint8_t byte)
 	uint8_t result = 0;
 
 	result |= (byte & 0b10000000) >> 2;
-	result |= (byte & 0b01000000) >> 5;
-	result |= (byte & 0b00100000) >> 5;
-	result |= (byte & 0b00010000) << 3;
-	result |= (byte & 0b00001000) << 3;
-	result |= (byte & 0b00000100) << 2;
-	result |= (byte & 0b00000010) << 2;
-	result |= (byte & 0b00000001) << 2;
+	result |= (byte & 0b01100000) >> 5;
+	result |= (byte & 0b00011000) << 3;
+	result |= (byte & 0b00000111) << 2;
 	return result;
 }
 
@@ -33,14 +29,10 @@ uint8_t MixBitsBack(const uint8_t byte)
 {
 	uint8_t result = 0;
 
-	result |= (byte & 0b10000000) >> 3;
-	result |= (byte & 0b01000000) >> 3;
+	result |= (byte & 0b11000000) >> 3;
 	result |= (byte & 0b00100000) << 2;
-	result |= (byte & 0b00010000) >> 2;
-	result |= (byte & 0b00001000) >> 2;
-	result |= (byte & 0b00000100) >> 2;
-	result |= (byte & 0b00000010) << 5;
-	result |= (byte & 0b00000001) << 5;
+	result |= (byte & 0b00011100) >> 2;
+	result |= (byte & 0b00000011) << 5;
 	return result;
 }
 
