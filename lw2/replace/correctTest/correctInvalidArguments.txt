@@ -1,2 +1,0 @@
-Invalid params. Use this:
-replace.exe <input file> <output file> <search string> <replace string>
