@@ -29,7 +29,7 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FindAndReplace_utils.h">
+    <ClInclude Include="replace_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
