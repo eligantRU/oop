@@ -15,28 +15,11 @@ void PrintVector(std::ostream & output, const std::vector<T> & vec, unsigned pre
 	output << std::endl;
 }
 
-template <typename Type, class T>
-void SortVector(std::vector<Type> & vec, T && sortFn)
-{
-	std::sort(vec.begin(), vec.end(), sortFn);
-}
-
 std::vector<std::string> SplitString(const std::string & strToSplit)
 {
-	std::string buf;
-	std::stringstream ss(strToSplit);
-
 	std::vector<std::string> lexems;
-
-	while (ss >> buf)
-	{
-		lexems.push_back(buf);
-	}
-	return lexems;
-	// TODO: use boost(unsafe) 
-	/*std::vector<std::string> lexems;
 	boost::split(lexems, strToSplit, boost::is_any_of(" "));
-	return lexems;*/
+	return lexems;
 }
 
 std::vector<double> GetNums(std::istream & input)
@@ -51,6 +34,7 @@ std::vector<double> GetNums(std::istream & input)
 	{
 		result.push_back(stod(lexem)); // NOTE: potentially unsafe code
 	}
+
 	return result;
 }
 
@@ -67,6 +51,15 @@ void Div(std::vector<Type> & vec, const double divider) // NOTE: operator/
 	{
 		element /= divider;
 	}
+}
+
+template <typename Type>
+void ProcessVector(std::vector<Type> & vec)
+{
+	auto divider = GetMax(vec) / 2;
+	std::transform(vec.begin(), vec.end(), /*vec.begin()*/ std::back_inserter(vec), [=](double element) -> double {
+		return element / divider;
+	});
 }
 
 }

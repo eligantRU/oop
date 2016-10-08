@@ -9,5 +9,7 @@
 #include <iomanip>  
 #include <string>
 #include <sstream>
+#include <iterator>
+#include <sstream>
 
 #include <boost/algorithm/string.hpp>

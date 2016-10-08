@@ -4,12 +4,11 @@
 int main(int, char * [])
 {
 	auto nums = GetNums(std::cin);
-	auto divider = GetMax(nums) / 2;
-	Div(nums, divider);
-	SortVector(nums, [](double a, double b) {
+	ProcessVector(nums);
+	std::sort(nums.begin(), nums.end(), [](double a, double b) {
 		return a < b;
 	});
-	PrintVector(std::cout, nums, 3);
+	PrintVector(std::cout, nums);
 
     return 0;
 }

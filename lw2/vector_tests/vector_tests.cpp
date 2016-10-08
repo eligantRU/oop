@@ -2,23 +2,6 @@
 
 #include "../vector/vector_utils.h"
 
-template <typename Type>
-bool Compare(const std::vector<Type> & vec1, const std::vector<Type> & vec2)
-{
-	if (vec1.size() != vec2.size())
-	{
-		return false;
-	}
-	for (unsigned i = 0; i < vec1.size(); ++i)
-	{
-		if (vec1[i] != vec2[i])
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
 BOOST_AUTO_TEST_SUITE(Test)
 
 BOOST_AUTO_TEST_CASE(GettingNums)
@@ -26,19 +9,28 @@ BOOST_AUTO_TEST_CASE(GettingNums)
 	{
 		std::stringstream str("5 4 3 2 1 0");
 		auto nums = GetNums(str);
-		BOOST_CHECK(Compare(nums, { 5, 4, 3, 2, 1, 0 }));
+		const std::vector<double> correctVec = {
+			5, 4, 3, 2, 1, 0
+		};
+		BOOST_CHECK(nums == correctVec);
 	}
 
 	{
 		std::stringstream str("0 1 2 3 4 5");
 		auto nums = GetNums(str);
-		BOOST_CHECK(Compare(nums, { 0, 1, 2, 3, 4, 5 }));
+		const std::vector<double> correctVec = {
+			0, 1, 2, 3, 4, 5
+		};
+		BOOST_CHECK(nums == correctVec);
 	}
 
 	{
 		std::stringstream str("5.7 0.5 1.25 3.75 4.8 2.5");
 		auto nums = GetNums(str);
-		BOOST_CHECK(Compare(nums, { 5.7, 0.5, 1.25, 3.75, 4.8, 2.5 }));
+		const std::vector<double> correctVec = { 
+			5.7, 0.5, 1.25, 3.75, 4.8, 2.5 
+		};
+		BOOST_CHECK(nums == correctVec);
 	}
 }
 
@@ -79,57 +71,33 @@ BOOST_AUTO_TEST_CASE(Division)
 		std::vector<double> nums = {
 			5, 4, 3, 2, 1, 0
 		};
+		const std::vector<double> correctVec = {
+			2.5, 2, 1.5, 1, 0.5, 0
+		};
 		Div(nums, 2);
-		BOOST_CHECK(Compare(nums, { 2.5, 2, 1.5, 1, 0.5, 0 }));
+		BOOST_CHECK(nums == correctVec);
 	}
 
 	{
 		std::vector<double> nums = {
 			0, 1, 2, 3, 4, 5
 		};
+		const std::vector<double> correctVec = {
+			0, 1, 2, 3, 4, 5
+		};
 		Div(nums, 1);
-		BOOST_CHECK(Compare(nums, { 0, 1, 2, 3, 4, 5 }));
+		BOOST_CHECK(nums == correctVec);
 	}
 
 	{
 		std::vector<double> nums = {
 			5.7, 0.5, 1.25, 3.75, 4.8, 2.5
 		};
+		const std::vector<double> correctVec = {
+			11.4, 1, 2.5, 7.5, 9.6, 5
+		};
 		Div(nums, 0.5);
-		BOOST_CHECK(Compare(nums, { 11.4, 1, 2.5, 7.5, 9.6, 5 }));
-	}
-}
-
-BOOST_AUTO_TEST_CASE(SortingVector)
-{
-	{
-		std::vector<double> nums = {
-			0, 1, 2, 3, 4, 5
-		};
-		SortVector(nums, [](double a, double b) {
-			return a < b;
-		});
-		BOOST_CHECK(Compare(nums, { 0, 1, 2, 3, 4, 5 }));
-	}
-
-	{
-		std::vector<double> nums = {
-			5, 4, 3, 2, 1, 0
-		};
-		SortVector(nums, [](double a, double b) {
-			return a < b;
-		});
-		BOOST_CHECK(Compare(nums, { 0, 1, 2, 3, 4, 5 }));
-	}
-
-	{
-		std::vector<double> nums = {
-			3, 4, 1, 2, 5, 0
-		};
-		SortVector(nums, [](double a, double b) {
-			return a < b;
-		});
-		BOOST_CHECK(Compare(nums, { 0, 1, 2, 3, 4, 5 }));
+		BOOST_CHECK(nums == correctVec);
 	}
 }
 
