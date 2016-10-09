@@ -57,7 +57,7 @@ template <typename Type>
 void ProcessVector(std::vector<Type> & vec)
 {
 	auto divider = GetMax(vec) / 2;
-	std::transform(vec.begin(), vec.end(), /*vec.begin()*/ std::back_inserter(vec), [=](double element) -> double {
+	std::transform(vec.begin(), vec.end(), vec.begin() /*std::back_inserter(vec)*/, [=](double element) -> double {
 		return element / divider;
 	});
 }

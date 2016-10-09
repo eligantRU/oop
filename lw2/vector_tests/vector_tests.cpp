@@ -4,7 +4,7 @@
 
 BOOST_AUTO_TEST_SUITE(Test)
 
-BOOST_AUTO_TEST_CASE(GettingNums)
+BOOST_AUTO_TEST_CASE(Getting_nums)
 {
 	{
 		std::stringstream str("5 4 3 2 1 0");
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(GettingNums)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(GettingMax)
+BOOST_AUTO_TEST_CASE(Getting_max)
 {
 	{
 		const std::vector<double> nums = {
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE(Division)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(PrintingVector)
+BOOST_AUTO_TEST_CASE(Printing_vector)
 {
 	{
 		std::stringstream buffer; 
@@ -134,6 +134,31 @@ BOOST_AUTO_TEST_CASE(PrintingVector)
 		std::string str;
 		std::getline(buffer, str);
 		BOOST_CHECK(str == "0.00 1.09 2.02 3.01 4.09 5.10 ");
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Vector_processing)
+{
+	{
+		std::vector<double> nums = {
+			0, 1, 2, 3, 4
+		};
+		ProcessVector(nums);
+		const std::vector<double> correctVec = {
+			0, 0.5, 1, 1.5, 2
+		};
+		BOOST_CHECK(nums == correctVec);
+	}
+
+	{
+		std::vector<double> nums = {
+			4, 2, 0, 1, 3
+		};
+		ProcessVector(nums);
+		const std::vector<double> correctVec = {
+			2, 1, 0, 0.5, 1.5
+		};
+		BOOST_CHECK(nums == correctVec);
 	}
 }
 
