@@ -15,37 +15,23 @@ void PrintVector(std::ostream & output, const std::vector<T> & vec, unsigned pre
 	output << std::endl;
 }
 
-std::vector<std::string> SplitString(const std::string & strToSplit)
-{
-	std::vector<std::string> lexems;
-	boost::split(lexems, strToSplit, boost::is_any_of(" "));
-	return lexems;
-}
-
 std::vector<double> GetNums(std::istream & input)
 {
 	std::vector<double> result;
-
-	std::string inputStr;
-	std::getline(input, inputStr);
-
-	auto lexems = SplitString(inputStr);
-	for (const auto lexem : lexems)
-	{
-		result.push_back(stod(lexem)); // NOTE: potentially unsafe code
-	}
-
+	std::copy(std::istream_iterator<double>(input),
+              std::istream_iterator<double>(),
+              std::back_inserter(result));
 	return result;
 }
 
 template <typename Type>
-Type GetMax(const std::vector<Type> & vec) // NOTE: potentially unsafe code
+Type GetMax(const std::vector<Type> & vec)
 {
 	return *std::max_element(vec.begin(), vec.end());
 }
 
 template <typename Type>
-void Div(std::vector<Type> & vec, const double divider) // NOTE: operator/
+void Div(std::vector<Type> & vec, const double divider)
 {
 	for (auto & element : vec)
 	{
@@ -56,8 +42,13 @@ void Div(std::vector<Type> & vec, const double divider) // NOTE: operator/
 template <typename Type>
 void ProcessVector(std::vector<Type> & vec)
 {
+	if (vec.empty())
+	{
+		return;
+	}
+
 	auto divider = GetMax(vec) / 2;
-	std::transform(vec.begin(), vec.end(), vec.begin() /*std::back_inserter(vec)*/, [=](double element) -> double {
+	std::transform(vec.begin(), vec.end(), vec.begin(), [=](double element) {
 		return element / divider;
 	});
 }

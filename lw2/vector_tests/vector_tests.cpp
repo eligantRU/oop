@@ -32,6 +32,13 @@ BOOST_AUTO_TEST_CASE(Getting_nums)
 		};
 		BOOST_CHECK(nums == correctVec);
 	}
+
+	{
+		std::stringstream str("");
+		auto nums = GetNums(str);
+		const std::vector<double> correctVec = { };
+		BOOST_CHECK(nums == correctVec);
+	}
 }
 
 BOOST_AUTO_TEST_CASE(Getting_max)
@@ -99,6 +106,18 @@ BOOST_AUTO_TEST_CASE(Division)
 		Div(nums, 0.5);
 		BOOST_CHECK(nums == correctVec);
 	}
+
+	{
+		// TODO: make it work!
+		/*std::vector<double> nums = {
+			-1, 0
+		};
+		const std::vector<double> correctVec = {
+			-INFINITY, -NAN
+		};
+		Div(nums, 0);
+		BOOST_CHECK(nums == correctVec);*/
+	}
 }
 
 BOOST_AUTO_TEST_CASE(Printing_vector)
@@ -135,6 +154,8 @@ BOOST_AUTO_TEST_CASE(Printing_vector)
 		std::getline(buffer, str);
 		BOOST_CHECK(str == "0.00 1.09 2.02 3.01 4.09 5.10 ");
 	}
+
+	// TODO: need to test on -inf & nan
 }
 
 BOOST_AUTO_TEST_CASE(Vector_processing)
@@ -160,6 +181,8 @@ BOOST_AUTO_TEST_CASE(Vector_processing)
 		};
 		BOOST_CHECK(nums == correctVec);
 	}
+
+	// TODO: need to test on -inf & nan
 }
 
 BOOST_AUTO_TEST_SUITE_END()
