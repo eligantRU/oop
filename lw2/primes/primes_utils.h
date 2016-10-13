@@ -7,7 +7,7 @@ namespace
 
 std::set<uint32_t> GeneratePrimeNumbersSet(unsigned upperBound)
 {
-	++upperBound;
+	++(++upperBound);
 	std::vector<bool> nums;
 	nums.reserve(upperBound);
 	for (unsigned i = 2; i < upperBound; ++i)
@@ -15,7 +15,7 @@ std::set<uint32_t> GeneratePrimeNumbersSet(unsigned upperBound)
 		nums.push_back(true);
 	}
 
-	for (unsigned i = 2; i <= sqrt(upperBound); ++i)
+	for (unsigned i = 2; i < sqrt(upperBound); ++i)
 	{
 		for (unsigned j = 2 * i; j <= upperBound; j += i)
 		{
