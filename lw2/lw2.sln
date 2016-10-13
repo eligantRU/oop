@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "primes", "primes\primes.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "replace_tests", "replace_tests\replace_tests.vcxproj", "{167FBD3F-F8A0-4EF6-AC04-1AC939EDCEF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "primes_tests", "primes_tests\primes_tests.vcxproj", "{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{167FBD3F-F8A0-4EF6-AC04-1AC939EDCEF5}.Release|x64.Build.0 = Release|x64
 		{167FBD3F-F8A0-4EF6-AC04-1AC939EDCEF5}.Release|x86.ActiveCfg = Release|Win32
 		{167FBD3F-F8A0-4EF6-AC04-1AC939EDCEF5}.Release|x86.Build.0 = Release|Win32
+		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Debug|x64.ActiveCfg = Debug|x64
+		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Debug|x64.Build.0 = Debug|x64
+		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Debug|x86.ActiveCfg = Debug|Win32
+		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Debug|x86.Build.0 = Debug|Win32
+		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Release|x64.ActiveCfg = Release|x64
+		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Release|x64.Build.0 = Release|x64
+		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Release|x86.ActiveCfg = Release|Win32
+		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
