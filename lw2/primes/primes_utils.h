@@ -5,15 +5,14 @@
 namespace
 {
 
-std::set<uint32_t> GeneratePrimeNumbersSet(unsigned upperBound)
+bool IsNumber(const std::string & str)
 {
-	++(++upperBound);
-	std::vector<bool> nums;
-	nums.reserve(upperBound);
-	for (unsigned i = 2; i < upperBound; ++i)
-	{
-		nums.push_back(true);
-	}
+	return std::all_of(str.begin(), str.end(), std::isdigit);
+}
+
+std::set<uint32_t> GeneratePrimeNumbersSet(const unsigned upperBound)
+{
+	std::vector<bool> nums(upperBound, true);
 
 	for (unsigned i = 2; i < sqrt(upperBound); ++i)
 	{

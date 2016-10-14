@@ -5,4 +5,5 @@
 #include <set>
 #include <vector>
 #include <iostream>
-#include <windows.h>
+#include <algorithm>
+#include <cctype>
