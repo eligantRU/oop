@@ -36,22 +36,20 @@ uint8_t MixBitsBack(const uint8_t byte)
 	return result;
 }
 
-void Crypt(std::ifstream & input, std::ofstream & output, const uint8_t key)
+void Crypt(std::ifstream & input, std::ofstream & output, std::function<uint8_t(uint8_t)> && fn)
 {
 	for (uint8_t byte = input.get(); !input.eof(); byte = input.get())
 	{
-		byte ^= key;
-		byte = MixBits(byte);
+		byte = fn(byte);
 		output.put(static_cast<char>(byte));
 	}
 }
 
-void Decrypt(std::ifstream & input, std::ofstream & output, const uint8_t key)
+void Decrypt(std::ifstream & input, std::ofstream & output, std::function<uint8_t(uint8_t)> && fn)
 {
 	for (uint8_t byte = input.get(); !input.eof(); byte = input.get())
 	{
-		byte = MixBitsBack(byte);
-		byte ^= key;
+		byte = fn(byte);
 		output.put(static_cast<char>(byte)); 
 	}
 }
@@ -114,10 +112,18 @@ int main(int argc, char * argv[])
 	switch (cryptMode)
 	{
 	case Mode::Crypt:
-		Crypt(input, output, key);
+		Crypt(input, output, [=](uint8_t byte) {
+			byte ^= key;
+			byte = MixBits(byte);
+			return byte;
+		});
 		break; 
 	case Mode::Decrypt:
-		Decrypt(input, output, key);
+		Decrypt(input, output, [=](uint8_t byte) {
+			byte = MixBitsBack(byte);
+			byte ^= key;
+			return byte;
+		});
 		break;
 	default:
 		assert(!"Unknown mode");
