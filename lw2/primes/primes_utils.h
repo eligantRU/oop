@@ -14,20 +14,27 @@ std::set<uint32_t> GeneratePrimeNumbersSet(const unsigned upperBound)
 {
 	std::vector<bool> nums(upperBound + 1, true);
 
-	for (unsigned i = 2; i <= sqrt(upperBound); ++i)
+	for (unsigned i = 2; i * i <= upperBound; ++i)
 	{
-		for (unsigned j = 2 * i; j <= upperBound; j += i)
+		if (nums[i])
 		{
-			nums[j] = false;
+			for (unsigned j = i * i; j <= upperBound; j += i)
+			{
+				nums[j] = false;
+			}
 		}
 	}
 
 	std::set<uint32_t> primes;
-	for (unsigned i = 2; i <= upperBound; ++i)
+	if (upperBound >= 2)
+	{
+		primes.insert(2);
+	}
+	for (unsigned i = 3; i <= upperBound; i += 2)
 	{
 		if (nums[i])
 		{
-			primes.insert(i);
+			primes.emplace_hint(primes.end(), i);
 		}
 	}
 	return primes;
