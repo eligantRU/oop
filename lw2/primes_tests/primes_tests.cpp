@@ -19,13 +19,13 @@ BOOST_AUTO_TEST_CASE(primes_count)
 	}
 
 	{
-		const auto expectedResult = 0;
+		const auto expectedResult = 1;
 		auto primes = GeneratePrimeNumbersSet(2);
 		BOOST_CHECK(primes.size() == expectedResult);
 	}
 
 	{
-		const auto expectedResult = 1;
+		const auto expectedResult = 2;
 		auto primes = GeneratePrimeNumbersSet(3);
 		BOOST_CHECK(primes.size() == expectedResult);
 	}
@@ -35,7 +35,6 @@ BOOST_AUTO_TEST_CASE(primes_count)
 		auto primes = GeneratePrimeNumbersSet(10);
 		BOOST_CHECK(primes.size() == expectedResult);
 	}
-
 
 	{
 		const auto expectedResult = 5'761'455;
@@ -63,8 +62,14 @@ BOOST_AUTO_TEST_CASE(compare_sets)
 	}
 
 	{
-		const std::set<uint32_t> expectedResult = {	};
+		const std::set<uint32_t> expectedResult = {	2 };
 		const auto primes = GeneratePrimeNumbersSet(2);
+		BOOST_CHECK(primes == expectedResult);
+	}
+
+	{
+		const std::set<uint32_t> expectedResult = { };
+		const auto primes = GeneratePrimeNumbersSet(1);
 		BOOST_CHECK(primes == expectedResult);
 	}
 }

@@ -20,5 +20,10 @@ int main(int argc, char * argv[])
 
 	auto primes = GeneratePrimeNumbersSet(atoi(upperBound.c_str()));
 
+	for (const auto prime : primes)
+	{
+		std::cout << prime << std::endl;
+	}
+
 	return 0;
 }
