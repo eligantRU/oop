@@ -36,21 +36,21 @@ uint8_t MixBitsBack(const uint8_t byte)
 	return result;
 }
 
-void Crypt(std::ifstream & input, std::ofstream & output, std::function<uint8_t(uint8_t)> && fn)
+void Crypt(std::ifstream & input, std::ofstream & output, const std::function<uint8_t(uint8_t)> & fn)
 {
-	for (uint8_t byte = input.get(); !input.eof(); byte = input.get())
+	for (char ch; input.get(ch); )
 	{
-		byte = fn(byte);
+		auto byte = fn(static_cast<uint8_t>(ch));
 		output.put(static_cast<char>(byte));
 	}
 }
 
-void Decrypt(std::ifstream & input, std::ofstream & output, std::function<uint8_t(uint8_t)> && fn)
+void Decrypt(std::ifstream & input, std::ofstream & output, const std::function<uint8_t(uint8_t)> & fn)
 {
-	for (uint8_t byte = input.get(); !input.eof(); byte = input.get())
+	for (char ch; input.get(ch); )
 	{
-		byte = fn(byte);
-		output.put(static_cast<char>(byte)); 
+		auto byte = fn(static_cast<uint8_t>(ch));
+		output.put(static_cast<char>(byte));
 	}
 }
 
