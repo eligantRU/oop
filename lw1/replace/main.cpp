@@ -9,7 +9,7 @@ std::string FindAndReplace(const std::string & inputStr, const std::string & sea
 	result.reserve(inputStr.size());
 
 	size_t initialPos = 0;
-	for (auto pos = inputStr.find(searchStr); pos != std::string::npos; pos = inputStr.find(searchStr, initialPos))
+	for (size_t pos; (pos = inputStr.find(searchStr, initialPos)) != std::string::npos;)
 	{
 		result.append(inputStr, initialPos, pos - initialPos);
 		result.append(replaceStr);
