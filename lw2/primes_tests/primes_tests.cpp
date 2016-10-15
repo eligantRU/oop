@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "../primes/primes_utils.h"
+#include "../primes/primes_utils.cpp"
 
 BOOST_AUTO_TEST_SUITE(Test)
 
@@ -36,11 +36,13 @@ BOOST_AUTO_TEST_CASE(primes_count)
 		BOOST_CHECK(primes.size() == expectedResult);
 	}
 
+#ifdef NDEBUG
 	{
 		const auto expectedResult = 5'761'455;
 		auto primes = GeneratePrimeNumbersSet(100'000'000);
 		BOOST_CHECK(primes.size() == expectedResult);
 	}
+#endif
 }
 
 BOOST_AUTO_TEST_CASE(compare_sets)
