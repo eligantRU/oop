@@ -2,9 +2,6 @@
 
 #include "stdafx.h"
 
-namespace
-{
-
 template <typename T>
 void PrintVector(std::ostream & output, const std::vector<T> & vec, unsigned precision = 3)
 {
@@ -17,11 +14,9 @@ void PrintVector(std::ostream & output, const std::vector<T> & vec, unsigned pre
 
 std::vector<double> GetNums(std::istream & input)
 {
-	std::vector<double> result;
-	std::copy(std::istream_iterator<double>(input),
-              std::istream_iterator<double>(),
-              std::back_inserter(result));
-	return result;
+	return {
+		std::istream_iterator<double>(input), std::istream_iterator<double>()
+	};
 }
 
 template <typename Type>
@@ -51,6 +46,4 @@ void ProcessVector(std::vector<Type> & vec)
 	std::transform(vec.begin(), vec.end(), vec.begin(), [=](double element) {
 		return element / divider;
 	});
-}
-
 }

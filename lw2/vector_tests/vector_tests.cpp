@@ -2,6 +2,16 @@
 
 #include "../vector/vector_utils.h"
 
+const auto inf = std::numeric_limits<double>::infinity();
+
+void ExpectEqualVectors(const std::vector<double> & lhs, const std::vector<double> & rhs)
+{
+	BOOST_REQUIRE_EQUAL(lhs.size(), rhs.size());
+	BOOST_REQUIRE(equal(lhs.begin(), lhs.end(), rhs.begin(), [](auto x, auto y) {
+		return x == y || (isnan(x) && isnan(y));
+	}));
+}
+
 BOOST_AUTO_TEST_SUITE(Test)
 
 BOOST_AUTO_TEST_CASE(Getting_nums)
@@ -124,12 +134,53 @@ BOOST_AUTO_TEST_CASE(Division)
 		Div(nums, 0.5);
 		BOOST_CHECK(nums == correctVec);
 	}
+
+	{
+		std::vector<double> nums = {
+			-1, 0
+		};
+		Div(nums, 0);
+		BOOST_CHECK(nums[0] == -INFINITY);
+		BOOST_CHECK(isnan(nums[1]));
+	}
+}
+
+BOOST_AUTO_TEST_CASE(Vector_processing)
+{
+	{
+		std::vector<double> nums = {
+			0, 1, 2, 3, 4
+		};
+		ProcessVector(nums);
+		const std::vector<double> correctVec = {
+			0, 0.5, 1, 1.5, 2
+		};
+		BOOST_CHECK(nums == correctVec);
+	}
+
+	{
+		std::vector<double> nums = {
+			4, 2, 0, 1, 3
+		};
+		ProcessVector(nums);
+		const std::vector<double> correctVec = {
+			2, 1, 0, 0.5, 1.5
+		};
+		BOOST_CHECK(nums == correctVec);
+	}
+
+	{
+		std::vector<double> nums = { };
+		ProcessVector(nums);
+		const std::vector<double> correctVec = { };
+		BOOST_CHECK(nums == correctVec);
+	}
 }
 
 BOOST_AUTO_TEST_CASE(Printing_vector)
 {
 	{
-		std::stringstream buffer; 
+		std::stringstream buffer;
 		std::vector<double> nums = {
 			0, 1, 2, 3, 4, 5
 		};
@@ -160,39 +211,22 @@ BOOST_AUTO_TEST_CASE(Printing_vector)
 		std::getline(buffer, str);
 		BOOST_CHECK(str == "0.00 1.09 2.02 3.01 4.09 5.10 ");
 	}
-	
+
 	{
 		std::stringstream buffer;
-		std::vector<double> nums = { };
+		std::vector<double> nums = {};
 		PrintVector(buffer, nums);
 		std::string str;
 		std::getline(buffer, str);
-		BOOST_CHECK(str == "");
-	}
-}
-
-BOOST_AUTO_TEST_CASE(Vector_processing)
-{
-	{
-		std::vector<double> nums = {
-			0, 1, 2, 3, 4
-		};
-		ProcessVector(nums);
-		const std::vector<double> correctVec = {
-			0, 0.5, 1, 1.5, 2
-		};
-		BOOST_CHECK(nums == correctVec);
+		BOOST_CHECK(str.empty());
 	}
 
 	{
 		std::vector<double> nums = {
-			4, 2, 0, 1, 3
+			-1, 0
 		};
 		ProcessVector(nums);
-		const std::vector<double> correctVec = {
-			2, 1, 0, 0.5, 1.5
-		};
-		BOOST_CHECK(nums == correctVec);
+		ExpectEqualVectors(nums, { -inf, NAN });
 	}
 }
 
