@@ -13,7 +13,7 @@ std::set<uint32_t> GeneratePrimeNumbersSet(const unsigned upperBound)
 	{
 		if (nums[i])
 		{
-			for (unsigned j = i * i; j <= upperBound; j += i)
+			for (unsigned j = i * i; j <= upperBound; j += 2 * i)
 			{
 				nums[j] = false;
 			}
