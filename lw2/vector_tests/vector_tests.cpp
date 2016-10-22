@@ -139,9 +139,11 @@ BOOST_AUTO_TEST_CASE(Division)
 		std::vector<double> nums = {
 			-1, 0
 		};
-		Div(nums, 0);
-		BOOST_CHECK(nums[0] == -INFINITY);
-		BOOST_CHECK(isnan(nums[1]));
+		const std::vector<double> correctVec = { 
+			-inf, NAN 
+		};
+		ProcessVector(nums);
+		ExpectEqualVectors(nums, correctVec);
 	}
 }
 
@@ -219,14 +221,6 @@ BOOST_AUTO_TEST_CASE(Printing_vector)
 		std::string str;
 		std::getline(buffer, str);
 		BOOST_CHECK(str.empty());
-	}
-
-	{
-		std::vector<double> nums = {
-			-1, 0
-		};
-		ProcessVector(nums);
-		ExpectEqualVectors(nums, { -inf, NAN });
 	}
 }
 
