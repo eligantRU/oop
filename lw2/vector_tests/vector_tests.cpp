@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(Division)
 		const std::vector<double> correctVec = { 
 			-inf, NAN 
 		};
-		ProcessVector(nums);
+		Div(nums, 0);
 		ExpectEqualVectors(nums, correctVec);
 	}
 }
@@ -176,6 +176,17 @@ BOOST_AUTO_TEST_CASE(Vector_processing)
 		ProcessVector(nums);
 		const std::vector<double> correctVec = { };
 		BOOST_CHECK(nums == correctVec);
+	}
+
+	{
+		std::vector<double> nums = {
+			-1, 0
+		};
+		const std::vector<double> correctVec = {
+			-inf, NAN
+		};
+		ProcessVector(nums);
+		ExpectEqualVectors(nums, correctVec);
 	}
 }
 
