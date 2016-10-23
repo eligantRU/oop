@@ -11,11 +11,10 @@ std::string FindAndReplace(const std::string & inputStr, const std::string & sea
 	result.reserve(inputStr.size());
 
 	size_t initialPos = 0;
-	for (auto pos = inputStr.find(searchStr); pos != std::string::npos; pos = inputStr.find(searchStr, initialPos))
+	for (size_t pos; (pos = inputStr.find(searchStr, initialPos)) != std::string::npos; initialPos = pos + searchStr.length())
 	{
 		result.append(inputStr, initialPos, pos - initialPos);
 		result.append(replaceStr);
-		initialPos = pos + searchStr.length();
 	}
 	result.append(inputStr, initialPos);
 	return result;
