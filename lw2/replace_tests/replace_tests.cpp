@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "../replace/replace_utils.h"
+#include "../replace/replace_utils.cpp"
 
 BOOST_AUTO_TEST_SUITE(Test)
 
