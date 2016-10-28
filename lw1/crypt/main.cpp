@@ -36,8 +36,20 @@ uint8_t MixBitsBack(const uint8_t byte)
 	return result;
 }
 
-void Crypt(std::ifstream & input, std::ofstream & output, const std::function<uint8_t(uint8_t)> & fn)
+void Crypt(const std::string inputFileName, const std::string outputFileName, const std::function<uint8_t(uint8_t)> & fn)
 {
+	std::ifstream input(inputFileName, std::ios::binary);
+	if (!input.is_open())
+	{
+		throw std::runtime_error("Failed to open " + inputFileName + " for reading");
+	}
+
+	std::ofstream output(outputFileName, std::ios::binary);
+	if (!output.is_open())
+	{
+		throw std::runtime_error("Failed to open " + outputFileName + " for writing");
+	}
+
 	for (char ch; input.get(ch); )
 	{
 		auto byte = fn(static_cast<uint8_t>(ch));
@@ -45,14 +57,62 @@ void Crypt(std::ifstream & input, std::ofstream & output, const std::function<ui
 	}
 }
 
-void Decrypt(std::ifstream & input, std::ofstream & output, const std::function<uint8_t(uint8_t)> & fn)
+uint8_t ValidateKey(const std::string & key)
 {
-	for (char ch; input.get(ch); )
+	if (!IsNumber(key))
 	{
-		auto byte = fn(static_cast<uint8_t>(ch));
-		output.put(static_cast<char>(byte));
+		throw std::runtime_error("<key> must be unsigned integer(0..255)");
+	}
+
+	if (!((atoi(key.c_str()) >= 0 && atoi(key.c_str()) <= 255)))
+	{
+		throw std::runtime_error("<key> must be 0..255");
+	}
+	return static_cast<uint8_t>(atoi(key.c_str()));
+}
+
+Mode ValidateCryptMode(const std::string & mode)
+{
+	if (mode == "crypt")
+	{
+		return Mode::Crypt;
+	}
+	else if (mode == "decrypt")
+	{
+		return Mode::Decrypt;
+	}
+	else
+	{
+		throw std::runtime_error("<mode> must be \"crypt\" or \"decrypt\"");
 	}
 }
+
+class Crypter
+{
+public:
+	void operator()(const std::string inputFileName, const std::string outputFileName, const Mode cryptMode, const uint8_t key)
+	{
+		switch (cryptMode)
+		{
+		case Mode::Crypt:
+			Crypt(inputFileName, outputFileName, [=](uint8_t byte) {
+				byte ^= key;
+				byte = MixBits(byte);
+				return byte;
+			});
+			break;
+		case Mode::Decrypt:
+			Crypt(inputFileName, outputFileName, [=](uint8_t byte) {
+				byte = MixBitsBack(byte);
+				byte ^= key;
+				return byte;
+			});
+			break;
+		default:
+			throw std::logic_error("Unknown crypt mode");
+		}
+	}
+};
 
 }
 
@@ -64,70 +124,18 @@ int main(int argc, char * argv[])
 		std::cerr << "crypt.exe <mode> <input file> <output file> <key>" << std::endl;
 		return 1;
 	}
-
-	Mode cryptMode;
-	std::string mode = argv[1];
-	if (mode == "crypt")
-	{
-		cryptMode = Mode::Crypt;
-	}
-	else if (mode == "decrypt")
-	{
-		cryptMode = Mode::Decrypt;
-	}
-	else
-	{
-		std::cerr << "<mode> must be \"crypt\" or \"decrypt\"" << std::endl;
-		return 1;
-	}
-
-	std::ifstream input(argv[2], std::ios::binary);
-	if (!input.is_open())
-	{
-		std::cerr << "Failed to open " << argv[2] << " for reading" << std::endl;
-		return 1;
-	}
-
-	std::ofstream output(argv[3], std::ios::binary);
-	if (!output.is_open())
-	{
-		std::cerr << "Failed to open " << argv[3] << " for writing" << std::endl;
-		return 1;
-	}
-
-	const std::string inputData = argv[4];
-	if (!IsNumber(inputData))
-	{
-		std::cerr << "<key> must be unsigned integer(0..255)" << std::endl;
-		return 1;
-	}
-
-	if (!((atoi(inputData.c_str()) >= 0 && atoi(inputData.c_str()) <= 255)))
-	{
-		std::cerr << "<key> must be 0..255" << std::endl;
-		return 1;
-	}
-	const uint8_t key = static_cast<uint8_t>(atoi(inputData.c_str()));
 	
-	switch (cryptMode)
+	try
 	{
-	case Mode::Crypt:
-		Crypt(input, output, [=](uint8_t byte) {
-			byte ^= key;
-			byte = MixBits(byte);
-			return byte;
-		});
-		break; 
-	case Mode::Decrypt:
-		Decrypt(input, output, [=](uint8_t byte) {
-			byte = MixBitsBack(byte);
-			byte ^= key;
-			return byte;
-		});
-		break;
-	default:
-		assert(!"Unknown mode");
+		const Mode cryptMode = ValidateCryptMode(argv[1]);
+		const uint8_t key = ValidateKey(argv[4]);
+		Crypter crypter;
+		crypter(argv[2], argv[3], cryptMode, key);
 	}
-
+	catch (std::exception & exception)
+	{
+		std::cerr << exception.what() << std::endl;
+		return 1;
+	}
 	return 0;
 }
