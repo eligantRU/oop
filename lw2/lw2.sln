@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "replace_tests", "replace_te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "primes_tests", "primes_tests\primes_tests.vcxproj", "{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "URLparser", "URLParser\URLParser.vcxproj", "{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -71,6 +73,14 @@ Global
 		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Release|x64.Build.0 = Release|x64
 		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Release|x86.ActiveCfg = Release|Win32
 		{93B59F47-3590-40C4-AC6D-AD63C1A27A8F}.Release|x86.Build.0 = Release|Win32
+		{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}.Debug|x64.ActiveCfg = Debug|x64
+		{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}.Debug|x64.Build.0 = Debug|x64
+		{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}.Debug|x86.ActiveCfg = Debug|Win32
+		{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}.Debug|x86.Build.0 = Debug|Win32
+		{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}.Release|x64.ActiveCfg = Release|x64
+		{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}.Release|x64.Build.0 = Release|x64
+		{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}.Release|x86.ActiveCfg = Release|Win32
+		{5F4CB385-6AA6-4E52-83E4-D7B9551FE5C2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
