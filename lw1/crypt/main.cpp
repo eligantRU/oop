@@ -90,7 +90,7 @@ Mode ValidateCryptMode(const std::string & mode)
 class Crypter
 {
 public:
-	void operator()(const std::string inputFileName, const std::string outputFileName, const Mode cryptMode, const uint8_t key)
+	void operator()(const std::string & inputFileName, const std::string & outputFileName, const Mode cryptMode, const uint8_t key)
 	{
 		switch (cryptMode)
 		{
