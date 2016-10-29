@@ -10,7 +10,6 @@ int main(int argc, char * argv[])
 		std::cerr << "replace.exe <input file> <output file> <search string> <replace string>" << std::endl;
 		return 1;
 	}
-
 	const std::string inputFilePath = argv[1];
 	const std::string outputFilePath = argv[2];
 	const std::string searchStr = argv[3];
