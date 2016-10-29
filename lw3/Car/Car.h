@@ -53,8 +53,3 @@ private:
 	Gear m_gear = Gear::Neutral;
 	int m_speed = 0;
 };
-
-bool operator==(const CCar & left, const CCar & right)
-{
-	return (left.m_isEngineTurnOn == right.m_isEngineTurnOn) && (left.m_speed == right.m_speed) && (left.m_gear == right.m_gear);
-}

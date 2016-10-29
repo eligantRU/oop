@@ -24,6 +24,11 @@ bool IsSpeedInGearRange(const Gear gear, const int speed)
 
 }
 
+bool operator==(const CCar & left, const CCar & right)
+{
+	return (left.m_isEngineTurnOn == right.m_isEngineTurnOn) && (left.m_speed == right.m_speed) && (left.m_gear == right.m_gear);
+}
+
 CCar::CCar() = default;
 
 CCar::~CCar() = default;
