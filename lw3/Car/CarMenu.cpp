@@ -7,8 +7,7 @@ namespace
 
 bool IsNumber(const std::string & str)
 {
-	return true;
-	//return std::all_of(str.begin(), str.end(), std::isdigit); // TODO: Ask Malov about this
+	return std::all_of(str.begin(), str.end(), isdigit); 
 }
 
 template <typename T>
@@ -59,7 +58,7 @@ std::string GearToString(const Gear & gear)
 
 void Info(const CCar & car)
 {
-	std::cout << "Engine status: " << ((car.IsEngineTurnOn()) ? ("turn on") : ("turn off")) << std::endl;
+	std::cout << "Engine status: " << ((car.IsEngineTurnOn()) ? ("turned on") : ("turned off")) << std::endl;
 	std::cout << "Speed: " << car.GetSpeed() << std::endl;
 	std::cout << "Direction: " << DirectionToString(car.GetDirection()).c_str() << std::endl;
 	std::cout << "Gear: " << GearToString(car.GetGear()).c_str() << std::endl;
@@ -136,7 +135,7 @@ bool CCarMenu::TurnOnEngine()
 	auto result = m_car.TurnOnEngine();
 	if (result)
 	{
-		std::cout << "engine was turn on" << std::endl;
+		std::cout << "engine was turned on" << std::endl;
 	}
 	else
 	{
@@ -150,11 +149,11 @@ bool CCarMenu::TurnOffEngine()
 	auto result = m_car.TurnOffEngine();
 	if (result)
 	{
-		std::cout << "engine was turn off" << std::endl;
+		std::cout << "engine was turned off" << std::endl;
 	}
 	else
 	{
-		std::cout << "engine is already disabled" << std::endl;
+		std::cout << "engine wasn't turned off" << std::endl;
 	}
 	return result;
 }

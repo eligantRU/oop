@@ -20,13 +20,13 @@ enum class Direction
 	Forward
 };
 
-const std::pair<int, int> REVERSE_SPEED_RANGE(0, 20);
-const std::pair<int, int> NEUTRAL_SPEED_RANGE(0, 150);
-const std::pair<int, int> FIRST_SPEED_RANGE(0, 30);
-const std::pair<int, int> SECOND_SPEED_RANGE(20, 50);
-const std::pair<int, int> THIRD_SPEED_RANGE(30, 60);
-const std::pair<int, int> FOURTH_SPEED_RANGE(40, 90);
-const std::pair<int, int> FIFTH_SPEED_RANGE(50, 150);
+extern const std::pair<int, int> REVERSE_SPEED_RANGE;
+extern const std::pair<int, int> NEUTRAL_SPEED_RANGE;
+extern const std::pair<int, int> FIRST_SPEED_RANGE;
+extern const std::pair<int, int> SECOND_SPEED_RANGE;
+extern const std::pair<int, int> THIRD_SPEED_RANGE;
+extern const std::pair<int, int> FOURTH_SPEED_RANGE;
+extern const std::pair<int, int> FIFTH_SPEED_RANGE;
 
 class CCar
 {

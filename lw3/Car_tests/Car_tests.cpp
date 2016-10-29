@@ -8,7 +8,7 @@ struct CarFixture
 	CCar car;
 };
 
-BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
+BOOST_FIXTURE_TEST_SUITE(Car, CarFixture)
 
 	BOOST_AUTO_TEST_CASE(is_engine_turned_off_by_default)
 	{
@@ -41,13 +41,17 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 		}
 
 		{
+			auto clone(car);
 			BOOST_CHECK(!car.SetGear(Gear::First));
 			BOOST_CHECK(car.GetGear() == Gear::Neutral);
+			BOOST_CHECK(car == clone);
 		}
 
 		{
+			auto clone(car);
 			BOOST_CHECK(!car.SetGear(Gear::Reverse));
 			BOOST_CHECK(car.GetGear() == Gear::Neutral);
+			BOOST_CHECK(car == clone);
 		}
 	}
 
@@ -84,9 +88,11 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 			}
 
 			{
+				auto clone(car);
 				car.TurnOffEngine();
 				BOOST_CHECK(!car.TurnOffEngine());
 				BOOST_CHECK(!car.IsEngineTurnOn());
+				BOOST_CHECK(car == clone);
 			}
 
 			{
@@ -129,24 +135,24 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 			}
 
 			{
-				BOOST_CHECK(!car.SetGear(Gear::Second));
 				auto clone(car);
+				BOOST_CHECK(!car.SetGear(Gear::Second));
 				BOOST_CHECK(car == clone);
 			}
 		}
 
-		struct in_motion : when_engine_turned_on_
+		struct in_motion_ : when_engine_turned_on_
 		{
-			in_motion()
+			in_motion_()
 			{
 				car.SetGear(Gear::First);
 				car.SetSpeed(25);
 			}
 		};
 
-		BOOST_FIXTURE_TEST_SUITE(in_motion_, in_motion)
+		BOOST_FIXTURE_TEST_SUITE(in_motion, in_motion_)
 
-			BOOST_AUTO_TEST_CASE(speed_can_be_changed)
+			BOOST_AUTO_TEST_CASE(speed_can_be_changed_within_gear_speed_range)
 			{
 				{
 					BOOST_CHECK(car.SetSpeed(30));
@@ -159,8 +165,8 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 				}
 
 				{
-					BOOST_CHECK(!car.SetSpeed(40));
 					auto clone(car);
+					BOOST_CHECK(!car.SetSpeed(40));
 					BOOST_CHECK(car == clone);
 				}
 			}
@@ -168,7 +174,9 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 			BOOST_AUTO_TEST_CASE(gear_can_be_changed)
 			{
 				{
+					auto clone(car);
 					BOOST_CHECK(car.SetGear(Gear::First));
+					BOOST_CHECK(car == clone);
 				}
 
 				{
@@ -180,11 +188,15 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 				}
 
 				{
+					auto clone(car);
 					BOOST_CHECK(!car.SetGear(Gear::Third));
+					BOOST_CHECK(car == clone);
 				}
 
 				{
+					auto clone(car);
 					BOOST_CHECK(!car.SetGear(Gear::Reverse));
+					BOOST_CHECK(car == clone);
 				}
 			}
 
@@ -206,16 +218,15 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 				}
 			}
 
-			struct on_neutral_in_motion : in_motion
+			struct on_neutral_in_motion_ : in_motion_
 			{
-				on_neutral_in_motion()
+				on_neutral_in_motion_()
 				{
 					car.SetGear(Gear::Neutral);
 				}
 			};
 
-
-			BOOST_FIXTURE_TEST_SUITE(on_neutral_in_motion_, on_neutral_in_motion)
+			BOOST_FIXTURE_TEST_SUITE(on_neutral_in_motion, on_neutral_in_motion_)
 
 				BOOST_AUTO_TEST_CASE(direcion_is_forward)
 				{
@@ -234,7 +245,9 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 				BOOST_AUTO_TEST_CASE(cannot_accelerate)
 				{
 					{
+						auto clone(car);
 						BOOST_CHECK(!car.SetSpeed(26));
+						BOOST_CHECK(car == clone);
 					}
 
 					{
@@ -262,21 +275,23 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 
 		BOOST_AUTO_TEST_SUITE_END()
 
-		struct on_reverse : when_engine_turned_on_
+		struct on_reverse_ : when_engine_turned_on_
 		{
-			on_reverse()
+			on_reverse_()
 			{
 				car.SetGear(Gear::Reverse);
 				car.SetSpeed(20);
 			}
 		};
 
-		BOOST_FIXTURE_TEST_SUITE(on_reverse_, on_reverse)
+		BOOST_FIXTURE_TEST_SUITE(on_reverse, on_reverse_)
 
 			BOOST_AUTO_TEST_CASE(can_change_speed)
 			{
 				{
+					auto clone(car);
 					BOOST_CHECK(!car.SetSpeed(21));
+					BOOST_CHECK(car == clone);
 				}
 
 				{
@@ -299,7 +314,9 @@ BOOST_FIXTURE_TEST_SUITE(Test, CarFixture)
 				}
 
 				{
+					auto clone(car);
 					BOOST_CHECK(!car.SetGear(Gear::First));
+					BOOST_CHECK(car == clone);
 				}
 			}
 

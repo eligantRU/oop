@@ -2,6 +2,14 @@
 
 #include "Car.h"
 
+static const std::pair<int, int> REVERSE_SPEED_RANGE(0, 20);
+static const std::pair<int, int> NEUTRAL_SPEED_RANGE(0, 150);
+static const std::pair<int, int> FIRST_SPEED_RANGE(0, 30);
+static const std::pair<int, int> SECOND_SPEED_RANGE(20, 50);
+static const std::pair<int, int> THIRD_SPEED_RANGE(30, 60);
+static const std::pair<int, int> FOURTH_SPEED_RANGE(40, 90);
+static const std::pair<int, int> FIFTH_SPEED_RANGE(50, 150);
+
 namespace
 {
 
@@ -96,8 +104,7 @@ Direction CCar::GetDirection() const
 	{
 		return Direction::Stop;
 	}
-	else if ((m_gear == Gear::Reverse) || 
-		    ((m_gear == Gear::Neutral) && (m_speed < 0)))
+	else if (m_speed < 0)
 	{
 		return Direction::Back;
 	}
