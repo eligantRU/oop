@@ -30,6 +30,5 @@ int main(int argc, char * argv[])
 		std::cerr << exception.what() << std::endl;
 		return 1;
 	}
-
 	return 0;
 }
