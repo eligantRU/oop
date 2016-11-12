@@ -4,9 +4,13 @@
 
 std::string FindAndReplace(const std::string & inputStr, const std::string & searchStr, const std::string & replaceStr)
 {
+	if (searchStr.empty())
+	{
+		return inputStr;
+	}
+
 	std::string result;
 	result.reserve(inputStr.size());
-
 	size_t initialPos = 0;
 	for (size_t pos; (pos = inputStr.find(searchStr, initialPos)) != std::string::npos; initialPos = pos + searchStr.length())
 	{
@@ -17,18 +21,11 @@ std::string FindAndReplace(const std::string & inputStr, const std::string & sea
 	return result;
 }
 
-void Replace(const std::string & inputFilePath, const std::string & outputFilePath, const std::string & searchStr, const std::string & replaceStr)
+void Replace(std::istream & input, std::ostream & output, const std::string & searchStr, const std::string & replaceStr)
 {
-	std::ifstream input(inputFilePath);
-	if (!input.is_open())
+	if (searchStr.empty())
 	{
-		throw std::runtime_error("Failed to open " + inputFilePath + " for reading");
-	}
-
-	std::ofstream output(outputFilePath);
-	if (!output.is_open())
-	{
-		throw std::runtime_error("Failed to open " + outputFilePath + " for writing");
+		throw std::invalid_argument("<search string> must be not empty");
 	}
 
 	std::string currentStr;
