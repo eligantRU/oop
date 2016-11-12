@@ -23,11 +23,6 @@ std::string FindAndReplace(const std::string & inputStr, const std::string & sea
 
 void Replace(std::istream & input, std::ostream & output, const std::string & searchStr, const std::string & replaceStr)
 {
-	if (searchStr.empty())
-	{
-		throw std::invalid_argument("<search string> must be not empty");
-	}
-
 	std::string currentStr;
 	while (std::getline(input, currentStr))
 	{
