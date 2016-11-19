@@ -103,6 +103,13 @@ void CConsoleMenu::DoCommand(std::string & commandLine)
 		m_shapes.clear();
 		m_shapes.shrink_to_fit();
 	}
+	else if (commands[0] == "INFO")
+	{
+		for (const auto &shape : m_shapes)
+		{
+			std::cout << shape->ToString() << " " << shape->GetPerimeter() << " " << shape->GetArea() << std::endl;
+		}
+	}
 	else
 	{
 		std::cout << "Unknown command" << std::endl;
