@@ -9,8 +9,5 @@ public:
 	ISolidShape() = default;
 	virtual ~ISolidShape() = default;
 
-	std::string GetFillColor() const;
-
-protected:
-	std::string m_fillColor;
+	virtual std::string GetFillColor() const = 0;
 };

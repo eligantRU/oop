@@ -16,11 +16,5 @@ public:
 	virtual double GetArea() const = 0;
 	virtual double GetPerimeter() const = 0;
 	virtual std::string ToString() const = 0;
-	std::string GetOutlineColor() const;
-
-protected:
-	std::string m_outlineColor;
+	virtual std::string GetOutlineColor() const = 0;
 };
-
-std::string DecToHex(const std::string & dec);
-std::string HexToDec(const std::string & hex);

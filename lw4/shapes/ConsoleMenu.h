@@ -13,7 +13,7 @@ public:
 	CConsoleMenu();
 	~CConsoleMenu();
 
-	void DoCommand(std::string & commandLine);
+	void DoCommand(const std::string & commandLine);
 
 private:
 	std::vector<std::unique_ptr<IShape>> m_shapes;

@@ -9,35 +9,64 @@
 class CConsoleMenu::CFactory
 {
 public:
-	auto CreateLineSegment(const CPoint & start, const CPoint & end, 
-	                       const std::string & outlineColor) const
+	std::unique_ptr<CShape> CreateLineSegment(const std::vector<std::string> & params) const
 	{
-		return std::make_unique<CLineSegment>(start, end, outlineColor);
+		if (params.size() != 6)
+		{
+			throw std::runtime_error("Incorrect number of arguments");
+		}
+		return std::make_unique<CLineSegment>(
+			CPoint(stod(params[1]), stod(params[2])),
+			CPoint(stod(params[3]), stod(params[4])),
+			params[5]
+		);
 	}
 
-	auto CreateTriangle(const CPoint & vertex1, const CPoint & vertex2, const CPoint & vertex3,
-	                    const std::string & outlineColor, const std::string & fillColor) const
+	std::unique_ptr<CShape> CreateTriangle(const std::vector<std::string> & params) const
 	{
-		return std::make_unique<CTriangle>(vertex1, vertex2, vertex3, outlineColor, fillColor);
+		if (params.size() != 9)
+		{
+			throw std::runtime_error("Incorrect number of arguments");
+		}
+		return std::make_unique<CTriangle>(
+			CPoint(stod(params[1]), stod(params[2])),
+			CPoint(stod(params[3]), stod(params[4])),
+			CPoint(stod(params[5]), stod(params[6])),
+			params[7], params[8]
+		);
 	}
 
-	auto CreateRectangle(const CPoint & leftTop, const CPoint & rightBottom,
-	                     const std::string & outlineColor, const std::string & fillColor) const
+	std::unique_ptr<CShape> CreateRectangle(const std::vector<std::string> & params) const
 	{
-		return std::make_unique<CRectangle>(leftTop, rightBottom, outlineColor, fillColor);
+		if (params.size() != 7)
+		{
+			throw std::runtime_error("Incorrect number of arguments");
+		}
+		return std::make_unique<CRectangle>(
+			CPoint(stod(params[1]), stod(params[2])),
+			CPoint(stod(params[3]), stod(params[4])),
+			params[5], params[6]
+		);
 	}
 
-	auto CreateCircle(const CPoint & center, const double radius,
-	                  const std::string & outlineColor, const std::string & fillColor) const
+	std::unique_ptr<CShape> CreateCircle(const std::vector<std::string> & params) const
 	{
-		return std::make_unique<CCircle>(center, radius, outlineColor, fillColor);
+		if (params.size() != 6)
+		{
+			throw std::runtime_error("Incorrect number of arguments");
+		}
+		return std::make_unique<CCircle>(
+			CPoint(stod(params[1]), stod(params[2])),
+			stod(params[3]),
+			params[4], params[5]
+		);
 	}
 
 private:
 };
 
 CConsoleMenu::CConsoleMenu()
-	:m_pFactory(new CConsoleMenu::CFactory)
+	:m_pFactory(std::make_unique<CConsoleMenu::CFactory>())
 {
 
 }
@@ -47,54 +76,38 @@ CConsoleMenu::~CConsoleMenu()
 
 }
 
-void CConsoleMenu::DoCommand(std::string & commandLine)
+void CConsoleMenu::DoCommand(const std::string & commandLine)
 {
-	boost::to_upper(commandLine);
+	auto command(commandLine);
+	boost::to_upper(command);
 	std::vector<std::string> commands;
-	boost::split(commands, commandLine, boost::is_any_of(" "));
+	boost::split(commands, command, boost::is_any_of(" "));
 
 	if ((commands[0] == "LINE_SEGMENT") && (commands.size() == 6))
 	{
-		m_shapes.push_back(m_pFactory->CreateLineSegment(
-			CPoint(stod(commands[1]), stod(commands[2])),
-			CPoint(stod(commands[3]), stod(commands[4])),
-			commands[5])
-		);
+		m_shapes.push_back(m_pFactory->CreateLineSegment(commands));
 	} 
 	else if ((commands[0] == "TRIANGLE") && (commands.size() == 9))
 	{
-		m_shapes.push_back(m_pFactory->CreateTriangle(
-			CPoint(stod(commands[1]), stod(commands[2])),
-			CPoint(stod(commands[3]), stod(commands[4])),
-			CPoint(stod(commands[5]), stod(commands[6])),
-			commands[7], commands[8])
-		);
+		m_shapes.push_back(m_pFactory->CreateTriangle(commands));
 	} 
 	else if ((commands[0] == "RECTANGLE") && (commands.size() == 7))
 	{
-		m_shapes.push_back(m_pFactory->CreateRectangle(
-			CPoint(stod(commands[1]), stod(commands[2])),
-			CPoint(stod(commands[3]), stod(commands[4])),
-			commands[5], commands[6])
-		);
+		m_shapes.push_back(m_pFactory->CreateRectangle(commands));
 	}
 	else if ((commands[0] == "CIRCLE") && (commands.size() == 6))
 	{
-		m_shapes.push_back(m_pFactory->CreateCircle(
-			CPoint(stod(commands[1]), stod(commands[2])),
-			stod(commands[3]),
-			commands[4], commands[5])
-		);
+		m_shapes.push_back(m_pFactory->CreateCircle(commands));
 	}
 	else if (commands[0] == "SORT_BY_MAX_AREA")
 	{
-		std::sort(m_shapes.begin(), m_shapes.end(), [=](const std::unique_ptr<IShape> & lhs, const std::unique_ptr<IShape> & rhs) {
+		std::sort(m_shapes.begin(), m_shapes.end(), [=](const auto & lhs, const auto & rhs) {
 			return lhs->GetArea() < rhs->GetArea();
 		});
 	}
 	else if (commands[0] == "SORT_BY_MIN_PERIMETER")
 	{
-		std::sort(m_shapes.begin(), m_shapes.end(), [](const std::unique_ptr<IShape> & lhs, const std::unique_ptr<IShape> & rhs) {
+		std::sort(m_shapes.begin(), m_shapes.end(), [](const auto & lhs, const auto & rhs) {
 			return lhs->GetPerimeter() > rhs->GetPerimeter();
 		});
 	}

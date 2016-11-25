@@ -21,8 +21,7 @@ int main(int, char * [])
 			}
 			std::cout << std::endl << ">> ";
 		}
-		std::string crutch = "INFO";
-		menu.DoCommand(crutch);
+		menu.DoCommand("INFO");
 	}
 	catch (const std::exception & ex)
 	{

@@ -2,6 +2,8 @@
 
 #include "../shapes/IShape.h"
 #include "../shapes/ISolidShape.h"
+#include "../shapes/Shape.h"
+#include "../shapes/SolidShape.h"
 #include "../shapes/LineSegment.h"
 #include "../shapes/Triangle.h"
 #include "../shapes/Rectangle.h"
@@ -19,34 +21,6 @@ void VerifyPoint(const CPoint & lhs, const CPoint & rhs)
 	BOOST_CHECK_CLOSE_FRACTION(lhs.y, rhs.y, eps);
 }
 
-}
-
-BOOST_AUTO_TEST_CASE(Test_Dec_To_Hex)
-{
-	BOOST_CHECK_EQUAL(DecToHex("9"), "9");
-	BOOST_CHECK_EQUAL(DecToHex("10"), "A");
-	BOOST_CHECK_EQUAL(DecToHex("11"), "B");
-	BOOST_CHECK_EQUAL(DecToHex("12"), "C");
-	BOOST_CHECK_EQUAL(DecToHex("13"), "D");
-	BOOST_CHECK_EQUAL(DecToHex("14"), "E");
-	BOOST_CHECK_EQUAL(DecToHex("15"), "F");
-	BOOST_CHECK_EQUAL(DecToHex("16"), "10");
-	BOOST_CHECK_EQUAL(DecToHex("17"), "11");
-	BOOST_CHECK_EQUAL(DecToHex("16777215"), "FFFFFF");
-}
-
-BOOST_AUTO_TEST_CASE(Test_Hex_To_Dec)
-{
-	BOOST_CHECK_EQUAL(HexToDec("9"), "9");
-	BOOST_CHECK_EQUAL(HexToDec("A"), "10");
-	BOOST_CHECK_EQUAL(HexToDec("B"), "11");
-	BOOST_CHECK_EQUAL(HexToDec("C"), "12");
-	BOOST_CHECK_EQUAL(HexToDec("D"), "13");
-	BOOST_CHECK_EQUAL(HexToDec("E"), "14");
-	BOOST_CHECK_EQUAL(HexToDec("F"), "15");
-	BOOST_CHECK_EQUAL(HexToDec("10"), "16");
-	BOOST_CHECK_EQUAL(HexToDec("11"), "17");
-	BOOST_CHECK_EQUAL(HexToDec("FFFFFF"), "16777215");
 }
 
 BOOST_AUTO_TEST_SUITE(Line_Segment)

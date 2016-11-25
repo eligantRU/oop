@@ -1,12 +1,12 @@
 #pragma once
 
-#include "ISolidShape.h"
+#include "SolidShape.h"
 #pragma warning(push, 3)
 #include <glm/vec2.hpp>
 #pragma warning(pop)
 
 class CCircle
-	:public ISolidShape
+	:public CSolidShape
 {
 public:
 	CCircle(const CPoint & center, const double radius,

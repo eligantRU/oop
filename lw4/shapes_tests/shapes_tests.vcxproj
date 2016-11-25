@@ -167,10 +167,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\shapes\Circle.cpp" />
-    <ClCompile Include="..\shapes\IShape.cpp" />
-    <ClCompile Include="..\shapes\ISolidShape.cpp" />
     <ClCompile Include="..\shapes\LineSegment.cpp" />
     <ClCompile Include="..\shapes\Rectangle.cpp" />
+    <ClCompile Include="..\shapes\Shape.cpp" />
+    <ClCompile Include="..\shapes\SolidShape.cpp" />
     <ClCompile Include="..\shapes\Triangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shapes_tests.cpp" />

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "ISolidShape.h"
+#include "SolidShape.h"
 #include <array>
 #pragma warning(push, 3)
 #include <glm/vec2.hpp>
 #pragma warning(pop)
 
 class CTriangle
-	:public ISolidShape
+	:public CSolidShape
 {
 public:
 	CTriangle(const CPoint & point1, const CPoint & point2, const CPoint & point3,

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "IShape.h"
+#include "Shape.h"
 #pragma warning(push, 3)
 #include <glm/vec2.hpp>
 #pragma warning(pop)
 
 class CLineSegment
-	:public IShape
+	:public CShape
 {
 public:
 	CLineSegment(const CPoint & start, const CPoint & end, const std::string & outlineColor);
