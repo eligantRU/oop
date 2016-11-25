@@ -66,5 +66,4 @@ BOOST_AUTO_TEST_SUITE(Find_And_Replace)
 		BOOST_CHECK(result == expectedResult);
 	}
 
-
 BOOST_AUTO_TEST_SUITE_END()

@@ -10,8 +10,8 @@ int main(int argc, char * argv[])
 		std::cerr << "replace.exe <search string> <replace string>" << std::endl;
 		return 1;
 	}
-	const std::string searchStr = argv[3];
-	const std::string replaceStr = argv[4];
+	const std::string searchStr = argv[1];
+	const std::string replaceStr = argv[2];
 
 	try
 	{
