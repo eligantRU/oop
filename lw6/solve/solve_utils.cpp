@@ -11,6 +11,7 @@ int Sign(const double num)
 }
 
 /// x^3 + ax^2 + bx + c = 0
+/// Solve3() return sorted roots from low to high
 SEquationRoot3 Solve3ByViete(double a, double b, double c)
 {
 	const double q = (pow(a, 2) - 3 * b) / 9;
