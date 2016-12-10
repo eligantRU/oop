@@ -14,8 +14,8 @@ int Sign(const double num)
 /// Solve3() return sorted roots from low to high
 SEquationRoot3 Solve3ByViete(double a, double b, double c)
 {
-	const double q = (pow(a, 2) - 3 * b) / 9;
-	const double r = (2 * pow(a, 3) - 9 * a * b + 27 * c) / 54;
+	const auto q = (pow(a, 2) - 3 * b) / 9;
+	const auto r = (2 * pow(a, 3) - 9 * a * b + 27 * c) / 54;
 	const auto s = pow(q, 3) - pow(r, 2);
 
 	SEquationRoot3 roots;
