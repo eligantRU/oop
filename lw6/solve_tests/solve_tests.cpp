@@ -104,6 +104,16 @@ BOOST_AUTO_TEST_SUITE(Solve3_)
 			BOOST_CHECK_EQUAL(roots.numRoots, expectedRootsNumber);
 			VerifyArray(roots.roots, expectedRoots);
 		}
+
+		{
+			const auto roots = Solve3(+3, +3, +1, +1);
+			const std::array<double, 3> expectedRoots = {
+				-1, NAN, NAN
+			};
+			const unsigned expectedRootsNumber = 1;
+			BOOST_CHECK_EQUAL(roots.numRoots, expectedRootsNumber);
+			VerifyArray(roots.roots, expectedRoots);
+		}
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
