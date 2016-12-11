@@ -7,9 +7,11 @@ namespace
 
 static const auto eps = 10e-6;
 
-void VerifyArray(const std::array<double, 3> & lhs, const std::array<double, 3> & rhs)
+template <class T>
+void VerifyArray(const T & lhs, const T & rhs)
 {
-	for (auto i = 0; i < 3; ++i)
+	BOOST_REQUIRE_EQUAL(lhs.size(), rhs.size());
+	for (auto i = 0; i < lhs.size(); ++i)
 	{
 		if (!(isnan(lhs[i]) && isnan(rhs[i])))
 		{
@@ -20,6 +22,66 @@ void VerifyArray(const std::array<double, 3> & lhs, const std::array<double, 3> 
 
 }
 
+BOOST_AUTO_TEST_SUITE(Solve2_)
+
+	BOOST_AUTO_TEST_CASE(leading_coefficient_cannot_be_zero)
+	{
+		BOOST_REQUIRE_THROW(Solve2(0, +1, +1), std::invalid_argument);
+	}
+
+	BOOST_AUTO_TEST_CASE(work_on_no_real_roots)
+	{
+		BOOST_REQUIRE_THROW(Solve2(+17, -146, +327), std::domain_error);
+	}
+
+	BOOST_AUTO_TEST_CASE(work_on_2_real_roots)
+	{
+		{
+			const std::array<double, 2> expectedRoots = {
+				-0.25, +1
+			};
+			const unsigned expectedRootsNumber = 2;
+			const auto roots = Solve2(+4, -3, -1);
+			BOOST_CHECK_EQUAL(roots.numRoots, expectedRootsNumber);
+			VerifyArray(roots.roots, expectedRoots);
+		}
+
+		{
+			const std::array<double, 2> expectedRoots = {
+				0, 16.0 / 17
+			};
+			const unsigned expectedRootsNumber = 2;
+			const auto roots = Solve2(+17, -16, 0);
+			BOOST_CHECK_EQUAL(roots.numRoots, expectedRootsNumber);
+			VerifyArray(roots.roots, expectedRoots);
+		}
+	}
+
+	BOOST_AUTO_TEST_CASE(work_on_1_real_root)
+	{
+		{
+			const std::array<double, 2> expectedRoots = {
+				-1, NAN
+			};
+			const unsigned expectedRootsNumber = 1;
+			const auto roots = Solve2(-2, -4, -2);
+			BOOST_CHECK_EQUAL(roots.numRoots, expectedRootsNumber);
+			VerifyArray(roots.roots, expectedRoots);
+		}
+
+		{
+			const std::array<double, 2> expectedRoots = {
+				0, NAN
+			};
+			const unsigned expectedRootsNumber = 1;
+			const auto roots = Solve2(+4, 0, 0);
+			BOOST_CHECK_EQUAL(roots.numRoots, expectedRootsNumber);
+			VerifyArray(roots.roots, expectedRoots);
+		}
+	}
+
+BOOST_AUTO_TEST_SUITE_END()
+
 BOOST_AUTO_TEST_SUITE(Solve3_)
 
 	BOOST_AUTO_TEST_CASE(leading_coefficient_cannot_be_zero)
@@ -27,7 +89,7 @@ BOOST_AUTO_TEST_SUITE(Solve3_)
 		BOOST_REQUIRE_THROW(Solve3(0, 1, 1, 1), std::invalid_argument);
 	}
 
-	BOOST_AUTO_TEST_CASE(work_on_3_real_root)
+	BOOST_AUTO_TEST_CASE(work_on_3_real_roots)
 	{
 		{
 			const auto roots = Solve3(-18, +365, -989, -238);
@@ -60,7 +122,7 @@ BOOST_AUTO_TEST_SUITE(Solve3_)
 		}
 	}
 
-	BOOST_AUTO_TEST_CASE(work_on_2_real_root)
+	BOOST_AUTO_TEST_CASE(work_on_2_real_roots)
 	{
 		{
 			const auto roots = Solve3(+49, -1'911, +24'696, -105'644);

@@ -10,6 +10,34 @@ int Sign(const double num)
 	return (num > 0) - (num < 0);
 }
 
+/// ax^2 + bx^ + c = 0
+SEquationRoot2 Solve2ByDiscriminant(double a, double b, double c)
+{
+	if (a == 0)
+	{
+		throw std::invalid_argument("The equation of the second degree cannot have zero at the leading coefficient");
+	}
+	const auto d = pow(b, 2) - 4 * a *c;
+
+	SEquationRoot2 roots;
+	if (d < 0)
+	{
+		throw std::domain_error("All roots belongs to the set of complex numbers");
+	}
+	else if (d == 0)
+	{
+		roots.numRoots = 1;
+		roots.roots[0] = -b / (2 * a);
+	}
+	else if (d > 0)
+	{
+		roots.numRoots = 2;
+		roots.roots[0] = (-b - sqrt(d))/ (2 * a);
+		roots.roots[1] = (-b + sqrt(d)) / (2 * a);
+	}
+	return roots;
+}
+
 /// x^3 + ax^2 + bx + c = 0
 SEquationRoot3 Solve3ByViete(double a, double b, double c)
 {
@@ -57,13 +85,29 @@ SEquationRoot3 Solve3ByViete(double a, double b, double c)
 
 }
 
+/// ax^2 + bx^ + c = 0
+/// Solve2() return sorted roots from low to high
+SEquationRoot2 Solve2(double a, double b, double c)
+{
+	try
+	{
+		auto roots = Solve2ByDiscriminant(a, b, c);
+		std::sort(roots.roots.begin(), roots.roots.end());
+		return roots;
+	}
+	catch (const std::exception &)
+	{
+		throw;
+	}
+}
+
 /// ax^3 + bx^2 + cx + d = 0
 /// Solve3() return sorted roots from low to high
 SEquationRoot3 Solve3(double a, double b, double c, double d)
 {
 	if (a == 0)
 	{
-		throw std::invalid_argument("The equation of the fourth degree cannot have zero at the leading coefficient");
+		throw std::invalid_argument("The equation of the third degree cannot have zero at the leading coefficient");
 	}
 	auto roots = Solve3ByViete(b / a, c / a, d / a);
 	std::sort(roots.roots.begin(), roots.roots.end());
