@@ -64,7 +64,7 @@ SEquationRoot3 Solve3ByViete(double a, double b, double c)
 		}
 		else if (q < 0)
 		{
-			const auto phi = acosh(abs(r) / sqrt(pow(abs(q), 3))) / 3;
+			const auto phi = asinh(abs(r) / sqrt(pow(abs(q), 3))) / 3;
 			roots.numRoots = 1;
 			roots.roots[0] = -2 * Sign(r) * sqrt(abs(q)) * cosh(phi) - a / 3;
 		}
