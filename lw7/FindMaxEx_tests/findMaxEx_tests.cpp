@@ -46,6 +46,12 @@ BOOST_AUTO_TEST_SUITE(FindMax_)
 	{
 		{
 			float max = NAN;
+			BOOST_CHECK(!FindMax({}, max));
+			BOOST_CHECK(isnan(max));
+		}
+
+		{
+			float max = NAN;
 			BOOST_CHECK(!FindMax({ }, max, [](const auto lhs, const auto rhs) {
 				return (lhs < rhs);
 			}));
@@ -73,6 +79,12 @@ BOOST_AUTO_TEST_SUITE(FindMax_)
 
 	BOOST_AUTO_TEST_CASE(return_max_element_in_nonempty_vector)
 	{
+		{
+			int max;
+			BOOST_CHECK(FindMax({ -16, -9, -11, -3, -17, -4 }, max));
+			BOOST_CHECK_EQUAL(max, -3);
+		}
+
 		{
 			int max;
 			BOOST_CHECK(FindMax({ -16, -9, -11, -3, -17, -4 }, max, [](const auto lhs, const auto rhs) {
