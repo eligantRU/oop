@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "../findMaxEx/findMaxEx_utils.hpp"
+#include "../findMaxEx/findMaxEx_utils.h"
 
 namespace
 {
@@ -61,6 +61,12 @@ BOOST_AUTO_TEST_SUITE(FindMax_)
 		{
 			auto lessAthlete = Po;
 			BOOST_CHECK(!FindMax({ }, lessAthlete, IsLessHeight));
+			VerifyAthlete(lessAthlete, Po);
+		}
+
+		{
+			auto lessAthlete = Po;
+			BOOST_CHECK(!FindMax({}, lessAthlete, IsLessHeight));
 			VerifyAthlete(lessAthlete, Po);
 		}
 	}

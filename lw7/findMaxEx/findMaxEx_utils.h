@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 template <class T, class Less>
 bool FindMax(const std::vector<T> & arr, T & maxValue, const Less & less)
 {
@@ -7,13 +9,15 @@ bool FindMax(const std::vector<T> & arr, T & maxValue, const Less & less)
 	{
 		return false;
 	}
-	maxValue = arr[0];
+	
+	const T * max = &arr[0];
 	for (const auto &element : arr)
 	{
-		if (less(maxValue, element))
+		if (less(*max, element))
 		{
-			maxValue = element;
+			max = &element;
 		}
 	}
+	maxValue = *max;
 	return true;
 }

@@ -21,7 +21,7 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="findMaxEx_utils.hpp">
+    <ClInclude Include="findMaxEx_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
