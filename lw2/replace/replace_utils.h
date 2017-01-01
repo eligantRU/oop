@@ -1,6 +1,7 @@
 #pragma once
 
-#include "stdafx.h"
+#include <string>
+#include <iostream>
 
 std::string FindAndReplace(const std::string & inputStr, const std::string & searchStr, const std::string & replaceStr);
 
