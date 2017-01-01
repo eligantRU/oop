@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include <functional>
-#include <iomanip>  
+#include <iomanip>
 #include <string>
 #include <sstream>
 #include <iterator>

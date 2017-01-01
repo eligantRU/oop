@@ -9,5 +9,5 @@ int main(int, char * [])
 	std::sort(nums.begin(), nums.end());
 	PrintVector(std::cout, nums, 3);
 
-    return 0;
+	return 0;
 }
