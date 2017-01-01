@@ -3,7 +3,7 @@
 #include <boost/test/output/compiler_log_formatter.hpp>
 
 class SpecLogFormatter
-	: public boost::unit_test::output::compiler_log_formatter
+	:public boost::unit_test::output::compiler_log_formatter
 {
 	virtual void test_unit_start(std::ostream & os, boost::unit_test::test_unit const & tu) override
 	{
@@ -27,7 +27,7 @@ boost::unit_test::test_suite * init_unit_test_suite(int /*argc*/, char * /*argv*
 }
 
 
-int main(int argc, char* argv[])
+int main(int argc, char * argv[])
 {
 	return boost::unit_test::unit_test_main(&init_unit_test_suite, argc, argv);
 }
