@@ -20,7 +20,8 @@ bool CStringList::empty() const
 
 void CStringList::clear()
 {
-	m_firstNode = nullptr; // because of std::unique_ptr<std::string>
+	m_firstNode = nullptr; // because of unique pointers
+	m_lastNode = nullptr;
 	m_size = 0;
 }
 
