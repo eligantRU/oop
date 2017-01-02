@@ -8,6 +8,32 @@ CStringList::Node::Node(const std::string & data, Node * prev, std::unique_ptr<N
 
 }
 
+CStringList::CStringList(const CStringList & list)
+{
+	for (auto it = list.begin(); it != list.end(); ++it)
+	{
+		push_back(*it);
+	}
+}
+
+CStringList::CStringList(CStringList && list)
+{
+	m_size = list.m_size;
+	m_firstNode = std::move(list.m_firstNode);
+	m_lastNode = std::move(list.m_lastNode);
+
+	list.m_size = 0;
+	list.m_lastNode = nullptr;
+}
+
+CStringList::CStringList(std::initializer_list<std::string> initList)
+{
+	for (const auto element : initList)
+	{
+		push_back(element);
+	}
+}
+
 size_t CStringList::size() const
 {
 	return m_size;

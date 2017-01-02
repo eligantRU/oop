@@ -29,11 +29,44 @@ struct TestConstantMethod
 
 BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
-	BOOST_AUTO_TEST_SUITE(when_created)
+	BOOST_AUTO_TEST_CASE(has_default_constructor)
+	{
+		CStringList example;
+		BOOST_CHECK(example.empty());
+		BOOST_CHECK_EQUAL(example.size(), 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(has_constructor_with_initializer_list)
+	{
+		CStringList example({ "initializer", "list " });
+		BOOST_CHECK(!example.empty());
+		BOOST_CHECK_EQUAL(example.size(), 2);
+	}
+
+	BOOST_AUTO_TEST_CASE(has_copy_constructor)
+	{
+		CStringList baseList({ "initializer", "list " });
+		auto example = baseList;
+		BOOST_CHECK(!example.empty());
+		BOOST_CHECK_EQUAL(example.size(), 2);
+	}
+
+	BOOST_AUTO_TEST_CASE(has_move_constructor)
+	{
+		CStringList baseList({ "initializer", "list " });
+		auto example = std::move(baseList);
+		BOOST_CHECK(!example.empty());
+		BOOST_CHECK_EQUAL(example.size(), 2);
+		BOOST_CHECK(baseList.empty());
+		BOOST_CHECK_EQUAL(baseList.size(), 0);
+
+	}
+
+	BOOST_AUTO_TEST_SUITE(when_list_created_by_default_constructor)
 
 		BOOST_AUTO_TEST_CASE(is_empty)
 		{
-			BOOST_CHECK_EQUAL(list.size(), 0u);
+			BOOST_CHECK_EQUAL(list.size(), 0);
 			BOOST_CHECK(list.empty());
 		}
 
@@ -224,11 +257,33 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			}
 		}
 
+		BOOST_AUTO_TEST_CASE(can_get_first_via_front)
+		{
+			BOOST_CHECK_EQUAL(list.front(), "British");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_get_last_via_back)
+		{
+			BOOST_CHECK_EQUAL(list.back(), "by");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_get_const_first_via_front)
+		{
+			const auto example(list);
+			BOOST_CHECK_EQUAL(example.front(), "British");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_get_const_last_via_back)
+		{
+			const auto example(list);
+			BOOST_CHECK_EQUAL(example.back(), "by");
+		}
+
 	BOOST_AUTO_TEST_SUITE_END()
 
 	BOOST_AUTO_TEST_SUITE(iterator)
 
-		BOOST_AUTO_TEST_CASE(can_be_increnenting)
+		BOOST_AUTO_TEST_CASE(can_be_incrementing)
 		{
 			list.append("first");
 			list.append("second");
@@ -236,6 +291,45 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK_EQUAL(*iter, "first");
 			++iter;
 			BOOST_CHECK_EQUAL(*iter, "second");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_be_decrementing)
+		{
+			list.append("first");
+			list.append("second");
+			list.append("third");
+
+			auto iter = ++(++list.begin());
+			BOOST_CHECK_EQUAL(*iter, "third");
+			BOOST_CHECK_EQUAL(*(--iter), "second");
+			BOOST_CHECK_EQUAL(*(--iter), "first");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_work_with_range_based_for)
+		{
+			list.append("British");
+			list.append("r");
+			list.append("coming");
+			list.append("by");
+			const std::vector<std::string> expectedResult = {
+				"British", "r", "coming", "by"
+			};
+
+			std::vector<std::string> elements;
+			for (const auto element : list)
+			{
+				elements.push_back(element);
+			}
+			BOOST_CHECK(elements == expectedResult);
+		}
+
+		BOOST_AUTO_TEST_CASE(can_be_const)
+		{
+			const CStringList example = { "bla", "bla-bla" };
+			auto it = example.begin();
+			BOOST_CHECK_EQUAL(*it, "bla");
+			BOOST_CHECK_EQUAL(*(++it), "bla-bla");
+			BOOST_CHECK(++it == example.end());
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()

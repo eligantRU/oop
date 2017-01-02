@@ -14,6 +14,11 @@ class CStringList
 	};
 
 public:
+	CStringList() = default;
+	CStringList(const CStringList & list);
+	CStringList(CStringList && list);
+	CStringList(std::initializer_list<std::string> initList);
+
 	class CIterator
 	{
 		friend CStringList;
