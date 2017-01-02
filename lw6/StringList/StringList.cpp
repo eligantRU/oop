@@ -60,6 +60,31 @@ void CStringList::push_front(const std::string & data)
 	}
 }
 
+void CStringList::erase(const CIterator & it)
+{
+	if (m_size == 1)
+	{
+		clear();
+		return;
+	}
+	else if (it == begin())
+	{
+		m_firstNode = std::move(m_firstNode->next);
+		m_firstNode->prev = nullptr;
+	}
+	else if (it.m_node == m_lastNode)
+	{
+		m_lastNode = std::move(it.m_node->prev);
+		m_lastNode->next = nullptr;
+	}
+	else
+	{
+		it.m_node->next->prev = std::move(it.m_node->prev);
+		it.m_node->prev->next = std::move(it.m_node->next);
+	}
+	--m_size;
+}
+
 CStringList::CIterator CStringList::begin()
 {
 	return CIterator(m_firstNode.get());
@@ -115,8 +140,24 @@ std::string & CStringList::CIterator::operator*() const
 	return m_node->data;
 }
 
+CStringList::CIterator & CStringList::CIterator::operator--()
+{
+	m_node = m_node->prev;
+	return *this;
+}
+
 CStringList::CIterator & CStringList::CIterator::operator++()
 {
 	m_node = m_node->next.get();
 	return *this;
+}
+
+bool CStringList::CIterator::operator==(const CStringList::CIterator & it) const
+{
+	return (m_node == it.m_node);
+}
+
+bool CStringList::CIterator::operator!=(const CStringList::CIterator & it) const
+{
+	return (m_node != it.m_node);
 }

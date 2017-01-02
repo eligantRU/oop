@@ -20,8 +20,14 @@ public:
 		CIterator(Node * node);
 	public:
 		CIterator() = default;
+		
 		std::string & operator*() const;
+		CIterator & operator--();
 		CIterator & operator++();
+
+		bool operator==(const CStringList::CIterator & it) const;
+		bool operator!=(const CStringList::CIterator & it) const;
+
 	private:
 		Node * m_node = nullptr;
 	};
@@ -34,6 +40,8 @@ public:
 	void append(const std::string & data);
 	void push_back(const std::string & data);
 	void push_front(const std::string & data);
+
+	void erase(const CIterator & it);
 
 	CIterator begin();
 	CIterator end();

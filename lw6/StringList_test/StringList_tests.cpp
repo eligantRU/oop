@@ -14,6 +14,7 @@ struct when_not_empty : EmptyStringList
 		list.append("British");
 		list.append("r");
 		list.append("coming");
+		list.append("by");
 	}
 };
 
@@ -138,6 +139,40 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK(!list.empty());
 			list.clear();
 			BOOST_CHECK(list.empty());
+		}
+
+		BOOST_AUTO_TEST_CASE(can_erase_string_by_iterator)
+		{
+			{
+				list.erase(++list.begin());
+				BOOST_CHECK(!list.empty());
+				BOOST_CHECK_EQUAL(list.size(), 3);
+				BOOST_CHECK_EQUAL(*list.begin(), "British");
+				BOOST_CHECK_EQUAL(*(++list.begin()), "coming");
+				BOOST_CHECK_EQUAL(*(++(++list.begin())), "by");
+			}
+
+			{
+				list.erase(list.begin());
+				BOOST_CHECK(!list.empty());
+				BOOST_CHECK_EQUAL(list.size(), 2);
+				BOOST_CHECK_EQUAL(list.front(), "coming");
+				BOOST_CHECK_EQUAL(list.back(), "by");
+			}
+
+			{
+				list.erase(++list.begin());
+				BOOST_CHECK(!list.empty());
+				BOOST_CHECK_EQUAL(list.size(), 1);
+				BOOST_CHECK_EQUAL(list.front(), "coming");
+				BOOST_CHECK_EQUAL(list.back(), "coming");
+			}
+
+			{
+				list.erase(list.begin());
+				BOOST_CHECK(list.empty());
+				BOOST_CHECK_EQUAL(list.size(), 0);
+			}
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()
