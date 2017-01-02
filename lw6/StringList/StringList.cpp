@@ -61,6 +61,25 @@ void CStringList::push_front(const std::string & data)
 	}
 }
 
+void CStringList::insert(const CIterator & it, const std::string & data)
+{
+	if (it == begin())
+	{
+		push_front(data);
+	}
+	else if (it == end())
+	{
+		push_back(data);
+	}
+	else
+	{
+		auto newNode = std::make_unique<Node>(data, it->prev, std::move(it->prev->next));
+		it->prev = std::move(newNode.get());
+		newNode->prev->next = std::move(newNode);
+		++m_size;
+	}
+}
+
 void CStringList::erase(const CIterator & it)
 {
 	if (m_size == 1)

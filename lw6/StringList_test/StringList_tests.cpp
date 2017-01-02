@@ -132,6 +132,55 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 	BOOST_AUTO_TEST_SUITE_END()
 
+	BOOST_AUTO_TEST_SUITE(after_insertion_string)
+	
+		BOOST_AUTO_TEST_CASE(increases_its_size_by_1)
+		{
+			list.insert(list.begin(), "British");
+			BOOST_CHECK(!list.empty());
+			BOOST_CHECK_EQUAL(list.size(), 1);
+
+			list.insert(++list.begin(), "coming");
+			BOOST_CHECK(!list.empty());
+			BOOST_CHECK_EQUAL(list.size(), 2);
+			
+			list.insert(++list.begin(), "r");
+			BOOST_CHECK(!list.empty());
+			BOOST_CHECK_EQUAL(list.size(), 3);
+		}
+
+		BOOST_AUTO_TEST_CASE(makes_it_accessible_via_GetFrontElement_and_GetBackElement_methods)
+		{
+			list.insert(list.begin(), "British");
+			BOOST_CHECK_EQUAL(list.front(), "British");
+			BOOST_CHECK_EQUAL(list.back(), "British");
+
+			list.insert(++list.begin(), "coming");
+			BOOST_CHECK_EQUAL(list.front(), "British");
+			BOOST_CHECK_EQUAL(list.back(), "coming");
+
+			list.insert(++list.begin(), "r");
+			BOOST_CHECK_EQUAL(list.front(), "British");
+			BOOST_CHECK_EQUAL(list.back(), "coming");
+		}
+
+		BOOST_AUTO_TEST_CASE(makes_it_accessible_via_iterators)
+		{
+			list.insert(list.begin(), "British");
+			BOOST_CHECK_EQUAL(*list.begin(), "British");
+
+			list.insert(++list.begin(), "coming");
+			BOOST_CHECK_EQUAL(*list.begin(), "British");
+			BOOST_CHECK_EQUAL(*(++list.begin()), "coming");
+
+			list.insert(++list.begin(), "r");
+			BOOST_CHECK_EQUAL(*list.begin(), "British");
+			BOOST_CHECK_EQUAL(*(++list.begin()), "r");
+			BOOST_CHECK_EQUAL(*(++(++list.begin())), "coming");
+		}
+
+	BOOST_AUTO_TEST_SUITE_END()
+
 	BOOST_FIXTURE_TEST_SUITE(when_not_empty_, when_not_empty)
 
 		BOOST_AUTO_TEST_CASE(can_be_cleared)

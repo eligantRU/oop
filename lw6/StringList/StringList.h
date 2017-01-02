@@ -42,6 +42,7 @@ public:
 	void push_back(const std::string & data);
 	void push_front(const std::string & data);
 
+	void insert(const CIterator & it, const std::string & data);
 	void erase(const CIterator & it);
 
 	CIterator begin();
