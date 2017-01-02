@@ -2,8 +2,6 @@
 
 #include "StringList.h"
 
-#include <iostream>
-
 CStringList::Node::Node(const std::string & data, Node * prev, std::unique_ptr<Node> && next)
 	:data(data), prev(prev), next(std::move(next))
 {
@@ -84,7 +82,7 @@ bool CStringList::empty() const
 
 void CStringList::clear()
 {
-	m_firstNode = nullptr; // because of unique pointers
+	m_firstNode = nullptr;
 	m_lastNode = nullptr;
 	m_size = 0;
 }
