@@ -34,6 +34,42 @@ CStringList::CStringList(std::initializer_list<std::string> initList)
 	}
 }
 
+CStringList & CStringList::operator=(const CStringList & list)
+{
+	clear();
+	
+	for (auto it = list.begin(); it != list.end(); ++it)
+	{
+		push_back(*it);
+	}
+	return *this;
+}
+
+CStringList & CStringList::operator=(CStringList && list)
+{
+	clear();
+
+	m_size = list.m_size;
+	m_firstNode = std::move(list.m_firstNode);
+	m_lastNode = std::move(list.m_lastNode);
+
+	list.m_size = 0;
+	list.m_lastNode = nullptr;
+
+	return *this;
+}
+
+CStringList & CStringList::operator=(std::initializer_list<std::string> initList)
+{
+	clear();
+
+	for (const auto element : initList)
+	{
+		push_back(element);
+	}
+	return *this;
+}
+
 size_t CStringList::size() const
 {
 	return m_size;

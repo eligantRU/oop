@@ -18,16 +18,44 @@ struct when_not_empty : EmptyStringList
 	}
 };
 
-struct TestConstantMethod
-{
-	template <class T>
-	void operator()(T && callback)
-	{
-		callback();
-	}
-};
-
 BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
+
+	BOOST_AUTO_TEST_CASE(has_copy_assign_operator)
+	{
+		CStringList nameList({ "Nick", "Alex", "Sergey", "Rinat" });
+		CStringList copyList;
+		copyList = nameList;
+		BOOST_CHECK(!nameList.empty());
+		BOOST_CHECK_EQUAL(nameList.size(), 4);
+		BOOST_CHECK_EQUAL(nameList.front(), "Nick");
+		BOOST_CHECK_EQUAL(nameList.back(), "Rinat");
+
+	}
+
+	BOOST_AUTO_TEST_CASE(has_move_assign_operator)
+	{
+		CStringList nameList({ "Nick", "Alex", "Sergey", "Rinat" });
+		CStringList example;
+		example = std::move(nameList);
+		BOOST_CHECK(!example.empty());
+		BOOST_CHECK_EQUAL(example.size(), 4);
+		BOOST_CHECK_EQUAL(example.front(), "Nick");
+		BOOST_CHECK_EQUAL(example.back(), "Rinat");
+
+		BOOST_CHECK(nameList.empty());
+		BOOST_CHECK_EQUAL(nameList.size(), 0);
+	}
+
+	BOOST_AUTO_TEST_CASE(has_initializer_list_assign_operator)
+	{
+		list = {
+			"hello", "world"
+		};
+		BOOST_CHECK(!list.empty());
+		BOOST_CHECK_EQUAL(list.size(), 2);
+		BOOST_CHECK_EQUAL(list.front(), "hello");
+		BOOST_CHECK_EQUAL(list.back(), "world");
+	}
 
 	BOOST_AUTO_TEST_CASE(has_default_constructor)
 	{

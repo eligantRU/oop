@@ -19,6 +19,10 @@ public:
 	CStringList(CStringList && list);
 	CStringList(std::initializer_list<std::string> initList);
 
+	CStringList & operator=(const CStringList & list);
+	CStringList & operator=(CStringList && list);
+	CStringList & operator=(std::initializer_list<std::string> initList);
+
 	class CIterator
 	{
 		friend CStringList;
