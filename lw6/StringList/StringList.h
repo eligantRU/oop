@@ -30,8 +30,13 @@ public:
 	bool empty() const;
 
 	void append(const std::string & data);
+	void push_back(const std::string & data);
+	void push_front(const std::string & data);
 
 	CIterator begin();
+
+	std::string & front();
+	std::string const & front() const;
 
 	std::string & back();
 	std::string const & back() const;

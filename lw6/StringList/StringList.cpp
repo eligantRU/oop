@@ -34,9 +34,41 @@ void CStringList::append(const std::string & data)
 	++m_size;
 }
 
+void CStringList::push_back(const std::string & data)
+{
+	append(data);
+}
+
+void CStringList::push_front(const std::string & data)
+{
+	if (empty())
+	{
+		append(data);
+	}
+	else
+	{
+		auto secondNode = std::move(m_firstNode);
+		m_firstNode = std::make_unique<Node>(data, nullptr, std::move(secondNode));
+		
+		++m_size;
+	}
+}
+
 CStringList::CIterator CStringList::begin()
 {
 	return CIterator(m_firstNode.get());
+}
+
+std::string & CStringList::front()
+{
+	assert(m_lastNode);
+	return m_firstNode->data;
+}
+
+std::string const & CStringList::front() const
+{
+	assert(m_lastNode);
+	return m_firstNode->data;
 }
 
 std::string & CStringList::back()
