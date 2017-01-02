@@ -74,13 +74,13 @@ void CStringList::erase(const CIterator & it)
 	}
 	else if (it.m_node == m_lastNode)
 	{
-		m_lastNode = std::move(it.m_node->prev);
+		m_lastNode = std::move(it->prev);
 		m_lastNode->next = nullptr;
 	}
 	else
 	{
-		it.m_node->next->prev = std::move(it.m_node->prev);
-		it.m_node->prev->next = std::move(it.m_node->next);
+		it->next->prev = std::move(it->prev);
+		it->prev->next = std::move(it->next);
 	}
 	--m_size;
 }
@@ -138,6 +138,11 @@ CStringList::CIterator::CIterator(Node * node)
 std::string & CStringList::CIterator::operator*() const
 {
 	return m_node->data;
+}
+
+CStringList::Node * CStringList::CIterator::operator->() const
+{
+	return m_node;
 }
 
 CStringList::CIterator & CStringList::CIterator::operator--()

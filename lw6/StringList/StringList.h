@@ -22,6 +22,7 @@ public:
 		CIterator() = default;
 		
 		std::string & operator*() const;
+		Node * operator->() const;
 		CIterator & operator--();
 		CIterator & operator++();
 
