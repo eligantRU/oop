@@ -199,6 +199,16 @@ const CStringList::CIterator CStringList::end() const
 	return CIterator(m_lastNode->next.get());
 }
 
+const CStringList::CIterator CStringList::cbegin() const
+{
+	return CIterator(m_firstNode.get());
+}
+
+const CStringList::CIterator CStringList::cend() const
+{
+	return CIterator(m_lastNode->next.get());
+}
+
 std::string & CStringList::front()
 {
 	assert(m_lastNode);

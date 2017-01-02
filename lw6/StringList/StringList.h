@@ -60,9 +60,11 @@ public:
 
 	CIterator begin();
 	CIterator end();
-
 	const CIterator begin() const;
 	const CIterator end() const;
+
+	const CIterator cbegin() const;
+	const CIterator cend() const;
 
 	std::string & front();
 	const std::string & front() const;
