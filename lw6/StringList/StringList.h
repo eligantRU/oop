@@ -38,10 +38,10 @@ public:
 	CIterator begin();
 
 	std::string & front();
-	std::string const & front() const;
+	const std::string & front() const;
 
 	std::string & back();
-	std::string const & back() const;
+	const std::string & back() const;
 
 private:
 	size_t m_size = 0;

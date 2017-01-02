@@ -17,6 +17,15 @@ struct when_not_empty : EmptyStringList
 	}
 };
 
+struct TestConstantMethod
+{
+	template <class T>
+	void operator()(T && callback)
+	{
+		callback();
+	}
+};
+
 BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 	BOOST_AUTO_TEST_SUITE(when_created)
@@ -50,6 +59,7 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			list.append("goodbye");
 			BOOST_CHECK_EQUAL(list.back(), "goodbye");
 		}
+
 		BOOST_AUTO_TEST_CASE(makes_it_accessible_via_iterator_to_first_element)
 		{
 			list.append("hello");

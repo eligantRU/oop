@@ -71,7 +71,7 @@ std::string & CStringList::front()
 	return m_firstNode->data;
 }
 
-std::string const & CStringList::front() const
+const std::string & CStringList::front() const
 {
 	assert(m_lastNode);
 	return m_firstNode->data;
@@ -83,7 +83,7 @@ std::string & CStringList::back()
 	return m_lastNode->data;
 }
 
-std::string const & CStringList::back() const
+const std::string & CStringList::back() const
 {
 	assert(m_lastNode);
 	return m_lastNode->data;
