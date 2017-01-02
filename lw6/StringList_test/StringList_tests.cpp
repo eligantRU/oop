@@ -426,11 +426,21 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 		BOOST_AUTO_TEST_CASE(can_be_const)
 		{
-			const CStringList example = { "bla", "bla-bla" };
-			auto it = example.begin();
-			BOOST_CHECK_EQUAL(*it, "bla");
-			BOOST_CHECK_EQUAL(*(++it), "bla-bla");
-			BOOST_CHECK(++it == example.end());
+			{
+				const CStringList example = { "bla", "bla-bla" };
+				auto it = example.begin();
+				BOOST_CHECK_EQUAL(*it, "bla");
+				BOOST_CHECK_EQUAL(*(++it), "bla-bla");
+				BOOST_CHECK(++it == example.end());
+			}
+
+			{
+				const CStringList example = { "bla", "bla-bla" };
+				auto it = example.cbegin();
+				BOOST_CHECK_EQUAL(*it, "bla");
+				BOOST_CHECK_EQUAL(*(++it), "bla-bla");
+				BOOST_CHECK(++it == example.cend());
+			}
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()
