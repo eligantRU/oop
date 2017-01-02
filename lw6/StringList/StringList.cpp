@@ -227,8 +227,7 @@ const std::string & CStringList::back() const
 
 void CStringList::remove(const std::string & value)
 {
-	auto it = begin();
-	while (!empty() && (it != end()))
+	for (auto it = begin(); !empty() && (it != end());)
 	{
 		if (*it != value)
 		{
