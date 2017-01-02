@@ -14,6 +14,7 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 		BOOST_AUTO_TEST_CASE(is_empty)
 		{
 			BOOST_CHECK_EQUAL(list.size(), 0u);
+			BOOST_CHECK(list.empty());
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()
@@ -23,9 +24,12 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 		BOOST_AUTO_TEST_CASE(increases_its_size_by_1)
 		{
 			auto oldSize = list.size();
+			BOOST_CHECK(list.empty());
 			list.append("hello");
+			BOOST_CHECK(!list.empty());
 			BOOST_CHECK_EQUAL(list.size(), oldSize + 1);
 			list.append("hello");
+			BOOST_CHECK(!list.empty());
 			BOOST_CHECK_EQUAL(list.size(), oldSize + 2);
 		}
 		BOOST_AUTO_TEST_CASE(makes_it_accessible_via_GetBackElement_method)

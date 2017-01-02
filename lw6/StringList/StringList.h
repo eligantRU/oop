@@ -27,6 +27,8 @@ public:
 	};
 
 	size_t size() const;
+	bool empty() const;
+
 	void append(const std::string & data);
 
 	CIterator begin();

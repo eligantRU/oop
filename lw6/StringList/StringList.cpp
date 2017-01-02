@@ -13,6 +13,11 @@ size_t CStringList::size() const
 	return m_size;
 }
 
+bool CStringList::empty() const
+{
+	return (m_size == 0);
+}
+
 void CStringList::append(const std::string & data)
 {
 	auto newNode = std::make_unique<Node>(data, m_lastNode, nullptr);
