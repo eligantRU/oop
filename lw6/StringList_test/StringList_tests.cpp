@@ -307,6 +307,79 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK_EQUAL(example.back(), "by");
 		}
 
+		BOOST_AUTO_TEST_CASE(can_remove_the_first_element_via_pop_front)
+		{
+			list.pop_front();
+			BOOST_CHECK_EQUAL(list.size(), 3);
+			BOOST_CHECK_EQUAL(list.front(), "r");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_remove_the_last_element_via_pop_back)
+		{
+			list.pop_back();
+			BOOST_CHECK_EQUAL(list.size(), 3);
+			BOOST_CHECK_EQUAL(list.back(), "coming");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_remove_elements_by_value)
+		{
+			{
+				CStringList example{
+					"PHP", "PHP", "C++", "PHP", "Java", "PHP", "PHP", "Go", "Python", "PHP", "PHP"
+				};
+				example.remove("PHP");
+				BOOST_CHECK_EQUAL(example.size(), 4);
+			}
+
+			{
+				CStringList example{
+					"PHP", "PHP"
+				};
+				example.remove("PHP");
+				BOOST_CHECK_EQUAL(example.size(), 0);
+			}
+
+			{
+				CStringList example{
+					"C", "PHP"
+				};
+				example.remove("PHP");
+				BOOST_CHECK_EQUAL(example.size(), 1);
+			}
+
+			{
+				CStringList example{
+					"C", "PHP", "C"
+				};
+				example.remove("PHP");
+				BOOST_CHECK_EQUAL(example.size(), 2);
+			}
+
+			{
+				CStringList example{
+					"C", "PHP", "PHP", "C"
+				};
+				example.remove("PHP");
+				BOOST_CHECK_EQUAL(example.size(), 2);
+			}
+
+			{
+				CStringList example{
+					"PHP", "PHP", "C"
+				};
+				example.remove("PHP");
+				BOOST_CHECK_EQUAL(example.size(), 1);
+			}
+
+			{
+				CStringList example{
+					"OpenGL", "DirectX"
+				};
+				example.remove("PHP");
+				BOOST_CHECK_EQUAL(example.size(), 2);
+			}
+		}
+
 	BOOST_AUTO_TEST_SUITE_END()
 
 	BOOST_AUTO_TEST_SUITE(iterator)

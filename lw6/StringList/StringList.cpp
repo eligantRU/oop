@@ -2,6 +2,8 @@
 
 #include "StringList.h"
 
+#include <iostream>
+
 CStringList::Node::Node(const std::string & data, Node * prev, std::unique_ptr<Node> && next)
 	:data(data), prev(prev), next(std::move(next))
 {
@@ -59,7 +61,7 @@ CStringList & CStringList::operator=(CStringList && list)
 	return *this;
 }
 
-CStringList & CStringList::operator=(std::initializer_list<std::string> initList)
+CStringList & CStringList::operator=(const std::initializer_list<std::string> & initList)
 {
 	clear();
 
@@ -87,15 +89,27 @@ void CStringList::clear()
 	m_size = 0;
 }
 
+void CStringList::pop_front()
+{
+	erase(begin());
+}
+
+void CStringList::pop_back()
+{
+	m_lastNode = m_lastNode->prev;
+	m_lastNode->next = nullptr;
+	--m_size;
+}
+
 void CStringList::append(const std::string & data)
 {
 	auto newNode = std::make_unique<Node>(data, m_lastNode, nullptr);
-	Node *newLastNode = newNode.get();
+	Node * newLastNode = newNode.get();
 	if (m_lastNode)
 	{
 		m_lastNode->next = move(newNode);
 	}
-	else // empty list
+	else
 	{
 		m_firstNode = move(newNode);
 	}
@@ -209,6 +223,33 @@ const std::string & CStringList::back() const
 {
 	assert(m_lastNode);
 	return m_lastNode->data;
+}
+
+void CStringList::remove(const std::string & value)
+{
+	auto it = begin();
+	while (!empty() && (it != end()))
+	{
+		if (*it != value)
+		{
+			++it;
+		}
+		else
+		{
+			if (it == begin())
+			{
+				erase(it);
+				it = begin();
+			}
+			else
+			{
+				auto last = it;
+				--last;
+				erase(it);
+				it = last;
+			}
+		}
+	}
 }
 
 CStringList::CIterator::CIterator(Node * node)

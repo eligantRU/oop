@@ -2,6 +2,7 @@
 
 #include <string>
 #include <memory>
+#include <algorithm>
 
 class CStringList
 {
@@ -21,7 +22,7 @@ public:
 
 	CStringList & operator=(const CStringList & list);
 	CStringList & operator=(CStringList && list);
-	CStringList & operator=(std::initializer_list<std::string> initList);
+	CStringList & operator=(const std::initializer_list<std::string> & initList);
 
 	class CIterator
 	{
@@ -53,6 +54,9 @@ public:
 
 	void insert(const CIterator & it, const std::string & data);
 	void erase(const CIterator & it);
+	
+	void pop_front();
+	void pop_back();
 
 	CIterator begin();
 	CIterator end();
@@ -65,6 +69,8 @@ public:
 
 	std::string & back();
 	const std::string & back() const;
+
+	void remove(const std::string & value);
 
 private:
 	size_t m_size = 0;
