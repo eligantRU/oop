@@ -36,6 +36,10 @@ public:
 	void push_front(const std::string & data);
 
 	CIterator begin();
+	CIterator end();
+
+	const CIterator begin() const;
+	const CIterator end() const;
 
 	std::string & front();
 	const std::string & front() const;
