@@ -7,6 +7,16 @@ struct EmptyStringList
 	CStringList list;
 };
 
+struct when_not_empty : EmptyStringList
+{
+	when_not_empty()
+	{
+		list.append("British");
+		list.append("r");
+		list.append("coming");
+	}
+};
+
 BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 	BOOST_AUTO_TEST_SUITE(when_created)
@@ -107,6 +117,17 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			list.push_front("hello");
 			auto it = list.begin();
 			BOOST_CHECK_EQUAL(addressof(*it), addressof(list.back()));
+		}
+
+	BOOST_AUTO_TEST_SUITE_END()
+
+	BOOST_FIXTURE_TEST_SUITE(when_not_empty_, when_not_empty)
+
+		BOOST_AUTO_TEST_CASE(can_be_cleared)
+		{
+			BOOST_CHECK(!list.empty());
+			list.clear();
+			BOOST_CHECK(list.empty());
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()

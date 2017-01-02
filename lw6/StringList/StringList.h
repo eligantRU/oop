@@ -26,6 +26,8 @@ public:
 		Node * m_node = nullptr;
 	};
 
+	void clear();
+
 	size_t size() const;
 	bool empty() const;
 

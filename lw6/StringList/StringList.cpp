@@ -18,6 +18,12 @@ bool CStringList::empty() const
 	return (m_size == 0);
 }
 
+void CStringList::clear()
+{
+	m_firstNode = nullptr; // because of std::unique_ptr<std::string>
+	m_size = 0;
+}
+
 void CStringList::append(const std::string & data)
 {
 	auto newNode = std::make_unique<Node>(data, m_lastNode, nullptr);
