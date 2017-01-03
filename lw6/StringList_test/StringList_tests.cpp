@@ -410,6 +410,18 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK_EQUAL(*(++(++list.begin())), "ipsum");
 		}
 
+		BOOST_AUTO_TEST_CASE(can_insert_some_string_from_other_list_via_iterators)
+		{
+			CStringList example = {
+				"loves", "OOP", "and"
+			};
+			list.insert(++list.begin(), example.begin(), example.end());
+			BOOST_CHECK_EQUAL(list.size(), 7);
+			BOOST_CHECK_EQUAL(*(++list.begin()), "loves");
+			BOOST_CHECK_EQUAL(*(++(++list.begin())), "OOP");
+			BOOST_CHECK_EQUAL(*(++(++(++list.begin()))), "and");
+		}
+
 		BOOST_AUTO_TEST_CASE(can_get_first_via_front)
 		{
 			BOOST_CHECK_EQUAL(list.front(), "British");

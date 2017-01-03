@@ -63,6 +63,8 @@ public:
 	void insert(const CIterator & it, std::string && data);
 	void insert(const CIterator & it, const size_t n, const std::string & data);
 	void insert(const CIterator & it, const std::initializer_list<std::string> & il);
+	void insert(const CIterator & insIt, const CIterator & first, const CIterator & last);
+
 	void erase(const CIterator & it);
 	void erase(const CIterator & first, const CIterator & last);
 
@@ -92,7 +94,7 @@ public:
 	const std::string & back() const;
 
 	void remove(const std::string & value);
-
+	void resize(const size_t n);
 	void swap(CStringList & list);
 
 private:

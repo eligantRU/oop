@@ -345,6 +345,14 @@ void CStringList::insert(const CIterator & it, const std::initializer_list<std::
 	}
 }
 
+void CStringList::insert(const CIterator & insIt, const CIterator & first, const CIterator & last)
+{
+	for (auto it = first; it != last; ++it)
+	{
+		insert(insIt, *it);
+	}
+}
+
 void CStringList::erase(const CIterator & it)
 {
 	if (m_size == 1)
