@@ -108,6 +108,11 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 		}
 	}
 
+	BOOST_AUTO_TEST_CASE(can_potential_contain_max_size_strings)
+	{
+		BOOST_CHECK_EQUAL(list.max_size(), std::numeric_limits<size_t>::max());
+	}
+
 	BOOST_AUTO_TEST_SUITE(when_list_created_by_default_constructor)
 
 		BOOST_AUTO_TEST_CASE(is_empty)

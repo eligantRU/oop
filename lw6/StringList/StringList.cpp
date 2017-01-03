@@ -192,6 +192,11 @@ size_t CStringList::size() const
 	return m_size;
 }
 
+size_t CStringList::max_size() const
+{
+	return std::numeric_limits<size_t>::max();
+}
+
 bool CStringList::empty() const
 {
 	return (m_size == 0);
