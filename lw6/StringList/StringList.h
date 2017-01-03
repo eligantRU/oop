@@ -86,6 +86,8 @@ public:
 
 	void remove(const std::string & value);
 
+	void swap(CStringList & list);
+
 private:
 	size_t m_size = 0;
 	std::unique_ptr<SNode> m_firstNode;

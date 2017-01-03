@@ -274,6 +274,23 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK(list.empty());
 		}
 
+		BOOST_AUTO_TEST_CASE(can_be_swapped)
+		{
+			CStringList first(3, "hello");
+			CStringList second(2, "world");
+			auto it = first.begin();
+			BOOST_CHECK_EQUAL(*it, "hello");
+			first.swap(second);
+			BOOST_CHECK_EQUAL(first.size(), 2);
+			BOOST_CHECK_EQUAL(first.front(), "world");
+			BOOST_CHECK_EQUAL(first.back(), "world");
+			BOOST_CHECK_EQUAL(second.size(), 3);
+			BOOST_CHECK_EQUAL(*second.begin(), "hello");
+			BOOST_CHECK_EQUAL(*(++second.begin()), "hello");
+			BOOST_CHECK_EQUAL(*(++(++second.begin())), "hello");
+			BOOST_CHECK_EQUAL(*it, "hello");
+		}
+
 		BOOST_AUTO_TEST_CASE(can_erase_string_by_iterator)
 		{
 			{

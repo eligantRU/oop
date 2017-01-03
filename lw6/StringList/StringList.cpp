@@ -350,3 +350,8 @@ void CStringList::remove(const std::string & value)
 		}
 	}
 }
+
+void CStringList::swap(CStringList & list)
+{
+	std::swap(list, *this);
+}
