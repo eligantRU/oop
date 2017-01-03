@@ -6,12 +6,12 @@
 
 class CStringList
 {
-	struct Node
+	struct SNode
 	{
-		Node(const std::string & data, Node * prev, std::unique_ptr<Node> && next);
+		SNode(const std::string & data, SNode * prev, std::unique_ptr<SNode> && next);
 		std::string data;
-		Node * prev;
-		std::unique_ptr<Node> next;
+		SNode * prev;
+		std::unique_ptr<SNode> next;
 	};
 
 public:
@@ -24,23 +24,25 @@ public:
 	CStringList & operator=(CStringList && list);
 	CStringList & operator=(const std::initializer_list<std::string> & initList);
 
-	class CIterator
+	class CStringListIterator
 	{
 		friend CStringList;
-		CIterator(Node * node, bool isReverse = false);
+		CStringListIterator(SNode * node, bool isReverse = false);
 	public:
-		CIterator() = default;
+		CStringListIterator() = delete;
 		
 		std::string & operator*() const;
-		Node * operator->() const;
-		CIterator & operator--();
-		CIterator & operator++();
 
-		bool operator==(const CStringList::CIterator & it) const;
-		bool operator!=(const CStringList::CIterator & it) const;
+		CStringListIterator & operator--();
+		CStringListIterator & operator++();
+
+		bool operator==(const CStringListIterator & it) const;
+		bool operator!=(const CStringListIterator & it) const;
 
 	private:
-		Node * m_node = nullptr;
+		SNode * operator->() const;
+
+		SNode * m_pNode = nullptr;
 		bool m_isReverse;
 	};
 
@@ -53,27 +55,27 @@ public:
 	void push_back(const std::string & data);
 	void push_front(const std::string & data);
 
-	void insert(const CIterator & it, const std::string & data);
-	void erase(const CIterator & it);
+	void insert(const CStringListIterator & it, const std::string & data);
+	void erase(const CStringListIterator & it);
 	
 	void pop_front();
 	void pop_back();
 
-	CIterator begin();
-	CIterator end();
-	const CIterator begin() const;
-	const CIterator end() const;
+	CStringListIterator begin();
+	CStringListIterator end();
+	const CStringListIterator begin() const;
+	const CStringListIterator end() const;
 
-	const CIterator cbegin() const;
-	const CIterator cend() const;
+	const CStringListIterator cbegin() const;
+	const CStringListIterator cend() const;
 
-	CIterator rbegin();
-	CIterator rend();
-	const CIterator rbegin() const;
-	const CIterator rend() const;
+	CStringListIterator rbegin();
+	CStringListIterator rend();
+	const CStringListIterator rbegin() const;
+	const CStringListIterator rend() const;
 
-	const CIterator crbegin() const;
-	const CIterator crend() const;
+	const CStringListIterator crbegin() const;
+	const CStringListIterator crend() const;
 
 	std::string & front();
 	const std::string & front() const;
@@ -85,6 +87,6 @@ public:
 
 private:
 	size_t m_size = 0;
-	std::unique_ptr<Node> m_firstNode;
-	Node * m_lastNode = nullptr;
+	std::unique_ptr<SNode> m_firstNode;
+	SNode * m_lastNode = nullptr;
 };
