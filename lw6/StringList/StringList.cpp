@@ -301,6 +301,27 @@ void CStringList::erase(const CIterator & it)
 	--m_size;
 }
 
+void CStringList::erase(const CIterator & first, const CIterator & last)
+{
+	auto it = first;
+	while (it != last)
+	{
+		if (it == begin())
+		{
+			erase(it);
+			it = begin();
+		}
+		else
+		{
+			auto bla = it;
+			--bla;
+			erase(it);
+			it = bla;
+			++it;
+		}
+	}
+}
+
 std::string & CStringList::front()
 {
 	assert(m_lastNode);

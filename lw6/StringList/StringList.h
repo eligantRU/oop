@@ -58,7 +58,8 @@ public:
 
 	void insert(const CIterator & it, const std::string & data);
 	void erase(const CIterator & it);
-	
+	void erase(const CIterator & first, const CIterator & last);
+
 	void pop_front();
 	void pop_back();
 

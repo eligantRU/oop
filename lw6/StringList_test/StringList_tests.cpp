@@ -325,6 +325,57 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			}
 		}
 
+		BOOST_AUTO_TEST_CASE(can_erase_strings_by_two_iterators)
+		{
+			{
+				CStringList example = {
+					"British", "r", "coming", "by"
+				};
+				example.erase(++example.begin(), example.end());
+				BOOST_CHECK_EQUAL(example.size(), 1);
+				BOOST_CHECK_EQUAL(*example.begin(), "British");
+			}
+
+			{
+				CStringList example = {
+					"British", "r", "coming", "by"
+				};
+				example.erase(++example.begin(), ++(++(++example.begin())));
+				BOOST_CHECK_EQUAL(example.size(), 2);
+				BOOST_CHECK_EQUAL(example.front(), "British");
+				BOOST_CHECK_EQUAL(example.back(), "by");
+			}
+
+			{
+				CStringList example = {
+					"British", "r", "coming"
+				};
+				example.erase(++example.begin(), ++(++example.begin()));
+				BOOST_CHECK_EQUAL(example.size(), 2);
+				BOOST_CHECK_EQUAL(example.front(), "British");
+				BOOST_CHECK_EQUAL(example.back(), "coming");
+			}
+
+			{
+				CStringList example = {
+					"British", "r", "coming"
+				};
+				example.erase(example.begin(), ++example.begin());
+				BOOST_CHECK_EQUAL(example.size(), 2);
+				BOOST_CHECK_EQUAL(example.front(), "r");
+				BOOST_CHECK_EQUAL(example.back(), "coming");
+			}
+
+			{
+				CStringList example = {
+					"Lucky"
+				};
+				example.erase(example.begin(), example.begin());
+				BOOST_CHECK_EQUAL(example.size(), 1);
+				BOOST_CHECK_EQUAL(*example.begin(), "Lucky");
+			}
+		}
+
 		BOOST_AUTO_TEST_CASE(can_get_first_via_front)
 		{
 			BOOST_CHECK_EQUAL(list.front(), "British");
