@@ -179,36 +179,6 @@ void CStringList::erase(const CIterator & it)
 	--m_size;
 }
 
-CStringList::CIterator CStringList::begin()
-{
-	return CIterator(m_firstNode.get());
-}
-
-CStringList::CIterator CStringList::end()
-{
-	return CIterator(m_lastNode->next.get());
-}
-
-const CStringList::CIterator CStringList::begin() const
-{
-	return CIterator(m_firstNode.get());
-}
-
-const CStringList::CIterator CStringList::end() const
-{
-	return CIterator(m_lastNode->next.get());
-}
-
-const CStringList::CIterator CStringList::cbegin() const
-{
-	return CIterator(m_firstNode.get());
-}
-
-const CStringList::CIterator CStringList::cend() const
-{
-	return CIterator(m_lastNode->next.get());
-}
-
 std::string & CStringList::front()
 {
 	assert(m_lastNode);
@@ -259,8 +229,9 @@ void CStringList::remove(const std::string & value)
 	}
 }
 
-CStringList::CIterator::CIterator(Node * node)
+CStringList::CIterator::CIterator(Node * node, bool isReverse)
 	:m_node(node)
+	,m_isReverse(isReverse)
 {
 
 }
@@ -277,13 +248,13 @@ CStringList::Node * CStringList::CIterator::operator->() const
 
 CStringList::CIterator & CStringList::CIterator::operator--()
 {
-	m_node = m_node->prev;
+	m_node = (!m_isReverse) ? (m_node->prev) : (m_node->next.get());
 	return *this;
 }
 
 CStringList::CIterator & CStringList::CIterator::operator++()
 {
-	m_node = m_node->next.get();
+	m_node = (!m_isReverse) ? (m_node->next.get()) : (m_node->prev);
 	return *this;
 }
 
@@ -295,4 +266,65 @@ bool CStringList::CIterator::operator==(const CStringList::CIterator & it) const
 bool CStringList::CIterator::operator!=(const CStringList::CIterator & it) const
 {
 	return (m_node != it.m_node);
+}
+
+
+CStringList::CIterator CStringList::begin()
+{
+	return CIterator(m_firstNode.get());
+}
+
+CStringList::CIterator CStringList::end()
+{
+	return CIterator(m_lastNode->next.get());
+}
+
+const CStringList::CIterator CStringList::begin() const
+{
+	return CIterator(m_firstNode.get());
+}
+
+const CStringList::CIterator CStringList::end() const
+{
+	return CIterator(m_lastNode->next.get());
+}
+
+const CStringList::CIterator CStringList::cbegin() const
+{
+	return CIterator(m_firstNode.get());
+}
+
+const CStringList::CIterator CStringList::cend() const
+{
+	return CIterator(m_lastNode->next.get());
+}
+
+CStringList::CIterator CStringList::rbegin()
+{
+	return CIterator(m_lastNode, true);
+}
+
+CStringList::CIterator CStringList::rend()
+{
+	return CIterator(m_firstNode->prev, true);
+}
+
+const CStringList::CIterator CStringList::rbegin() const
+{
+	return CIterator(m_lastNode, true);
+}
+
+const CStringList::CIterator CStringList::rend() const
+{
+	return CIterator(m_firstNode->prev, true);
+}
+
+const CStringList::CIterator CStringList::crbegin() const
+{
+	return CIterator(m_lastNode, true);
+}
+
+const CStringList::CIterator CStringList::crend() const
+{
+	return CIterator(m_firstNode->prev, true);
 }

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include <boost/algorithm/string.hpp>
+
 #include "../StringList/StringList.h"
 
 struct EmptyStringList
@@ -424,6 +426,19 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK(elements == expectedResult);
 		}
 
+		BOOST_AUTO_TEST_CASE(can_be_reversed)
+		{
+			{
+				CStringList developers = {
+					"Malov", "Shambir", "Larionov"
+				};
+				BOOST_CHECK_EQUAL(*developers.rbegin(), "Larionov");
+				BOOST_CHECK_EQUAL(*(++developers.rbegin()), "Shambir");
+				BOOST_CHECK_EQUAL(*(++(++developers.rbegin())), "Malov");
+				BOOST_CHECK(++(++(++developers.rbegin())) == developers.rend());
+			}
+		}
+
 		BOOST_AUTO_TEST_CASE(can_be_const)
 		{
 			{
@@ -440,6 +455,28 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 				BOOST_CHECK_EQUAL(*it, "bla");
 				BOOST_CHECK_EQUAL(*(++it), "bla-bla");
 				BOOST_CHECK(++it == example.cend());
+			}
+
+			{
+				const CStringList developers = {
+					"Malov", "Shambir", "Larionov"
+				};
+				auto it = developers.rbegin();
+				BOOST_CHECK_EQUAL(*it, "Larionov");
+				BOOST_CHECK_EQUAL(*(++it), "Shambir");
+				BOOST_CHECK_EQUAL(*(++it), "Malov");
+				BOOST_CHECK(++it == developers.rend());
+			}
+
+			{
+				const CStringList developers = {
+					"Malov", "Shambir", "Larionov"
+				};
+				auto it = developers.crbegin();
+				BOOST_CHECK_EQUAL(*it, "Larionov");
+				BOOST_CHECK_EQUAL(*(++it), "Shambir");
+				BOOST_CHECK_EQUAL(*(++it), "Malov");
+				BOOST_CHECK(++it == developers.crend());
 			}
 		}
 

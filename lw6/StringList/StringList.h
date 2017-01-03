@@ -27,7 +27,7 @@ public:
 	class CIterator
 	{
 		friend CStringList;
-		CIterator(Node * node);
+		CIterator(Node * node, bool isReverse = false);
 	public:
 		CIterator() = default;
 		
@@ -41,6 +41,7 @@ public:
 
 	private:
 		Node * m_node = nullptr;
+		bool m_isReverse;
 	};
 
 	void clear();
@@ -65,6 +66,14 @@ public:
 
 	const CIterator cbegin() const;
 	const CIterator cend() const;
+
+	CIterator rbegin();
+	CIterator rend();
+	const CIterator rbegin() const;
+	const CIterator rend() const;
+
+	const CIterator crbegin() const;
+	const CIterator crend() const;
 
 	std::string & front();
 	const std::string & front() const;
