@@ -29,7 +29,6 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 		BOOST_CHECK_EQUAL(nameList.size(), 4);
 		BOOST_CHECK_EQUAL(nameList.front(), "Nick");
 		BOOST_CHECK_EQUAL(nameList.back(), "Rinat");
-
 	}
 
 	BOOST_AUTO_TEST_CASE(has_move_assign_operator)
@@ -87,7 +86,26 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 		BOOST_CHECK_EQUAL(example.size(), 2);
 		BOOST_CHECK(baseList.empty());
 		BOOST_CHECK_EQUAL(baseList.size(), 0);
+	}
 
+	BOOST_AUTO_TEST_CASE(has_fill_constructor)
+	{
+		{
+			CStringList example(3);
+			BOOST_CHECK_EQUAL(example.size(), 3);
+			BOOST_CHECK_EQUAL(*example.begin(), "");
+			BOOST_CHECK_EQUAL(*(++example.begin()), "");
+			BOOST_CHECK_EQUAL(*(++(++example.begin())), "");
+		}
+
+		{
+			CStringList example(4, "OOP");
+			BOOST_CHECK_EQUAL(example.size(), 4);
+			BOOST_CHECK_EQUAL(*example.begin(), "OOP");
+			BOOST_CHECK_EQUAL(*(++example.begin()), "OOP");
+			BOOST_CHECK_EQUAL(*(++(++example.begin())), "OOP");
+			BOOST_CHECK_EQUAL(*(++(++(++example.begin()))), "OOP");
+		}
 	}
 
 	BOOST_AUTO_TEST_SUITE(when_list_created_by_default_constructor)

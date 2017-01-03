@@ -135,6 +135,22 @@ CStringList::CStringList(std::initializer_list<std::string> initList)
 	}
 }
 
+CStringList::CStringList(const size_t n)
+{
+	for (size_t i = 0; i < n; ++i)
+	{
+		push_back(std::string());
+	}
+}
+
+CStringList::CStringList(const size_t n, const std::string & value)
+{
+	for (size_t i = 0; i < n; ++i)
+	{
+		push_back(value);
+	}
+}
+
 CStringList & CStringList::operator=(const CStringList & list)
 {
 	clear();
