@@ -95,6 +95,7 @@ public:
 
 	void remove(const std::string & value);
 	void resize(const size_t n);
+	void resize(const size_t n, const std::string & value);
 	void swap(CStringList & list);
 
 private:

@@ -290,6 +290,46 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK(list.empty());
 		}
 
+		BOOST_AUTO_TEST_CASE(can_be_resized)
+		{
+			{
+				list.resize(6);
+				BOOST_CHECK_EQUAL(list.size(), 6);
+				BOOST_CHECK_EQUAL(*++++++++list.begin(), "");
+				BOOST_CHECK_EQUAL(*++++++++++list.begin(), "");
+
+				list.resize(2);
+				BOOST_CHECK_EQUAL(list.size(), 2);
+				BOOST_CHECK_EQUAL(list.front(), "British");
+				BOOST_CHECK_EQUAL(list.back(), "r");
+
+				list.resize(2);
+				BOOST_CHECK_EQUAL(list.size(), 2);
+				BOOST_CHECK_EQUAL(list.front(), "British");
+				BOOST_CHECK_EQUAL(list.back(), "r");
+			}
+
+			{
+				list = {
+					"British", "r", "coming", "by"
+				};
+				list.resize(6, "sea");
+				BOOST_CHECK_EQUAL(list.size(), 6);
+				BOOST_CHECK_EQUAL(*++++++++list.begin(), "sea");
+				BOOST_CHECK_EQUAL(*++++++++++list.begin(), "sea");
+
+				list.resize(2, "unused string");
+				BOOST_CHECK_EQUAL(list.size(), 2);
+				BOOST_CHECK_EQUAL(list.front(), "British");
+				BOOST_CHECK_EQUAL(list.back(), "r");
+
+				list.resize(2, "unused string");
+				BOOST_CHECK_EQUAL(list.size(), 2);
+				BOOST_CHECK_EQUAL(list.front(), "British");
+				BOOST_CHECK_EQUAL(list.back(), "r");
+			}
+		}
+
 		BOOST_AUTO_TEST_CASE(can_be_swapped)
 		{
 			CStringList first(3, "hello");

@@ -449,6 +449,36 @@ void CStringList::remove(const std::string & value)
 	}
 }
 
+void CStringList::resize(const size_t n)
+{
+	if (n >= m_size)
+	{
+		insert(end(), n - m_size, std::string());
+	}
+	else
+	{
+		while (m_size != n)
+		{
+			erase(rbegin());
+		}
+	}
+}
+
+void CStringList::resize(const size_t n, const std::string & value)
+{
+	if (n >= m_size)
+	{
+		insert(end(), n - m_size, value);
+	}
+	else
+	{
+		while (m_size != n)
+		{
+			erase(rbegin());
+		}
+	}
+}
+
 void CStringList::swap(CStringList & list)
 {
 	std::swap(list, *this);
