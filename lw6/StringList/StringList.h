@@ -2,7 +2,6 @@
 
 #include <string>
 #include <memory>
-#include <algorithm>
 
 class CStringList
 {
@@ -24,20 +23,19 @@ public:
 	CStringList & operator=(CStringList && list);
 	CStringList & operator=(const std::initializer_list<std::string> & initList);
 
-	class CStringListIterator
+	class CIterator
 	{
 		friend CStringList;
-		CStringListIterator(SNode * node, bool isReverse = false);
+		CIterator(SNode * node, bool isReverse = false);
 	public:
-		CStringListIterator() = delete;
+		CIterator() = delete;
 		
 		std::string & operator*() const;
+		CIterator & operator--();
+		CIterator & operator++();
 
-		CStringListIterator & operator--();
-		CStringListIterator & operator++();
-
-		bool operator==(const CStringListIterator & it) const;
-		bool operator!=(const CStringListIterator & it) const;
+		bool operator==(const CIterator & it) const;
+		bool operator!=(const CIterator & it) const;
 
 	private:
 		SNode * operator->() const;
@@ -55,27 +53,27 @@ public:
 	void push_back(const std::string & data);
 	void push_front(const std::string & data);
 
-	void insert(const CStringListIterator & it, const std::string & data);
-	void erase(const CStringListIterator & it);
+	void insert(const CIterator & it, const std::string & data);
+	void erase(const CIterator & it);
 	
 	void pop_front();
 	void pop_back();
 
-	CStringListIterator begin();
-	CStringListIterator end();
-	const CStringListIterator begin() const;
-	const CStringListIterator end() const;
+	CIterator begin();
+	CIterator end();
+	const CIterator begin() const;
+	const CIterator end() const;
 
-	const CStringListIterator cbegin() const;
-	const CStringListIterator cend() const;
+	const CIterator cbegin() const;
+	const CIterator cend() const;
 
-	CStringListIterator rbegin();
-	CStringListIterator rend();
-	const CStringListIterator rbegin() const;
-	const CStringListIterator rend() const;
+	CIterator rbegin();
+	CIterator rend();
+	const CIterator rbegin() const;
+	const CIterator rend() const;
 
-	const CStringListIterator crbegin() const;
-	const CStringListIterator crend() const;
+	const CIterator crbegin() const;
+	const CIterator crend() const;
 
 	std::string & front();
 	const std::string & front() const;

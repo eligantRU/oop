@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-#include <boost/algorithm/string.hpp>
-
 #include "../StringList/StringList.h"
 
 struct EmptyStringList
