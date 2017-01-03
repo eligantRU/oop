@@ -237,6 +237,22 @@ void CStringList::append(const std::string & data)
 	++m_size;
 }
 
+void CStringList::append(std::string && data)
+{
+	auto newNode = std::make_unique<SNode>(std::move(data), m_lastNode, nullptr);
+	SNode * newLastNode = newNode.get();
+	if (m_lastNode)
+	{
+		m_lastNode->next = std::move(newNode);
+	}
+	else
+	{
+		m_firstNode = std::move(newNode);
+	}
+	m_lastNode = newLastNode;
+	++m_size;
+}
+
 void CStringList::push_back(const std::string & data)
 {
 	append(data);
@@ -252,7 +268,25 @@ void CStringList::push_front(const std::string & data)
 	{
 		auto secondNode = std::move(m_firstNode);
 		m_firstNode = std::make_unique<SNode>(data, nullptr, std::move(secondNode));
-		
+		++m_size;
+	}
+}
+
+void CStringList::push_back(std::string && data)
+{
+	append(std::move(data));
+}
+
+void CStringList::push_front(std::string && data)
+{
+	if (empty())
+	{
+		append(std::move(data));
+	}
+	else
+	{
+		auto secondNode = std::move(m_firstNode);
+		m_firstNode = std::make_unique<SNode>(std::move(data), nullptr, std::move(secondNode));
 		++m_size;
 	}
 }
@@ -273,6 +307,41 @@ void CStringList::insert(const CIterator & it, const std::string & data)
 		it->prev = std::move(newNode.get());
 		newNode->prev->next = std::move(newNode);
 		++m_size;
+	}
+}
+
+void CStringList::insert(const CIterator & it, std::string && data)
+{
+	if (it == begin())
+	{
+		push_front(std::move(data));
+	}
+	else if (it == end())
+	{
+		push_back(std::move(data));
+	}
+	else
+	{
+		auto newNode = std::make_unique<SNode>(std::move(data), it->prev, std::move(it->prev->next));
+		it->prev = std::move(newNode.get());
+		newNode->prev->next = std::move(newNode);
+		++m_size;
+	}
+}
+
+void CStringList::insert(const CIterator & it, const size_t n, const std::string & data)
+{
+	for (size_t i = 0; i < n; ++i)
+	{
+		insert(it, data);
+	}
+}
+
+void CStringList::insert(const CIterator & it, const std::initializer_list<std::string> & il)
+{
+	for (const auto &el : il)
+	{
+		insert(it, el);
 	}
 }
 

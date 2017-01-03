@@ -197,6 +197,14 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			list.push_front("hello");
 			BOOST_CHECK(!list.empty());
 			BOOST_CHECK_EQUAL(list.size(), oldSize + 2);
+
+			std::string str = "bla";
+			list.push_front(str);
+			BOOST_CHECK_EQUAL(list.size(), oldSize + 3);
+
+			CStringList words;
+			words.push_front(str);
+			BOOST_CHECK_EQUAL(words.size(), 1);
 		}
 
 		BOOST_AUTO_TEST_CASE(makes_it_accessible_via_GetFrontElement_method)
@@ -231,6 +239,14 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			list.insert(++list.begin(), "r");
 			BOOST_CHECK(!list.empty());
 			BOOST_CHECK_EQUAL(list.size(), 3);
+
+			CStringList words;
+			std::string word1 = "hello";
+			std::string word2 = "world";
+			words.insert(words.begin(), word1);
+			BOOST_CHECK_EQUAL(words.size(), 1);
+			words.insert(words.end(), word2);
+			BOOST_CHECK_EQUAL(words.size(), 2);
 		}
 
 		BOOST_AUTO_TEST_CASE(makes_it_accessible_via_GetFrontElement_and_GetBackElement_methods)
@@ -374,6 +390,24 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 				BOOST_CHECK_EQUAL(example.size(), 1);
 				BOOST_CHECK_EQUAL(*example.begin(), "Lucky");
 			}
+		}
+
+		BOOST_AUTO_TEST_CASE(can_insert_some_strings_via_iterator)
+		{
+			BOOST_CHECK_EQUAL(list.size(), 4);
+			list.insert(++list.begin(), 2, "Lorem ipsum");
+			BOOST_CHECK_EQUAL(list.size(), 6);
+			BOOST_CHECK_EQUAL(*(++list.begin()), "Lorem ipsum");
+			BOOST_CHECK_EQUAL(*(++(++list.begin())), "Lorem ipsum");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_insert_some_strings_via_initializer_list)
+		{
+			BOOST_CHECK_EQUAL(list.size(), 4);
+			list.insert(++list.begin(), { "Lorem", "ipsum" });
+			BOOST_CHECK_EQUAL(list.size(), 6);
+			BOOST_CHECK_EQUAL(*(++list.begin()), "Lorem");
+			BOOST_CHECK_EQUAL(*(++(++list.begin())), "ipsum");
 		}
 
 		BOOST_AUTO_TEST_CASE(can_get_first_via_front)
