@@ -19,6 +19,7 @@ CStringList::CIterator::CIterator(SNode * node, bool isReverse)
 
 std::string & CStringList::CIterator::operator*() const
 {
+	assert(this->m_pNode);
 	return m_pNode->data;
 }
 
@@ -214,6 +215,7 @@ void CStringList::pop_back()
 
 void CStringList::append(const std::string & data)
 {
+	assert(size() + 1 <= max_size());
 	auto newNode = std::make_unique<SNode>(data, m_lastNode, nullptr);
 	auto * newLastNode = newNode.get();
 	if (m_lastNode)
@@ -230,6 +232,7 @@ void CStringList::append(const std::string & data)
 
 void CStringList::append(std::string && data)
 {
+	assert(size() + 1 <= max_size());
 	auto newNode = std::make_unique<SNode>(std::move(data), m_lastNode, nullptr);
 	auto * newLastNode = newNode.get();
 	if (m_lastNode)
@@ -246,11 +249,13 @@ void CStringList::append(std::string && data)
 
 void CStringList::push_back(const std::string & data)
 {
+	assert(size() + 1 <= max_size());
 	append(data);
 }
 
 void CStringList::push_front(const std::string & data)
 {
+	assert(size() + 1 <= max_size());
 	if (empty())
 	{
 		append(data);
@@ -265,11 +270,13 @@ void CStringList::push_front(const std::string & data)
 
 void CStringList::push_back(std::string && data)
 {
+	assert(size() + 1 <= max_size());
 	append(std::move(data));
 }
 
 void CStringList::push_front(std::string && data)
 {
+	assert(size() + 1 <= max_size());
 	if (empty())
 	{
 		append(std::move(data));
@@ -284,6 +291,7 @@ void CStringList::push_front(std::string && data)
 
 void CStringList::insert(const CIterator & it, const std::string & data)
 {
+	assert(size() + 1 <= max_size());
 	if (it == begin())
 	{
 		push_front(data);
@@ -303,6 +311,7 @@ void CStringList::insert(const CIterator & it, const std::string & data)
 
 void CStringList::insert(const CIterator & it, std::string && data)
 {
+	assert(size() + 1 <= max_size());
 	if (it == begin())
 	{
 		push_front(std::move(data));
@@ -322,6 +331,7 @@ void CStringList::insert(const CIterator & it, std::string && data)
 
 void CStringList::insert(const CIterator & it, const size_t n, const std::string & data)
 {
+	assert(size() + n <= max_size());
 	for (size_t i = 0; i < n; ++i)
 	{
 		insert(it, data);
@@ -330,6 +340,7 @@ void CStringList::insert(const CIterator & it, const size_t n, const std::string
 
 void CStringList::insert(const CIterator & it, const std::initializer_list<std::string> & il)
 {
+	assert(size() + il.size() <= max_size());
 	for (const auto & el : il)
 	{
 		insert(it, el);
@@ -340,12 +351,14 @@ void CStringList::insert(const CIterator & insIt, const CIterator & first, const
 {
 	for (auto it = first; it != last; ++it)
 	{
+		assert(size() + 1 <= max_size());
 		insert(insIt, *it);
 	}
 }
 
 void CStringList::erase(const CIterator & it)
 {
+	assert(size() > 0);
 	if (m_size == 1)
 	{
 		clear();
@@ -374,6 +387,7 @@ void CStringList::erase(const CIterator & first, const CIterator & last)
 	auto it = first;
 	while (it != last)
 	{
+		assert(size() > 0);
 		if (it == begin())
 		{
 			erase(it);
@@ -392,13 +406,13 @@ void CStringList::erase(const CIterator & first, const CIterator & last)
 
 std::string & CStringList::front()
 {
-	assert(m_lastNode);
+	assert(m_firstNode);
 	return m_firstNode->data;
 }
 
 const std::string & CStringList::front() const
 {
-	assert(m_lastNode);
+	assert(m_firstNode);
 	return m_firstNode->data;
 }
 
@@ -450,6 +464,7 @@ void CStringList::resize(const size_t n)
 	{
 		while (m_size != n)
 		{
+			assert(size() > 0);
 			erase(rbegin());
 		}
 	}
@@ -465,6 +480,7 @@ void CStringList::resize(const size_t n, const std::string & value)
 	{
 		while (m_size != n)
 		{
+			assert(size() > 0);
 			erase(rbegin());
 		}
 	}
