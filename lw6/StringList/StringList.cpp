@@ -56,6 +56,10 @@ CStringList::CIterator CStringList::begin()
 
 CStringList::CIterator CStringList::end()
 {
+	if (empty())
+	{
+		return begin();
+	}
 	return CIterator(m_lastNode->next.get());
 }
 
@@ -66,6 +70,10 @@ const CStringList::CIterator CStringList::begin() const
 
 const CStringList::CIterator CStringList::end() const
 {
+	if (empty())
+	{
+		return begin();
+	}
 	return CIterator(m_lastNode->next.get());
 }
 
@@ -76,6 +84,10 @@ const CStringList::CIterator CStringList::cbegin() const
 
 const CStringList::CIterator CStringList::cend() const
 {
+	if (empty())
+	{
+		return cbegin();
+	}
 	return CIterator(m_lastNode->next.get());
 }
 

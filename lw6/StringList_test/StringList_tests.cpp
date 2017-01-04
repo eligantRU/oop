@@ -561,6 +561,29 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 	BOOST_AUTO_TEST_SUITE(iterator)
 
+		BOOST_AUTO_TEST_CASE(when_the_list_is_empty_begin_and_end_r_equal)
+		{
+			{
+				CStringList empty;
+				BOOST_CHECK(empty.begin() == empty.end());
+			}
+
+			{
+				const CStringList empty;
+				BOOST_CHECK(empty.begin() == empty.end());
+			}
+
+			{
+				CStringList empty;
+				BOOST_CHECK(empty.cbegin() == empty.cend());
+			}
+
+			{
+				const CStringList empty;
+				BOOST_CHECK(empty.cbegin() == empty.cend());
+			}
+		}
+
 		BOOST_AUTO_TEST_CASE(can_be_incrementing)
 		{
 			list.append("first");
