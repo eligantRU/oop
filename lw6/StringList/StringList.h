@@ -100,6 +100,6 @@ public:
 
 private:
 	size_t m_size = 0;
-	std::unique_ptr<SNode> m_firstNode = nullptr;
+	std::unique_ptr<SNode> m_firstNode;
 	SNode * m_lastNode = nullptr;
 };

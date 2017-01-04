@@ -578,10 +578,22 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 				BOOST_CHECK(empty.cbegin() == empty.cend());
 			}
 
+			// TODO: fot the future. It is not an mandatory task
+			/*{
+				CStringList empty;
+				BOOST_CHECK(empty.rbegin() == empty.rend());
+			}
+
 			{
 				const CStringList empty;
-				BOOST_CHECK(empty.cbegin() == empty.cend());
-			}
+				BOOST_CHECK(empty.rbegin() == empty.rend());
+			}*/
+
+			/*{
+				CStringList empty;
+				BOOST_CHECK(empty.crbegin() == empty.crend());
+			}*/
+
 		}
 
 		BOOST_AUTO_TEST_CASE(can_be_incrementing)
