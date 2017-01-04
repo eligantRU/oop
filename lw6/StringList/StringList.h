@@ -17,7 +17,7 @@ public:
 	CStringList() = default;
 	CStringList(const CStringList & list);
 	CStringList(CStringList && list);
-	CStringList(std::initializer_list<std::string> initList);
+	CStringList(const std::initializer_list<std::string> & il);
 	CStringList(const size_t n);
 	CStringList(const size_t n, const std::string & value);
 

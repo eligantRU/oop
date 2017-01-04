@@ -123,10 +123,7 @@ const CStringList::CIterator CStringList::crend() const
 
 CStringList::CStringList(const CStringList & list)
 {
-	for (auto it = list.begin(); it != list.end(); ++it)
-	{
-		push_back(*it);
-	}
+	insert(begin(), list.begin(), list.end());
 }
 
 CStringList::CStringList(CStringList && list)
@@ -136,12 +133,11 @@ CStringList::CStringList(CStringList && list)
 	m_lastNode = std::move(list.m_lastNode);
 
 	list.m_size = 0;
-	list.m_lastNode = nullptr;
 }
 
-CStringList::CStringList(std::initializer_list<std::string> initList)
+CStringList::CStringList(const std::initializer_list<std::string> & il)
 {
-	for (const auto element : initList)
+	for (const auto element : il)
 	{
 		push_back(element);
 	}
@@ -149,49 +145,34 @@ CStringList::CStringList(std::initializer_list<std::string> initList)
 
 CStringList::CStringList(const size_t n)
 {
-	for (size_t i = 0; i < n; ++i)
-	{
-		push_back(std::string());
-	}
+	insert(begin(), n, std::string());
 }
 
 CStringList::CStringList(const size_t n, const std::string & value)
 {
-	for (size_t i = 0; i < n; ++i)
-	{
-		push_back(value);
-	}
+	insert(begin(), n, value);
 }
 
 CStringList & CStringList::operator=(const CStringList & list)
 {
 	clear();
-	
-	for (auto it = list.begin(); it != list.end(); ++it)
-	{
-		push_back(*it);
-	}
+	insert(begin(), list.begin(), list.end());
 	return *this;
 }
 
 CStringList & CStringList::operator=(CStringList && list)
 {
 	clear();
-
 	m_size = list.m_size;
 	m_firstNode = std::move(list.m_firstNode);
 	m_lastNode = std::move(list.m_lastNode);
-
 	list.m_size = 0;
-	list.m_lastNode = nullptr;
-
 	return *this;
 }
 
 CStringList & CStringList::operator=(const std::initializer_list<std::string> & initList)
 {
 	clear();
-
 	for (const auto element : initList)
 	{
 		push_back(element);
@@ -228,15 +209,13 @@ void CStringList::pop_front()
 
 void CStringList::pop_back()
 {
-	m_lastNode = m_lastNode->prev;
-	m_lastNode->next = nullptr;
-	--m_size;
+	erase(rbegin());
 }
 
 void CStringList::append(const std::string & data)
 {
 	auto newNode = std::make_unique<SNode>(data, m_lastNode, nullptr);
-	SNode * newLastNode = newNode.get();
+	auto * newLastNode = newNode.get();
 	if (m_lastNode)
 	{
 		m_lastNode->next = move(newNode);
@@ -252,7 +231,7 @@ void CStringList::append(const std::string & data)
 void CStringList::append(std::string && data)
 {
 	auto newNode = std::make_unique<SNode>(std::move(data), m_lastNode, nullptr);
-	SNode * newLastNode = newNode.get();
+	auto * newLastNode = newNode.get();
 	if (m_lastNode)
 	{
 		m_lastNode->next = std::move(newNode);
@@ -351,7 +330,7 @@ void CStringList::insert(const CIterator & it, const size_t n, const std::string
 
 void CStringList::insert(const CIterator & it, const std::initializer_list<std::string> & il)
 {
-	for (const auto &el : il)
+	for (const auto & el : il)
 	{
 		insert(it, el);
 	}
@@ -402,10 +381,10 @@ void CStringList::erase(const CIterator & first, const CIterator & last)
 		}
 		else
 		{
-			auto bla = it;
-			--bla;
+			auto beforeIt = it;
+			--beforeIt;
 			erase(it);
-			it = bla;
+			it = beforeIt;
 			++it;
 		}
 	}
@@ -437,7 +416,7 @@ const std::string & CStringList::back() const
 
 void CStringList::remove(const std::string & value)
 {
-	for (auto it = begin(); !empty() && (it != end());)
+	for (auto it = begin(); it != end();)
 	{
 		if (*it != value)
 		{

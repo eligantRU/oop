@@ -43,6 +43,7 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 		BOOST_CHECK(nameList.empty());
 		BOOST_CHECK_EQUAL(nameList.size(), 0);
+		BOOST_CHECK(nameList == CStringList());
 	}
 
 	BOOST_AUTO_TEST_CASE(has_initializer_list_assign_operator)
@@ -477,14 +478,31 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 		BOOST_AUTO_TEST_CASE(can_insert_some_string_from_other_list_via_iterators)
 		{
-			CStringList example = {
-				"loves", "OOP", "and"
-			};
-			list.insert(++list.begin(), example.begin(), example.end());
-			BOOST_CHECK_EQUAL(list.size(), 7);
-			BOOST_CHECK_EQUAL(*(++list.begin()), "loves");
-			BOOST_CHECK_EQUAL(*(++(++list.begin())), "OOP");
-			BOOST_CHECK_EQUAL(*(++(++(++list.begin()))), "and");
+			{
+				CStringList example = {
+					"loves", "OOP", "and"
+				};
+				list.insert(++list.begin(), example.begin(), example.end());
+				BOOST_CHECK_EQUAL(list.size(), 7);
+				BOOST_CHECK_EQUAL(*(++list.begin()), "loves");
+				BOOST_CHECK_EQUAL(*(++(++list.begin())), "OOP");
+				BOOST_CHECK_EQUAL(*(++(++(++list.begin()))), "and");
+			}
+
+			{
+				CStringList example = {
+					"loves", "OOP", "and"
+				};
+				CStringList empty;
+				auto clone(example);
+
+				example.insert(example.begin(), empty.begin(), empty.end());
+				BOOST_CHECK(clone == example);
+				example.insert(example.end(), empty.begin(), empty.end());
+				BOOST_CHECK(clone == example);
+				example.insert(++example.begin(), empty.begin(), empty.end());
+				BOOST_CHECK(clone == example);
+			}
 		}
 
 		BOOST_AUTO_TEST_CASE(can_get_first_via_front)
