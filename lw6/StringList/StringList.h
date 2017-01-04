@@ -104,5 +104,5 @@ private:
 	SNode * m_lastNode = nullptr;
 };
 
-bool operator==(CStringList & lhs, CStringList & rhs);
-bool operator!=(CStringList & lhs, CStringList & rhs);
+bool operator==(const CStringList & lhs, const CStringList & rhs);
+bool operator!=(const CStringList & lhs, const CStringList & rhs);
