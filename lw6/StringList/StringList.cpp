@@ -495,3 +495,25 @@ void CStringList::swap(CStringList & list)
 {
 	std::swap(list, *this);
 }
+
+bool operator==(CStringList & lhs, CStringList & rhs)
+{
+	if (lhs.size() == rhs.size())
+	{
+		auto itr = rhs.begin();
+		for (auto itl = lhs.begin(); itl != lhs.end(); ++itl, ++itr)
+		{
+			if (*itl != *itr)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+bool operator!=(CStringList & lhs, CStringList & rhs)
+{
+	return !(lhs == rhs);
+}

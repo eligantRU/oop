@@ -283,6 +283,31 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 	BOOST_FIXTURE_TEST_SUITE(when_not_empty_, when_not_empty)
 
+		BOOST_AUTO_TEST_CASE(can_be_compared_for_equality)
+		{
+			CStringList list0 = {};
+			CStringList list1 = {};
+			CStringList list2 = { "hello" };
+			CStringList list3 = { "hello" };
+			CStringList list4 = { "hello", "bla" };
+			CStringList list5 = { "hello", "bla" };
+			CStringList list6 = { "hello", "bla-bla" };
+
+			BOOST_CHECK(list0 == list1);
+			BOOST_CHECK(list2 == list3);
+			BOOST_CHECK(list4 == list5);
+			BOOST_CHECK(list6 == list6);
+			BOOST_CHECK(!(list0 == list5));
+			BOOST_CHECK(!(list5 == list6));
+
+			BOOST_CHECK(!(list0 != list1));
+			BOOST_CHECK(!(list2 != list3));
+			BOOST_CHECK(!(list4 != list5));
+			BOOST_CHECK(!(list6 != list6));
+			BOOST_CHECK(list0 != list5);
+			BOOST_CHECK(list5 != list6);
+		}
+
 		BOOST_AUTO_TEST_CASE(can_be_cleared)
 		{
 			BOOST_CHECK(!list.empty());

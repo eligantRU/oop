@@ -103,3 +103,6 @@ private:
 	std::unique_ptr<SNode> m_firstNode;
 	SNode * m_lastNode = nullptr;
 };
+
+bool operator==(CStringList & lhs, CStringList & rhs);
+bool operator!=(CStringList & lhs, CStringList & rhs);
