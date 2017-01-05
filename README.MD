@@ -7,7 +7,7 @@ This is repository for labs of OOP
 
 ```sh
 
-Created by Yegorov Nikita, Lacyem 'InfoTech', 2016
+Created by Yegorov Nick, Lacyem 'InfoTech', 2016-2017
 
 
 
