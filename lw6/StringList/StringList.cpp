@@ -94,31 +94,55 @@ const CStringList::CIterator CStringList::cend() const
 
 CStringList::CIterator CStringList::rbegin()
 {
+	if (empty())
+	{
+		return CIterator(m_firstNode.get(), true);
+	}
 	return CIterator(m_lastNode, true);
 }
 
 CStringList::CIterator CStringList::rend()
 {
+	if (empty())
+	{
+		return rbegin();
+	}
 	return CIterator(m_firstNode->prev, true);
 }
 
 const CStringList::CIterator CStringList::rbegin() const
 {
+	if (empty())
+	{
+		return CIterator(m_firstNode.get(), true);
+	}
 	return CIterator(m_lastNode, true);
 }
 
 const CStringList::CIterator CStringList::rend() const
 {
+	if (empty())
+	{
+		return rbegin();
+	}
 	return CIterator(m_firstNode->prev, true);
 }
 
 const CStringList::CIterator CStringList::crbegin() const
 {
+	if (empty())
+	{
+		return CIterator(m_firstNode.get(), true);
+	}
 	return CIterator(m_lastNode, true);
 }
 
 const CStringList::CIterator CStringList::crend() const
 {
+	if (empty())
+	{
+		return crbegin();
+	}
 	return CIterator(m_firstNode->prev, true);
 }
 
