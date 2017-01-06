@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindMaxEx", "findMaxEx\find
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindMaxEx_tests", "FindMaxEx_tests\FindMaxEx_tests.vcxproj", "{D03F39FE-2F0D-4CB0-AEF4-D0F6AD994F55}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyList", "MyList\MyList.vcxproj", "{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{D03F39FE-2F0D-4CB0-AEF4-D0F6AD994F55}.Release|x64.Build.0 = Release|x64
 		{D03F39FE-2F0D-4CB0-AEF4-D0F6AD994F55}.Release|x86.ActiveCfg = Release|Win32
 		{D03F39FE-2F0D-4CB0-AEF4-D0F6AD994F55}.Release|x86.Build.0 = Release|Win32
+		{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}.Debug|x64.ActiveCfg = Debug|x64
+		{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}.Debug|x64.Build.0 = Debug|x64
+		{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}.Debug|x86.ActiveCfg = Debug|Win32
+		{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}.Debug|x86.Build.0 = Debug|Win32
+		{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}.Release|x64.ActiveCfg = Release|x64
+		{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}.Release|x64.Build.0 = Release|x64
+		{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}.Release|x86.ActiveCfg = Release|Win32
+		{38B1987A-69BF-4EF5-AAF8-E510A2B805DA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
