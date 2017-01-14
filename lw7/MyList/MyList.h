@@ -50,7 +50,7 @@ public:
 
 	CMyList(const std::initializer_list<T> & il)
 	{
-		for (const auto element : il)
+		for (const auto & element : il)
 		{
 			push_back(element);
 		}
