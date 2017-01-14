@@ -87,7 +87,7 @@ public:
 	CMyList & operator=(const std::initializer_list<T> & initList)
 	{
 		clear();
-		for (const auto element : initList)
+		for (const auto & element : initList)
 		{
 			push_back(element);
 		}
