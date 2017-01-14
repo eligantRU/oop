@@ -56,9 +56,10 @@ public:
 		}
 	}
 
-	CMyList(const size_t n)
+	explicit CMyList(const size_t n)
+		:CMyList(n, T())
 	{
-		insert(begin(), n, T());
+
 	}
 
 	CMyList(const size_t n, const T & value)
