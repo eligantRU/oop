@@ -174,7 +174,7 @@ public:
 
 	void append(const T & data)
 	{
-		assert(size() + 1 <= max_size());
+		assert(size() + 1 < max_size());
 		auto newNode = std::make_unique<SNode<T>>(data, m_lastNode, nullptr);
 		auto * newLastNode = newNode.get();
 		if (m_lastNode)
@@ -191,7 +191,7 @@ public:
 
 	void append(T && data)
 	{
-		assert(size() + 1 <= max_size());
+		assert(size() + 1 < max_size());
 		auto newNode = std::make_unique<SNode<T>>(std::move(data), m_lastNode, nullptr);
 		auto * newLastNode = newNode.get();
 		if (m_lastNode)
@@ -208,13 +208,13 @@ public:
 
 	void push_back(const T & data)
 	{
-		assert(size() + 1 <= max_size());
+		assert(size() + 1 < max_size());
 		append(data);
 	}
 
 	void push_front(const T & data)
 	{
-		assert(size() + 1 <= max_size());
+		assert(size() + 1 < max_size());
 		if (empty())
 		{
 			append(data);
@@ -229,13 +229,13 @@ public:
 
 	void push_back(T && data)
 	{
-		assert(size() + 1 <= max_size());
+		assert(size() + 1 < max_size());
 		append(std::move(data));
 	}
 
 	void push_front(T && data)
 	{
-		assert(size() + 1 <= max_size());
+		assert(size() + 1 < max_size());
 		if (empty())
 		{
 			append(std::move(data));
@@ -250,7 +250,7 @@ public:
 
 	void insert(const CIterator<T> & it, const T & data)
 	{
-		assert(size() + 1 <= max_size());
+		assert(size() + 1 < max_size());
 		if (it == begin())
 		{
 			push_front(data);
@@ -270,7 +270,7 @@ public:
 
 	void insert(const CIterator<T> & it, T && data)
 	{
-		assert(size() + 1 <= max_size());
+		assert(size() + 1 < max_size());
 		if (it == begin())
 		{
 			push_front(std::move(data));
@@ -290,7 +290,7 @@ public:
 
 	void insert(const CIterator<T> & it, const size_t n, const T & data)
 	{
-		assert(size() + n <= max_size());
+		assert(size() + n < max_size());
 		for (size_t i = 0; i < n; ++i)
 		{
 			insert(it, data);
@@ -310,7 +310,7 @@ public:
 	{
 		for (auto it = first; it != last; ++it)
 		{
-			assert(size() + 1 <= max_size());
+			assert(size() + 1 < max_size());
 			insert(insIt, *it);
 		}
 	}
