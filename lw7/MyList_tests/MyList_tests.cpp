@@ -77,6 +77,8 @@ BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 	BOOST_AUTO_TEST_CASE(has_copy_assign_operator)
 	{
 		CMyList<std::string> nameList({ "Nick", "Alex", "Sergey", "Rinat" });
+		nameList = nameList;
+		BOOST_CHECK(nameList == CMyList<std::string>({ "Nick", "Alex", "Sergey", "Rinat" }));
 		CMyList<std::string> copyList;
 		copyList = nameList;
 		BOOST_CHECK_EQUAL(nameList.size(), 4);

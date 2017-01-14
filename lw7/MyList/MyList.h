@@ -69,8 +69,11 @@ public:
 
 	CMyList & operator=(const CMyList & list)
 	{
-		clear();
-		insert(begin(), list.begin(), list.end());
+		if (list != *this)
+		{
+			clear();
+			insert(begin(), list.begin(), list.end());
+		}
 		return *this;
 	}
 
