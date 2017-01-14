@@ -84,6 +84,7 @@ public:
 		m_firstNode = std::move(list.m_firstNode);
 		m_lastNode = list.m_lastNode;
 		list.m_size = 0;
+		list.m_lastNode = nullptr;
 		return *this;
 	}
 
