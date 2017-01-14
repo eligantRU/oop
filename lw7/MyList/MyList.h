@@ -530,7 +530,7 @@ public:
 			while (m_size != n)
 			{
 				assert(size() > 0);
-				erase(rbegin());
+				pop_back();
 			}
 		}
 	}
@@ -546,7 +546,7 @@ public:
 			while (m_size != n)
 			{
 				assert(size() > 0);
-				erase(rbegin());
+				pop_back();
 			}
 		}
 	}
