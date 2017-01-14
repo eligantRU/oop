@@ -27,7 +27,7 @@ struct when_not_empty : EmptyStringList
 	}
 };
 
-BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
+BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 
 	BOOST_AUTO_TEST_CASE(has_default_constructor)
 	{
