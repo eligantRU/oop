@@ -16,6 +16,15 @@ class CMyList
 		{
 
 		}
+
+		SNode(const T && data, SNode * prev, std::unique_ptr<SNode> && next)
+			:data(std::move(data))
+			,prev(prev)
+			,next(std::move(next))
+		{
+
+		}
+
 		T data;
 		SNode * prev;
 		std::unique_ptr<SNode> next;
@@ -34,7 +43,7 @@ public:
 	{
 		m_size = list.m_size;
 		m_firstNode = std::move(list.m_firstNode);
-		m_lastNode = std::move(list.m_lastNode);
+		m_lastNode = list.m_lastNode;
 
 		list.m_size = 0;
 	}
@@ -69,7 +78,7 @@ public:
 		clear();
 		m_size = list.m_size;
 		m_firstNode = std::move(list.m_firstNode);
-		m_lastNode = std::move(list.m_lastNode);
+		m_lastNode = list.m_lastNode;
 		list.m_size = 0;
 		return *this;
 	}
@@ -103,13 +112,14 @@ public:
 			assert(this->m_pNode);
 			return m_pNode->data;
 		}
-		CIterator<T> & CIterator::operator--()
+
+		CIterator<T> & operator--()
 		{
 			m_pNode = (!m_isReverse) ? (m_pNode->prev) : (m_pNode->next.get());
 			return *this;
 		}
 
-		CIterator<T> & CIterator::operator++()
+		CIterator<T> & operator++()
 		{
 			m_pNode = (!m_isReverse) ? (m_pNode->next.get()) : (m_pNode->prev);
 			return *this;
@@ -315,12 +325,12 @@ public:
 		}
 		else if (it.m_pNode == m_lastNode)
 		{
-			m_lastNode = std::move(it->prev);
+			m_lastNode = it->prev;
 			m_lastNode->next = nullptr;
 		}
 		else
 		{
-			it->next->prev = std::move(it->prev);
+			it->next->prev = it->prev;
 			it->prev->next = std::move(it->next);
 		}
 		--m_size;
