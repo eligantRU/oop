@@ -565,6 +565,10 @@ private:
 template <class T>
 bool operator==(const CMyList<T> & lhs, const CMyList<T> & rhs)
 {
+	if (&lhs == &rhs)
+	{
+		return true;
+	}
 	if (lhs.size() == rhs.size())
 	{
 		auto itr = rhs.begin();
