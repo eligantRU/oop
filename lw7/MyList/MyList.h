@@ -32,7 +32,11 @@ class CMyList
 
 public:
 	CMyList() = default;
-	~CMyList() = default;
+
+	~CMyList()
+	{
+		clear();
+	}
 	
 	CMyList(const CMyList & list)
 	{
