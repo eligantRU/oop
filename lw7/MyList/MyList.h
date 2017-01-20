@@ -137,6 +137,20 @@ public:
 			return *this;
 		}
 
+		CIterator<T> operator--(int)
+		{
+			auto copy = *this;
+			--*this;
+			return copy;
+		}
+
+		CIterator<T> operator++(int)
+		{
+			auto copy = *this;
+			++*this;
+			return copy;
+		}
+
 		bool CIterator::operator==(const CIterator & it) const
 		{
 			return (m_pNode == it.m_pNode);

@@ -694,7 +694,7 @@ BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 			}
 		}
 
-		BOOST_AUTO_TEST_CASE(can_be_incrementing)
+		BOOST_AUTO_TEST_CASE(can_be_preincrementing)
 		{
 			auto iter1 = ++list.begin();
 			BOOST_CHECK_EQUAL(*iter1, "r");
@@ -709,7 +709,7 @@ BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 			BOOST_CHECK_EQUAL(*iter4, "coming");
 		}
 
-		BOOST_AUTO_TEST_CASE(can_be_decrementing)
+		BOOST_AUTO_TEST_CASE(can_be_predecrementing)
 		{
 			auto iter1 = ++(++list.begin());
 			BOOST_CHECK_EQUAL(*(--iter1), "r");
@@ -722,6 +722,40 @@ BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 
 			const auto iter4 = --iter3;
 			BOOST_CHECK_EQUAL(*iter4, "by");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_be_postincrementing)
+		{
+			auto iter1 = list.begin();
+			BOOST_CHECK_EQUAL(*iter1++, "British");
+			BOOST_CHECK_EQUAL(*iter1, "r");
+
+			const auto iter2 = list.begin()++;
+			BOOST_CHECK_EQUAL(*iter2, "British");
+
+			auto iter3 = list.rbegin();
+			BOOST_CHECK_EQUAL(*iter3++, "by");
+			BOOST_CHECK_EQUAL(*iter3++, "coming");
+
+			const auto iter4 = list.rbegin()++;
+			BOOST_CHECK_EQUAL(*iter4, "by");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_be_postdecrementing)
+		{
+			auto iter1 = ++(++list.begin());
+			BOOST_CHECK_EQUAL(*(iter1--), "coming");
+			BOOST_CHECK_EQUAL(*iter1, "r");
+
+			const auto iter2 = iter1--;
+			BOOST_CHECK_EQUAL(*iter2, "r");
+
+			auto iter3 = ++(++list.rbegin());
+			BOOST_CHECK_EQUAL(*(iter3--), "r");
+			BOOST_CHECK_EQUAL(*iter3, "coming");
+
+			const auto iter4 = iter3--;
+			BOOST_CHECK_EQUAL(*iter4, "coming");
 		}
 
 		BOOST_AUTO_TEST_CASE(can_work_with_range_based_for)
