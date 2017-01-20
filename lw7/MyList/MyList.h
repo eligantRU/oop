@@ -198,11 +198,11 @@ public:
 		auto * newLastNode = newNode.get();
 		if (m_lastNode)
 		{
-			m_lastNode->next = move(newNode);
+			m_lastNode->next = std::move(newNode);
 		}
 		else
 		{
-			m_firstNode = move(newNode);
+			m_firstNode = std::move(newNode);
 		}
 		m_lastNode = newLastNode;
 		++m_size;
