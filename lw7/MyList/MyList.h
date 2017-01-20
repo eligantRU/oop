@@ -156,9 +156,7 @@ public:
 
 	void clear()
 	{
-		m_firstNode = nullptr;
-		m_lastNode = nullptr;
-		m_size = 0;
+		erase(begin(), end());
 	}
 
 	size_t size() const
@@ -324,7 +322,9 @@ public:
 		assert(size() > 0);
 		if (m_size == 1)
 		{
-			clear();
+			m_firstNode = nullptr;
+			m_lastNode = nullptr;
+			m_size = 0;
 			return;
 		}
 		else if (it == begin())
