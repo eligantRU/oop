@@ -765,7 +765,7 @@ BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 			};
 
 			CMyList<std::string> elements;
-			for (const auto element : list)
+			for (const auto & element : list)
 			{
 				elements.push_back(element);
 			}
