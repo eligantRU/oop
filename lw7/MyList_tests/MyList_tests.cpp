@@ -98,16 +98,27 @@ BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 
 	BOOST_AUTO_TEST_CASE(has_move_assign_operator)
 	{
-		list = { 
-			"Nick", "Alex", "Sergey", "Rinat"
-		};
-		CMyList<std::string> example;
-		example.swap(list);
-		BOOST_CHECK_EQUAL(example.size(), 4);
-		BOOST_CHECK(example == CMyList<std::string>({ "Nick", "Alex", "Sergey", "Rinat" }));
+		{
+			list = {
+				"Nick", "Alex", "Sergey", "Rinat"
+			};
+			CMyList<std::string> example;
+			example = std::move(list);
+			BOOST_CHECK_EQUAL(example.size(), 4);
+			BOOST_CHECK(example == CMyList<std::string>({ "Nick", "Alex", "Sergey", "Rinat" }));
 
-		BOOST_CHECK(list.empty());
-		BOOST_CHECK(list == CMyList<std::string>());
+			BOOST_CHECK(list.empty());
+			BOOST_CHECK(list == CMyList<std::string>());
+		}
+
+		{
+			list = {
+				"Nick", "Alex", "Sergey", "Rinat"
+			};
+			const auto clone(list);
+			list = std::move(list);
+			BOOST_CHECK(list == clone);
+		}
 	}
 
 	BOOST_AUTO_TEST_CASE(can_potential_contain_max_size_strings)

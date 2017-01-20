@@ -83,12 +83,15 @@ public:
 
 	CMyList & operator=(CMyList && list)
 	{
-		clear();
-		m_size = list.m_size;
-		m_firstNode = std::move(list.m_firstNode);
-		m_lastNode = list.m_lastNode;
-		list.m_size = 0;
-		list.m_lastNode = nullptr;
+		if (list != *this)
+		{
+			clear();
+			m_size = list.m_size;
+			m_firstNode = std::move(list.m_firstNode);
+			m_lastNode = list.m_lastNode;
+			list.m_size = 0;
+			list.m_lastNode = nullptr;
+		}
 		return *this;
 	}
 
