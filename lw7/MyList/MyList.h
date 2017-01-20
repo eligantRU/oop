@@ -378,8 +378,7 @@ public:
 				auto beforeIt = it;
 				--beforeIt;
 				erase(it);
-				it = beforeIt;
-				++it;
+				it = ++beforeIt;
 			}
 		}
 	}
@@ -531,10 +530,7 @@ public:
 				}
 				else
 				{
-					auto last = it;
-					--last;
-					erase(it);
-					it = last;
+					erase(it++);
 				}
 			}
 		}
