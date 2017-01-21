@@ -50,7 +50,7 @@ public:
 		m_size = list.m_size;
 		m_firstNode = std::move(list.m_firstNode);
 		m_lastNode = list.m_lastNode;
-
+		list.m_lastNode = nullptr;
 		list.m_size = 0;
 	}
 
