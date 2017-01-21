@@ -27,7 +27,7 @@ struct when_not_empty : EmptyStringList
 	}
 };
 
-BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
+BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 
 	BOOST_AUTO_TEST_CASE(has_default_constructor)
 	{
@@ -77,6 +77,8 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 	BOOST_AUTO_TEST_CASE(has_copy_assign_operator)
 	{
 		CStringList nameList({ "Nick", "Alex", "Sergey", "Rinat" });
+		nameList = nameList;
+		BOOST_CHECK(nameList == CStringList({ "Nick", "Alex", "Sergey", "Rinat" }));
 		CStringList copyList;
 		copyList = nameList;
 		BOOST_CHECK_EQUAL(nameList.size(), 4);
@@ -96,16 +98,27 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 
 	BOOST_AUTO_TEST_CASE(has_move_assign_operator)
 	{
-		list = { 
-			"Nick", "Alex", "Sergey", "Rinat"
-		};
-		CStringList example;
-		example.swap(list);
-		BOOST_CHECK_EQUAL(example.size(), 4);
-		BOOST_CHECK(example == CStringList({ "Nick", "Alex", "Sergey", "Rinat" }));
+		{
+			list = {
+				"Nick", "Alex", "Sergey", "Rinat"
+			};
+			CStringList example;
+			example = std::move(list);
+			BOOST_CHECK_EQUAL(example.size(), 4);
+			BOOST_CHECK(example == CStringList({ "Nick", "Alex", "Sergey", "Rinat" }));
 
-		BOOST_CHECK(list.empty());
-		BOOST_CHECK(list == CStringList());
+			BOOST_CHECK(list.empty());
+			BOOST_CHECK(list == CStringList());
+		}
+
+		{
+			list = {
+				"Nick", "Alex", "Sergey", "Rinat"
+			};
+			const auto clone(list);
+			list = std::move(list);
+			BOOST_CHECK(list == clone);
+		}
 	}
 
 	BOOST_AUTO_TEST_CASE(can_potential_contain_max_size_strings)
@@ -681,7 +694,7 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			}
 		}
 
-		BOOST_AUTO_TEST_CASE(can_be_incrementing)
+		BOOST_AUTO_TEST_CASE(can_be_preincrementing)
 		{
 			auto iter1 = ++list.begin();
 			BOOST_CHECK_EQUAL(*iter1, "r");
@@ -696,7 +709,7 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK_EQUAL(*iter4, "coming");
 		}
 
-		BOOST_AUTO_TEST_CASE(can_be_decrementing)
+		BOOST_AUTO_TEST_CASE(can_be_predecrementing)
 		{
 			auto iter1 = ++(++list.begin());
 			BOOST_CHECK_EQUAL(*(--iter1), "r");
@@ -711,6 +724,40 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			BOOST_CHECK_EQUAL(*iter4, "by");
 		}
 
+		BOOST_AUTO_TEST_CASE(can_be_postincrementing)
+		{
+			auto iter1 = list.begin();
+			BOOST_CHECK_EQUAL(*iter1++, "British");
+			BOOST_CHECK_EQUAL(*iter1, "r");
+
+			const auto iter2 = list.begin()++;
+			BOOST_CHECK_EQUAL(*iter2, "British");
+
+			auto iter3 = list.rbegin();
+			BOOST_CHECK_EQUAL(*iter3++, "by");
+			BOOST_CHECK_EQUAL(*iter3++, "coming");
+
+			const auto iter4 = list.rbegin()++;
+			BOOST_CHECK_EQUAL(*iter4, "by");
+		}
+
+		BOOST_AUTO_TEST_CASE(can_be_postdecrementing)
+		{
+			auto iter1 = ++(++list.begin());
+			BOOST_CHECK_EQUAL(*(iter1--), "coming");
+			BOOST_CHECK_EQUAL(*iter1, "r");
+
+			const auto iter2 = iter1--;
+			BOOST_CHECK_EQUAL(*iter2, "r");
+
+			auto iter3 = ++(++list.rbegin());
+			BOOST_CHECK_EQUAL(*(iter3--), "r");
+			BOOST_CHECK_EQUAL(*iter3, "coming");
+
+			const auto iter4 = iter3--;
+			BOOST_CHECK_EQUAL(*iter4, "coming");
+		}
+
 		BOOST_AUTO_TEST_CASE(can_work_with_range_based_for)
 		{
 			const CStringList expectedResult = {
@@ -718,11 +765,19 @@ BOOST_FIXTURE_TEST_SUITE(String_list, EmptyStringList)
 			};
 
 			CStringList elements;
-			for (const auto element : list)
+			for (const auto & element : list)
 			{
 				elements.push_back(element);
 			}
 			BOOST_CHECK(elements == expectedResult);
+		}
+
+		BOOST_AUTO_TEST_CASE(can_work_with_algorithms)
+		{
+			const auto min = *std::min_element(list.begin(), list.end());
+			BOOST_CHECK_EQUAL(min, "British");
+			const auto max = *std::max_element(list.begin(), list.end());
+			BOOST_CHECK_EQUAL(max, "r");
 		}
 
 		BOOST_AUTO_TEST_CASE(can_be_reversed)
