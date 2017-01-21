@@ -191,7 +191,7 @@ public:
 
 	bool empty() const
 	{
-		return (m_size == 0);
+		return (size() == 0);
 	}
 
 	void append(const T & data)
@@ -329,7 +329,7 @@ public:
 	void erase(const CIterator<T> & it)
 	{
 		assert(size() > 0);
-		if (m_size == 1)
+		if (size() == 1)
 		{
 			m_firstNode = nullptr;
 			m_lastNode = nullptr;
@@ -511,13 +511,13 @@ public:
 
 	void resize(const size_t n)
 	{
-		if (n >= m_size)
+		if (n >= size())
 		{
-			insert(end(), n - m_size, T());
+			insert(end(), n - size(), T());
 		}
 		else
 		{
-			while (m_size != n)
+			while (size() != n)
 			{
 				assert(size() > 0);
 				pop_back();
@@ -527,13 +527,13 @@ public:
 
 	void resize(const size_t n, const T & value)
 	{
-		if (n >= m_size)
+		if (n >= size())
 		{
-			insert(end(), n - m_size, value);
+			insert(end(), n - size(), value);
 		}
 		else
 		{
-			while (m_size != n)
+			while (size() != n)
 			{
 				assert(size() > 0);
 				pop_back();
