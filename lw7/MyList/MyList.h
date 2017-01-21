@@ -522,15 +522,7 @@ public:
 			}
 			else
 			{
-				if (it == begin())
-				{
-					erase(it);
-					it = begin();
-				}
-				else
-				{
-					erase(it++);
-				}
+				erase(it++);
 			}
 		}
 	}
