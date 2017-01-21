@@ -772,6 +772,14 @@ BOOST_FIXTURE_TEST_SUITE(MyList, EmptyStringList)
 			BOOST_CHECK(elements == expectedResult);
 		}
 
+		BOOST_AUTO_TEST_CASE(can_work_with_algorithms)
+		{
+			const auto min = *std::min_element(list.begin(), list.end());
+			BOOST_CHECK_EQUAL(min, "British");
+			const auto max = *std::max_element(list.begin(), list.end());
+			BOOST_CHECK_EQUAL(max, "r");
+		}
+
 		BOOST_AUTO_TEST_CASE(can_be_reversed)
 		{
 			{

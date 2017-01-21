@@ -109,6 +109,7 @@ public:
 	class CIterator
 	{
 		friend CMyList;
+
 		CIterator::CIterator(SNode<T> * node, bool isReverse = false)
 			:m_pNode(node)
 			,m_isReverse(isReverse)
@@ -117,6 +118,12 @@ public:
 		}
 
 	public:
+		typedef std::bidirectional_iterator_tag iterator_category;
+		typedef T value_type;
+		typedef ptrdiff_t difference_type;
+		typedef T * pointer;
+		typedef T & reference;
+
 		CIterator() = delete;
 
 		T & CIterator::operator*() const
