@@ -9,16 +9,9 @@ class CMyList
 	template <class T>
 	struct SNode
 	{
-		SNode(const T & data, SNode * prev, std::unique_ptr<SNode> && next)
-			:data(data)
-			,prev(prev)
-			,next(std::move(next))
-		{
-
-		}
-
-		SNode(const T && data, SNode * prev, std::unique_ptr<SNode> && next)
-			:data(std::move(data))
+		template <class T>
+		SNode(T && data, SNode * prev, std::unique_ptr<SNode> && next)
+			:data(std::forward<T>(data))
 			,prev(prev)
 			,next(std::move(next))
 		{
