@@ -112,10 +112,10 @@ public:
 		return *this;
 	}
 
-	CMyList & operator=(const std::initializer_list<T> & initList)
+	CMyList & operator=(const std::initializer_list<T> & il)
 	{
 		clear();
-		for (const auto & element : initList)
+		for (const auto & element : il)
 		{
 			push_back(element);
 		}
