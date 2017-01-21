@@ -40,16 +40,9 @@ public:
 	
 	CMyList(const CMyList & list)
 	{
-		try
-		{
-			CMyList<T> tmp;
-			tmp.insert(tmp.begin(), list.begin(), list.end());
-			swap(tmp);
-		}
-		catch (const std::exception &)
-		{
-			throw;
-		}
+		CMyList<T> tmp;
+		tmp.insert(tmp.begin(), list.begin(), list.end());
+		swap(tmp);
 	}
 
 	CMyList(CMyList && list)
@@ -84,16 +77,9 @@ public:
 	{
 		if (list != *this)
 		{
-			try
-			{
-				CMyList<T> tmp;
-				tmp.insert(tmp.begin(), list.begin(), list.end());
-				swap(tmp);
-			}
-			catch (const std::exception &)
-			{
-				throw;
-			}
+			CMyList<T> tmp;
+			tmp.insert(tmp.begin(), list.begin(), list.end());
+			swap(tmp);
 		}
 		return *this;
 	}
