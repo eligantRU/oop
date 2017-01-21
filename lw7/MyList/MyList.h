@@ -367,18 +367,7 @@ public:
 		while (it != last)
 		{
 			assert(size() > 0);
-			if (it == begin())
-			{
-				erase(it);
-				it = begin();
-			}
-			else
-			{
-				auto beforeIt = it;
-				--beforeIt;
-				erase(it);
-				it = ++beforeIt;
-			}
+			erase(it++);
 		}
 	}
 
