@@ -40,7 +40,16 @@ public:
 	
 	CMyList(const CMyList & list)
 	{
-		insert(begin(), list.begin(), list.end());
+		try
+		{
+			CMyList<T> tmp;
+			tmp.insert(tmp.begin(), list.begin(), list.end());
+			swap(tmp);
+		}
+		catch (const std::exception &)
+		{
+			throw;
+		}
 	}
 
 	CMyList(CMyList && list)
