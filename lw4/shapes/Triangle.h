@@ -16,11 +16,13 @@ public:
 
 	double GetPerimeter() const;
 	double GetArea() const;
-	std::string ToString() const;
 
 	CPoint GetVertex1() const;
 	CPoint GetVertex2() const;
 	CPoint GetVertex3() const;
+
+protected:
+	void AppendProperties(std::ostream & stream) const override;
 
 private:
 	std::array<CPoint, 3> m_vertices;

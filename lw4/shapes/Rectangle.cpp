@@ -12,7 +12,8 @@ static const unsigned PRECISION = 1;
 
 CRectangle::CRectangle(const CPoint & leftTop, const CPoint & rightBottom,
                        const std::string & outlineColor, const std::string & fillColor)
-	:m_leftTopVertex(leftTop)
+	:CSolidShape("rectangle", outlineColor, fillColor)
+	,m_leftTopVertex(leftTop)
 	,m_rightBottomVertex(rightBottom)
 {
 	if (leftTop.x > rightBottom.x)
@@ -23,8 +24,6 @@ CRectangle::CRectangle(const CPoint & leftTop, const CPoint & rightBottom,
 	{
 		throw std::invalid_argument("Rectangle must have left vertex larger than right by Oy");
 	}
-	m_outlineColor = outlineColor;
-	m_fillColor = fillColor;
 }
 
 CPoint CRectangle::GetLeftTop() const
@@ -57,14 +56,10 @@ double CRectangle::GetArea() const
 	return GetWidth() * GetHeight();
 }
 
-std::string CRectangle::ToString() const
+void CRectangle::AppendProperties(std::ostream & stream) const
 {
-	std::stringstream buffer;
-	buffer << std::fixed << std::setprecision(PRECISION);
-	buffer << "rectangle "
-	       << m_leftTopVertex.x << " " << m_leftTopVertex.y << " "
-	       << m_rightBottomVertex.x << " " << m_rightBottomVertex.y << " "
-	       << GetOutlineColor() << " "
-	       << GetFillColor();
-	return buffer.str();
+	stream << std::fixed << std::setprecision(PRECISION);
+
+	stream << m_leftTopVertex.x << " " << m_leftTopVertex.y << " "
+	       << m_rightBottomVertex.x << " " << m_rightBottomVertex.y << std::endl;
 }

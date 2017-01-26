@@ -8,12 +8,21 @@ class CSolidShape
 	,public CShape
 {
 public:
-	CSolidShape() = default;
+	CSolidShape(const std::string & type, const std::string & outlineColor, const std::string & fillColor);
 	virtual ~CSolidShape() = default;
 
-	std::string GetFillColor() const override;
-	std::string GetOutlineColor() const override;
+	void SetFillColor(const std::string & color) override;
+	std::string GetFillColor() const final;
+
+	void SetOutlineColor(const std::string & color) final;
+	std::string GetOutlineColor() const final;
+
+	std::string ToString() const final;
 
 protected:
+	virtual void AppendProperties(std::ostream & stream) const = 0;
+
+protected:
+	std::string m_type;
 	std::string m_fillColor;
 };

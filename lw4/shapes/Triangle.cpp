@@ -12,10 +12,10 @@ static const unsigned PRECISION = 1;
 
 CTriangle::CTriangle(const CPoint & point1, const CPoint & point2, const CPoint & point3,
                      const std::string & outlineColor, const std::string & fillColor)
-	:m_vertices({ point1, point2, point3 })
+	:CSolidShape("triangle", outlineColor, fillColor)
+	,m_vertices({ point1, point2, point3 })
 {
-	m_outlineColor = outlineColor;
-	m_fillColor = fillColor;
+
 }
 
 CPoint CTriangle::GetVertex1() const
@@ -36,8 +36,8 @@ CPoint CTriangle::GetVertex3() const
 double CTriangle::GetPerimeter() const
 {
 	return std::hypotf(m_vertices[0].x - m_vertices[1].x, m_vertices[0].y - m_vertices[1].y)
-		+ std::hypotf(m_vertices[1].x - m_vertices[2].x, m_vertices[1].y - m_vertices[2].y)
-		+ std::hypotf(m_vertices[0].x - m_vertices[2].x, m_vertices[0].y - m_vertices[2].y);
+	     + std::hypotf(m_vertices[1].x - m_vertices[2].x, m_vertices[1].y - m_vertices[2].y)
+	     + std::hypotf(m_vertices[0].x - m_vertices[2].x, m_vertices[0].y - m_vertices[2].y);
 }
 
 double CTriangle::GetArea() const
@@ -49,15 +49,11 @@ double CTriangle::GetArea() const
 	return sqrt(p * (p - a) * (p - b) * (p - c));
 }
 
-std::string CTriangle::ToString() const
+void CTriangle::AppendProperties(std::ostream & stream) const
 {
-	std::stringstream buffer;
-	buffer << std::fixed << std::setprecision(PRECISION);
-	buffer << "triangle "
-	       << m_vertices[0].x << " " << m_vertices[0].y << " "
+	stream << std::fixed << std::setprecision(PRECISION);
+
+	stream << m_vertices[0].x << " " << m_vertices[0].y << " "
 	       << m_vertices[1].x << " " << m_vertices[1].y << " "
-	       << m_vertices[2].x << " " << m_vertices[2].y << " "
-	       << GetOutlineColor() << " "
-	       << GetFillColor();
-	return buffer.str();
+	       << m_vertices[2].x << " " << m_vertices[2].y << std::endl;
 }

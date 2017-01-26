@@ -12,15 +12,14 @@ static const unsigned PRECISION = 1;
 
 CCircle::CCircle(const CPoint & center, const double radius,
                  const std::string & outlineColor, const std::string & fillColor)
-	:m_center(center)
+	:CSolidShape("circle", outlineColor, fillColor)
+	,m_center(center)
 	,m_radius(radius)
 {
 	if (radius < 0)
 	{
 		throw std::invalid_argument("Circle-radius must be not-negative");
 	}
-	m_outlineColor = outlineColor;
-	m_fillColor = fillColor;
 }
 
 CPoint CCircle::GetCenter() const
@@ -43,14 +42,10 @@ double CCircle::GetArea() const
 	return M_PI * pow(m_radius, 2);
 }
 
-std::string CCircle::ToString() const
+void CCircle::AppendProperties(std::ostream & stream) const
 {
-	std::stringstream buffer;
-	buffer << std::fixed << std::setprecision(PRECISION);
-	buffer << "circle "
-	       << m_center.x << " " << m_center.y << " "
-	       << m_radius << " "
-	       << GetOutlineColor() << " "
-	       << GetFillColor();
-	return buffer.str();
+	stream << std::fixed << std::setprecision(PRECISION);
+
+	stream << m_center.x << " " << m_center.y << " "
+	       << m_radius << std::endl;
 }

@@ -3,6 +3,7 @@
 #include "targetver.h"
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <iomanip>
 
 #define BOOST_TEST_INCLUDED
 #include <boost/test/unit_test.hpp>

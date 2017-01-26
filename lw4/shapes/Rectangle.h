@@ -15,12 +15,14 @@ public:
 
 	double GetPerimeter() const;
 	double GetArea() const;
-	std::string ToString() const;
 
 	CPoint GetLeftTop() const;
 	CPoint GetRightBottom() const;
 	double GetWidth() const;
 	double GetHeight() const;
+
+protected:
+	void AppendProperties(std::ostream & stream) const override;
 
 private:
 	CPoint m_leftTopVertex;

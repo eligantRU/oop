@@ -63,8 +63,8 @@ BOOST_AUTO_TEST_SUITE(Line_Segment)
 
 	BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 	{
-		BOOST_CHECK_EQUAL(CLineSegment({ 0, 0 }, { 0, 0 }, "FFFFFF").ToString(), "line_segment 0.0 0.0 0.0 0.0 FFFFFF");
-		BOOST_CHECK_EQUAL(CLineSegment({ -4.5, -2 }, { 1.72, 49.57 }, "A0F973").ToString(), "line_segment -4.5 -2.0 1.7 49.6 A0F973");
+		BOOST_CHECK_EQUAL(CLineSegment({ 0, 0 }, { 0, 0 }, "FFFFFF").ToString(), "line_segment: 0.0 0.0 FFFFFF 0.0 0.0 0.0 0.0\n");
+		BOOST_CHECK_EQUAL(CLineSegment({ -4.5, -2 }, { 1.72, 49.57 }, "A0F973").ToString(), "line_segment: 0.0 51.9 A0F973 -4.5 -2.0 1.7 49.6\n");
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -124,9 +124,9 @@ BOOST_AUTO_TEST_SUITE(Triangle)
 	BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 	{
 		BOOST_CHECK_EQUAL(CTriangle({ 0, 3 }, { 4, 0 }, { 0, 0 }, "FFFFFF", "A0F973").ToString(),
-		                  "triangle 0.0 3.0 4.0 0.0 0.0 0.0 FFFFFF A0F973");
+		                  "triangle: 6.0 12.0 FFFFFF A0F973 0.0 3.0 4.0 0.0 0.0 0.0\n");
 		BOOST_CHECK_EQUAL(CTriangle({ -4.5, -2 }, { 1.72, 49.57 }, { -17.2, 14.989 }, "A0F973", "FFFFFF").ToString(),
-		                  "triangle -4.5 -2.0 1.7 49.6 -17.2 15.0 A0F973 FFFFFF");
+		                  "triangle: 380.3 112.6 A0F973 FFFFFF -4.5 -2.0 1.7 49.6 -17.2 15.0\n");
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -200,9 +200,9 @@ BOOST_AUTO_TEST_SUITE(Rectangle)
 	BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 	{
 		BOOST_CHECK_EQUAL(CRectangle({ 3, 0 }, { 4, -2 }, "FFFFFF", "A0F973").ToString(),
-		                  "rectangle 3.0 0.0 4.0 -2.0 FFFFFF A0F973");
+		                  "rectangle: 2.0 6.0 FFFFFF A0F973 3.0 0.0 4.0 -2.0\n");
 		BOOST_CHECK_EQUAL(CRectangle({ -4.5, 49.57 }, { 1.72, -2 }, "A0F973", "FFFFFF").ToString(),
-		                  "rectangle -4.5 49.6 1.7 -2.0 A0F973 FFFFFF");
+		                  "rectangle: 320.8 115.6 A0F973 FFFFFF -4.5 49.6 1.7 -2.0\n");
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -255,9 +255,9 @@ BOOST_AUTO_TEST_SUITE(Circle)
 	BOOST_AUTO_TEST_CASE(can_be_converted_to_string)
 	{
 		BOOST_CHECK_EQUAL(CCircle({ 3, 0 }, 4, "FFFFFF", "A0F973").ToString(),
-			"circle 3.0 0.0 4.0 FFFFFF A0F973");
+			"circle: 50.3 25.1 FFFFFF A0F973 3.0 0.0 4.0\n");
 		BOOST_CHECK_EQUAL(CCircle({ -4.5, 49.57 }, 0.763, "A0F973", "FFFFFF").ToString(),
-			"circle -4.5 49.6 0.8 A0F973 FFFFFF");
+			"circle: 1.8 4.8 A0F973 FFFFFF -4.5 49.6 0.8\n");
 	}
 
 BOOST_AUTO_TEST_SUITE_END()

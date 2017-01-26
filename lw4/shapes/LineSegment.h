@@ -5,7 +5,7 @@
 #include <glm/vec2.hpp>
 #pragma warning(pop)
 
-class CLineSegment
+class CLineSegment final
 	:public CShape
 {
 public:
@@ -14,6 +14,7 @@ public:
 
 	double GetArea() const;
 	double GetPerimeter() const override;
+
 	std::string ToString() const override;
 
 	CPoint GetStartPoint() const;

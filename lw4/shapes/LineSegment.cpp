@@ -15,7 +15,7 @@ CLineSegment::CLineSegment(const CPoint & start, const CPoint & end,
 	:m_startPoint(start)
 	,m_endPoint(end)
 {
-	m_outlineColor = outlineColor;
+	SetOutlineColor(outlineColor);
 }
 
 double CLineSegment::GetArea() const
@@ -33,12 +33,14 @@ std::string CLineSegment::ToString() const
 {
 	std::stringstream buffer;
 	buffer << std::fixed << std::setprecision(PRECISION);
-	buffer << "line_segment "
+	buffer << "line_segment: "
+	       << GetArea() << " "
+	       << GetPerimeter() << " "
+	       << GetOutlineColor() << " "
 	       << m_startPoint.x << " "
 	       << m_startPoint.y << " "
 	       << m_endPoint.x << " "
-	       << m_endPoint.y << " "
-	       << GetOutlineColor();
+	       << m_endPoint.y << std::endl;
 	return buffer.str();
 }
 
