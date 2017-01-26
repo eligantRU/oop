@@ -83,21 +83,21 @@ void CConsoleMenu::DoCommand(const std::string & commandLine)
 	std::vector<std::string> commands;
 	boost::split(commands, command, boost::is_any_of(" "));
 
-	if ((commands[0] == "LINE_SEGMENT") && (commands.size() == 6))
+	if (commands[0] == "LINE_SEGMENT")
 	{
-		m_shapes.push_back(m_pFactory->CreateLineSegment(commands));
+		CreateLineSegment(commands);
 	} 
-	else if ((commands[0] == "TRIANGLE") && (commands.size() == 9))
+	else if (commands[0] == "TRIANGLE")
 	{
-		m_shapes.push_back(m_pFactory->CreateTriangle(commands));
+		CreateTriangle(commands);
 	} 
-	else if ((commands[0] == "RECTANGLE") && (commands.size() == 7))
+	else if (commands[0] == "RECTANGLE")
 	{
-		m_shapes.push_back(m_pFactory->CreateRectangle(commands));
+		CreateRectangle(commands);
 	}
 	else if ((commands[0] == "CIRCLE") && (commands.size() == 6))
 	{
-		m_shapes.push_back(m_pFactory->CreateCircle(commands));
+		CreateCircle(commands);
 	}
 	else if (commands[0] == "SORT_BY_MAX_AREA")
 	{
@@ -113,18 +113,48 @@ void CConsoleMenu::DoCommand(const std::string & commandLine)
 	}
 	else if (commands[0] == "CLEAR")
 	{
-		m_shapes.clear();
-		m_shapes.shrink_to_fit();
+		DeleteShapes();
 	}
 	else if (commands[0] == "INFO")
 	{
-		for (const auto &shape : m_shapes)
-		{
-			std::cout << shape->ToString() << " " << shape->GetPerimeter() << " " << shape->GetArea() << std::endl;
-		}
+		PrintShapesInfo(std::cout);
 	}
 	else
 	{
 		std::cout << "Unknown command" << std::endl;
+	}
+}
+
+void CConsoleMenu::CreateLineSegment(const std::vector<std::string> & commands)
+{
+	m_shapes.push_back(m_pFactory->CreateLineSegment(commands));
+}
+
+void CConsoleMenu::CreateTriangle(const std::vector<std::string> & commands)
+{
+	m_shapes.push_back(m_pFactory->CreateTriangle(commands));
+}
+
+void CConsoleMenu::CreateRectangle(const std::vector<std::string> & commands)
+{
+	m_shapes.push_back(m_pFactory->CreateRectangle(commands));
+}
+
+void CConsoleMenu::CreateCircle(const std::vector<std::string> & commands)
+{
+	m_shapes.push_back(m_pFactory->CreateCircle(commands));
+}
+
+void CConsoleMenu::DeleteShapes()
+{
+	m_shapes.clear();
+	m_shapes.shrink_to_fit();
+}
+
+void CConsoleMenu::PrintShapesInfo(std::ostream & stream) const
+{
+	for (const auto &shape : m_shapes)
+	{
+		stream << shape->ToString() << std::endl;
 	}
 }
