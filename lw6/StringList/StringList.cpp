@@ -99,7 +99,7 @@ bool CStringList::empty() const
 
 void CStringList::append(const std::string & data)
 {
-	auto newNode = std::make_unique<SNode<std::string>>(data, m_lastNode, nullptr);
+	auto newNode = std::make_unique<SNode>(data, m_lastNode, nullptr);
 	auto * newLastNode = newNode.get();
 	if (m_lastNode)
 	{
@@ -115,7 +115,7 @@ void CStringList::append(const std::string & data)
 
 void CStringList::append(std::string && data)
 {
-	auto newNode = std::make_unique<SNode<std::string>>(std::move(data), m_lastNode, nullptr);
+	auto newNode = std::make_unique<SNode>(std::move(data), m_lastNode, nullptr);
 	auto * newLastNode = newNode.get();
 	if (m_lastNode)
 	{
@@ -148,7 +148,7 @@ void CStringList::push_front(const std::string & data)
 	else
 	{
 		auto secondNode = std::move(m_firstNode);
-		m_firstNode = std::make_unique<SNode<std::string>>(data, nullptr, std::move(secondNode));
+		m_firstNode = std::make_unique<SNode>(data, nullptr, std::move(secondNode));
 		++m_size;
 	}
 }
@@ -162,12 +162,12 @@ void CStringList::push_front(std::string && data)
 	else
 	{
 		auto secondNode = std::move(m_firstNode);
-		m_firstNode = std::make_unique<SNode<std::string>>(std::move(data), nullptr, std::move(secondNode));
+		m_firstNode = std::make_unique<SNode>(std::move(data), nullptr, std::move(secondNode));
 		++m_size;
 	}
 }
 
-void CStringList::insert(const CIterator<std::string> & it, const std::string & data)
+void CStringList::insert(const CIterator & it, const std::string & data)
 {
 	if (it == begin())
 	{
@@ -179,14 +179,14 @@ void CStringList::insert(const CIterator<std::string> & it, const std::string & 
 	}
 	else
 	{
-		auto newNode = std::make_unique<SNode<std::string>>(data, it->prev, std::move(it->prev->next));
+		auto newNode = std::make_unique<SNode>(data, it->prev, std::move(it->prev->next));
 		it->prev = std::move(newNode.get());
 		newNode->prev->next = std::move(newNode);
 		++m_size;
 	}
 }
 
-void CStringList::insert(const CIterator<std::string> & it, std::string && data)
+void CStringList::insert(const CIterator & it, std::string && data)
 {
 	if (it == begin())
 	{
@@ -198,14 +198,14 @@ void CStringList::insert(const CIterator<std::string> & it, std::string && data)
 	}
 	else
 	{
-		auto newNode = std::make_unique<SNode<std::string>>(std::move(data), it->prev, std::move(it->prev->next));
+		auto newNode = std::make_unique<SNode>(std::move(data), it->prev, std::move(it->prev->next));
 		it->prev = std::move(newNode.get());
 		newNode->prev->next = std::move(newNode);
 		++m_size;
 	}
 }
 
-void CStringList::insert(const CIterator<std::string> & it, const size_t n, const std::string & data)
+void CStringList::insert(const CIterator & it, const size_t n, const std::string & data)
 {
 	for (size_t i = 0; i < n; ++i)
 	{
@@ -213,7 +213,7 @@ void CStringList::insert(const CIterator<std::string> & it, const size_t n, cons
 	}
 }
 
-void CStringList::insert(const CIterator<std::string> & it, const std::initializer_list<std::string> & il)
+void CStringList::insert(const CIterator & it, const std::initializer_list<std::string> & il)
 {
 	for (const auto & el : il)
 	{
@@ -221,8 +221,8 @@ void CStringList::insert(const CIterator<std::string> & it, const std::initializ
 	}
 }
 
-void CStringList::insert(const CIterator<std::string> & insIt,
-                         const CIterator<std::string> & first, const CIterator<std::string> & last)
+void CStringList::insert(const CIterator & insIt,
+                         const CIterator & first, const CIterator & last)
 {
 	for (auto it = first; it != last; ++it)
 	{
@@ -230,7 +230,7 @@ void CStringList::insert(const CIterator<std::string> & insIt,
 	}
 }
 
-void CStringList::erase(const CStringList::CIterator<std::string> & it)
+void CStringList::erase(const CStringList::CIterator & it)
 {
 	assert(size() > 0);
 	if (size() == 1)
@@ -258,7 +258,7 @@ void CStringList::erase(const CStringList::CIterator<std::string> & it)
 	--m_size;
 }
 
-void CStringList::erase(const CIterator<std::string> & first, const CIterator<std::string> & last)
+void CStringList::erase(const CIterator & first, const CIterator & last)
 {
 	auto it = first;
 	while (it != last)
@@ -278,100 +278,100 @@ void CStringList::pop_back()
 	erase(rbegin());
 }
 
-CStringList::CIterator<std::string> CStringList::begin()
+CStringList::CIterator CStringList::begin()
 {
-	return CIterator<std::string>(m_firstNode.get());
+	return CIterator(m_firstNode.get());
 }
 
-CStringList::CIterator<std::string> CStringList::end()
-{
-	if (empty())
-	{
-		return begin();
-	}
-	return CIterator<std::string>(m_lastNode->next.get());
-}
-
-const CStringList::CIterator<std::string> CStringList::begin() const
-{
-	return CIterator<std::string>(m_firstNode.get());
-}
-
-const CStringList::CIterator<std::string> CStringList::end() const
+CStringList::CIterator CStringList::end()
 {
 	if (empty())
 	{
 		return begin();
 	}
-	return CIterator<std::string>(m_lastNode->next.get());
+	return CIterator(m_lastNode->next.get());
 }
 
-const CStringList::CIterator<std::string> CStringList::cbegin() const
+const CStringList::CIterator CStringList::begin() const
 {
-	return CIterator<std::string>(m_firstNode.get());
+	return CIterator(m_firstNode.get());
 }
 
-const CStringList::CIterator<std::string> CStringList::cend() const
+const CStringList::CIterator CStringList::end() const
+{
+	if (empty())
+	{
+		return begin();
+	}
+	return CIterator(m_lastNode->next.get());
+}
+
+const CStringList::CIterator CStringList::cbegin() const
+{
+	return CIterator(m_firstNode.get());
+}
+
+const CStringList::CIterator CStringList::cend() const
 {
 	if (empty())
 	{
 		return cbegin();
 	}
-	return CIterator<std::string>(m_lastNode->next.get());
+	return CIterator(m_lastNode->next.get());
 }
 
-CStringList::CIterator<std::string> CStringList::rbegin()
+CStringList::CIterator CStringList::rbegin()
 {
 	if (empty())
 	{
-		return CIterator<std::string>(m_firstNode.get(), true);
+		return CIterator(m_firstNode.get(), true);
 	}
-	return CIterator<std::string>(m_lastNode, true);
+	return CIterator(m_lastNode, true);
 }
 
-CStringList::CIterator<std::string> CStringList::rend()
-{
-	if (empty())
-	{
-		return rbegin();
-	}
-	return CIterator<std::string>(m_firstNode->prev, true);
-}
-
-const CStringList::CIterator<std::string> CStringList::rbegin() const
-{
-	if (empty())
-	{
-		return CIterator<std::string>(m_firstNode.get(), true);
-	}
-	return CIterator<std::string>(m_lastNode, true);
-}
-
-const CStringList::CIterator<std::string> CStringList::rend() const
+CStringList::CIterator CStringList::rend()
 {
 	if (empty())
 	{
 		return rbegin();
 	}
-	return CIterator<std::string>(m_firstNode->prev, true);
+	return CIterator(m_firstNode->prev, true);
 }
 
-const CStringList::CIterator<std::string> CStringList::crbegin() const
+const CStringList::CIterator CStringList::rbegin() const
 {
 	if (empty())
 	{
-		return CIterator<std::string>(m_firstNode.get(), true);
+		return CIterator(m_firstNode.get(), true);
 	}
-	return CIterator<std::string>(m_lastNode, true);
+	return CIterator(m_lastNode, true);
 }
 
-const CStringList::CIterator<std::string> CStringList::crend() const
+const CStringList::CIterator CStringList::rend() const
+{
+	if (empty())
+	{
+		return rbegin();
+	}
+	return CIterator(m_firstNode->prev, true);
+}
+
+const CStringList::CIterator CStringList::crbegin() const
+{
+	if (empty())
+	{
+		return CIterator(m_firstNode.get(), true);
+	}
+	return CIterator(m_lastNode, true);
+}
+
+const CStringList::CIterator CStringList::crend() const
 {
 	if (empty())
 	{
 		return crbegin();
 	}
-	return CIterator<std::string>(m_firstNode->prev, true);
+	return CIterator(m_firstNode->prev, true);
 }
 
 std::string & CStringList::front()
