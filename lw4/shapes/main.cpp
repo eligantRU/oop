@@ -15,7 +15,7 @@ int main(int, char * [])
 			{
 				menu.DoCommand(commandLine);
 			}
-			catch (const std::invalid_argument & ex)
+			catch (const std::exception & ex)
 			{
 				std::cout << ex.what() << std::endl;
 			}

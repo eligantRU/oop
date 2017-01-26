@@ -121,7 +121,7 @@ void CConsoleMenu::DoCommand(const std::string & commandLine)
 	}
 	else
 	{
-		std::cout << "Unknown command" << std::endl;
+		throw std::runtime_error("Unknown command");
 	}
 }
 
