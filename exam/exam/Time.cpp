@@ -81,7 +81,7 @@ CTime & CTime::operator-=(const CTime & other)
 	return *this;
 }
 
-int CTime::GetUnixTimeInSeconds() const
+int CTime::GetTimeStamp() const
 {
 	return m_timeStamp;
 }
@@ -94,10 +94,10 @@ std::ostream & operator<<(std::ostream & stream, const CTime & time)
 
 const CTime operator+(const CTime & lhs, const CTime & rhs)
 {
-	return CTime((lhs.GetUnixTimeInSeconds() + rhs.GetUnixTimeInSeconds()) % (24 * 60 * 60));
+	return CTime((lhs.GetTimeStamp() + rhs.GetTimeStamp()) % (24 * 60 * 60));
 }
 
 const CTime operator-(const CTime & lhs, const CTime & rhs)
 {
-	return CTime((lhs.GetUnixTimeInSeconds() - rhs.GetUnixTimeInSeconds() + (24 * 60 * 60)) % (24 * 60 * 60));
+	return CTime((lhs.GetTimeStamp() - rhs.GetTimeStamp() + (24 * 60 * 60)) % (24 * 60 * 60));
 }

@@ -27,7 +27,7 @@ public:
 	CTime & operator+=(const CTime & other);
 	CTime & operator-=(const CTime & other);
 
-	int GetUnixTimeInSeconds() const;
+	int GetTimeStamp() const;
 
 private:
 	int m_timeStamp = 0;

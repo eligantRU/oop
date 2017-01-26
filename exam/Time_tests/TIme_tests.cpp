@@ -19,6 +19,7 @@ BOOST_AUTO_TEST_SUITE(Time)
 	BOOST_AUTO_TEST_CASE(is_0_by_default)
 	{
 		CTime time;
+		BOOST_CHECK_EQUAL(time.GetTimeStamp(), 0);
 		BOOST_CHECK_EQUAL(time.GetHours(), 0);
 		BOOST_CHECK_EQUAL(time.GetMinutes(), 0);
 		BOOST_CHECK_EQUAL(time.GetSeconds(), 0);
