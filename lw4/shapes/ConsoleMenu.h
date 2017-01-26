@@ -19,7 +19,7 @@ private:
 	void DeleteShapes();
 	void PrintShapesInfo(std::ostream & stream) const;
 
-	std::vector<std::unique_ptr<CShape>> m_shapes;
+	std::vector<std::unique_ptr<IShape>> m_shapes;
 
 	class CFactory;
 	std::unique_ptr<CFactory> m_pFactory;
