@@ -12,9 +12,9 @@ static const unsigned PRECISION = 1;
 CSolidShape::CSolidShape(const std::string & type,
                          const std::string & outlineColor, const std::string & fillColor)
 	:m_type(type)
-	,m_fillColor(fillColor)
 {
 	SetOutlineColor(outlineColor);
+	SetFillColor(fillColor);
 }
 
 void CSolidShape::SetFillColor(const std::string & color)
