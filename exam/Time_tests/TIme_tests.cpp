@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_SUITE(Time)
 	BOOST_AUTO_TEST_CASE(can_be_print_to_ostream)
 	{
 		std::stringstream stream;
-		stream << CTime(23, 01, 17);
+		stream << CTime(23, 1, 17);
 		BOOST_CHECK_EQUAL(stream.str(), "23:01:17");
 	}
 
