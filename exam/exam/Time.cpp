@@ -46,7 +46,7 @@ CTime::CTime(int hours, int minutes, int seconds)
 
 int CTime::GetHours() const
 {
-	return m_timeStamp / 3600;
+	return (m_timeStamp / 3600) % 24;
 }
 
 int CTime::GetMinutes() const
