@@ -22,7 +22,7 @@ public:
 protected:
 	virtual void AppendProperties(std::ostream & stream) const = 0;
 
-protected:
+private:
 	std::string m_type;
 	std::string m_fillColor;
 };
